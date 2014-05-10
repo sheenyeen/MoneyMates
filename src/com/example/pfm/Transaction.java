@@ -27,7 +27,7 @@ import android.widget.TextView;
 public class Transaction extends Activity {
 
 	String userid = "";
-	String currentMonth;
+	String currentMonth, currentYear;
 	LinearLayout llayoutV1, llayoutV2;
 	TextView monthTV;
 	Button lastMonthArrow, nextMonthArrow;
@@ -145,8 +145,11 @@ public class Transaction extends Activity {
 
 	public void setTransaction() {
 
+		llayoutV1.removeAllViews();
+		llayoutV2.removeAllViews();
 		currentMonth = new SimpleDateFormat("MMM").format(currenttime.getTime());
-		monthTV.setText(currentMonth);
+		//currentYear = new SimpleDateFormat("YYYY").format(currenttime.getTime());
+		monthTV.setText(currentMonth + " " + currenttime.get(Calendar.YEAR));
 		
 		for (int i = 0; i < jArray.length(); i++) {
 			JSONObject trans;
@@ -154,14 +157,14 @@ public class Transaction extends Activity {
 				trans = jArray.getJSONObject(i);
 
 				String datetime = trans.getString("TransactionDateTime");
-				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 				try {
 					Date date = simpleDateFormat.parse(datetime);
 					Log.d("date", date.toString());
 					Calendar c = Calendar.getInstance();
 					c.setTime(date);
 
-					if (c.get(Calendar.MONTH) == currenttime.get(Calendar.MONTH)) {
+					if ((c.get(Calendar.MONTH) == currenttime.get(Calendar.MONTH)) && (c.get(Calendar.YEAR) == currenttime.get(Calendar.YEAR))) {
 						String column1 = trans.getString("TransactionCategoryName");
 						String column2 = trans.getString("Amount");
 						addLL(column1, column2);
