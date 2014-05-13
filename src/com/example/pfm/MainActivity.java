@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
@@ -75,6 +77,15 @@ public class MainActivity extends Activity {
 		finish();
 	}
 	
+	public void loginFailed(){
+		Toast toast = Toast.makeText(getApplicationContext(), "Username and password incorrect.", Toast.LENGTH_SHORT);
+		toast.show();
+		spin.setVisibility(View.INVISIBLE);
+		login.setVisibility(View.VISIBLE);	
+		username.setText("");
+		password.setText("");
+	}
+	
 	class connectDB extends AsyncTask<Void, Void, Void>{
 		
 		boolean loginFlag = false;
@@ -86,13 +97,16 @@ public class MainActivity extends Activity {
 			List<NameValuePair> list = new ArrayList<NameValuePair>();
 			list.add(new BasicNameValuePair("username",username.getText().toString()));
 			list.add(new BasicNameValuePair("password",password.getText().toString()));
-			JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/login.php", "GET", list);
+			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/login.php", "GET", list);
+			JSONObject jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/login.php", "GET", list);
 			
 			try {
 				Log.d("JSON", jObject.toString());
 				if(jObject.getString("status").equals("success")){
 					loginFlag = true;
 					userID = jObject.getString("userid");
+				}else{
+					
 				}
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -109,6 +123,7 @@ public class MainActivity extends Activity {
 				newIntent();
 			}
 			else{
+				loginFailed();
 				Log.d("Message", "Fail to login");
 			}
 		}

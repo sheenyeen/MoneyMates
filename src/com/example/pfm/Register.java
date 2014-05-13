@@ -74,7 +74,8 @@ public class Register extends Activity{
 			list.add(new BasicNameValuePair("lastname",lastname.getText().toString()));
 			list.add(new BasicNameValuePair("email",emailAdd.getText().toString()));
 			list.add(new BasicNameValuePair("password",password.getText().toString()));
-			JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/register.php", "GET", list);
+			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/register.php", "GET", list);
+			JSONObject jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/register.php", "GET", list);
 			
 			try {
 				Log.d("JSON", jObject.toString());

@@ -36,7 +36,7 @@
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="230dp" >
+        android:layout_height="match_parent" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,37 +106,39 @@
                 android:layout_width="246dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPassword" />
+                android:inputType="textPassword" >
+
+                <requestFocus />
+            </EditText>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dip" >
+
+                <Button
+                    android:id="@+id/registerButton"
+                    style="@style/btnStyleBeige"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/login_button"
+                    android:text="Register"
+                    android:textSize="15dp" />
+
+                <Button
+                    android:id="@+id/backButton"
+                    style="@style/btnStyleBeige"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/login_button"
+                    android:text="Back"
+                    android:textSize="15dp" />
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="10dip" >
-
-        <Button
-            android:id="@+id/registerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/login_button"
-            android:text="Register"
-            android:textSize="15dp"
-            style="@style/btnStyleBeige" />
-
-        <Button
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/login_button"
-            android:text="Back"
-            android:textSize="15dp" 
-            android:layout_marginLeft="10dp"
-            style="@style/btnStyleBeige"/>
-
-    </LinearLayout>
 
 </LinearLayout>

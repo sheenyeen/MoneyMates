@@ -39,8 +39,7 @@
         android:layout_alignLeft="@+id/loginBtn"
         android:ems="10"
         android:inputType="textEmailAddress" 
-        android:hint="  e-mail"
-        android:background="@drawable/edittext_round" />
+        android:hint="  e-mail" />
     
     <EditText
         android:id="@+id/password"
@@ -51,7 +50,6 @@
         android:layout_alignParentRight="true"
         android:ems="10"
         android:inputType="textPassword"
-        android:background="@drawable/edittext_round" 
         android:hint=" password"/>
 
     <Button
