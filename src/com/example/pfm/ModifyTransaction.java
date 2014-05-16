@@ -12,6 +12,8 @@ import org.json.JSONObject;
 import com.example.pfm.AddTransaction.getCategory;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ModifyTransaction extends Activity {
 
@@ -252,7 +255,7 @@ public class ModifyTransaction extends Activity {
 		protected void onPostExecute(Void result) {
 			// TODO Auto-generated method stub
 			if (deleteFlag == true) {
-				transactionIntent();
+				deleteAlert();
 			}
 			super.onPostExecute(result);
 		}
@@ -291,6 +294,27 @@ public class ModifyTransaction extends Activity {
 		transactionIntent.putExtras(b);
 		startActivity(transactionIntent);
 		finish();
+	}
+	
+	public void deleteAlert(){
+		AlertDialog logoutAlert = new AlertDialog.Builder(this)
+		.setTitle("Delete transaction")
+	    .setMessage("Delete this transaction?")
+	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            transactionIntent();
+	            Toast toast = Toast.makeText(getApplicationContext(), "Sucessfully deleted transaction!", Toast.LENGTH_SHORT);
+	    		toast.show();
+	        }
+	     })
+	    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            // do nothing
+	        }
+	     })
+	    .setIcon(android.R.drawable.ic_dialog_alert)
+	     .show();
+		
 	}
 
 }

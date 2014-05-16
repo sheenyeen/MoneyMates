@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Register extends Activity{
 	
@@ -61,6 +62,11 @@ public class Register extends Activity{
 		Intent mainIntent = new Intent(this, MainActivity.class);
 		startActivity(mainIntent);
 	}
+
+	public void registerSuccessful(){
+		Toast toast = Toast.makeText(getApplicationContext(), "Successfully registered!", Toast.LENGTH_SHORT);
+		toast.show();
+	}
 	
 	class connectDB extends AsyncTask<Void, Void, Void>{
 
@@ -95,6 +101,7 @@ public class Register extends Activity{
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			if(registrationFlag==true){
+				registerSuccessful();
 				mainIntent();
 			}
 		}

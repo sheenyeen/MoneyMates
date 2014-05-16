@@ -16,13 +16,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight = "10dp"
-            android:text="Expense" />
+            android:text="Expense"
+            android:background="@drawable/blue_button"
+           	style="@style/btnStyleSeagull" />
 
         <Button
             android:id="@+id/incomeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Income" />
+            android:text="Income"
+            android:background="@drawable/blue_button"
+           	style="@style/btnStyleSeagull" />
 
     </LinearLayout>
 
@@ -35,12 +39,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp" >
+            android:paddingBottom="10dp"
+            android:weightSum="2" >
 
             <TextView
                 android:id="@+id/amountTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Amount:" />
 
             <EditText
@@ -64,6 +70,7 @@
                 android:id="@+id/dateTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:text="Date:" />
 
             <EditText
@@ -72,7 +79,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="date" />
+                android:inputType="date"
+                android:hint="YYYY-MM-DD" />
 
         </LinearLayout>
 
@@ -85,13 +93,14 @@
                 android:id="@+id/categoryTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Category:" />
 
             <Spinner
                 android:id="@+id/categoryList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="7" />
 
         </LinearLayout>
 
@@ -103,6 +112,7 @@
                 android:id="@+id/remarkTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Remark:" />
 
             <EditText
@@ -110,7 +120,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ems="10" />
+                android:ems="10"
+                android:hint="Insert note here" />
 
         </LinearLayout>
 
@@ -127,13 +138,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
-            android:text="Add Transaction" />
+            android:text="Add Transaction"
+            android:background="@drawable/blue_button"
+           	style="@style/btnStyleSeagull" />
 
         <Button
             android:id="@+id/cancelBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Cancel" />
+            android:text="Cancel"
+            android:background="@drawable/orange_button"
+           	style="@style/btnStyleOrange" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+        </LinearLayout>
 
     </LinearLayout>
 

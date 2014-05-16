@@ -15,12 +15,14 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
@@ -30,9 +32,9 @@ public class Transaction extends Activity {
 	String userid = "";
 	String currentMonth, currentYear;
 	Double totalIncome = 0.00, totalExpense = 0.00, totalSaving = 0.00; 
-	LinearLayout llayoutV1, llayoutV2;
+	LinearLayout llayoutV1, llayoutV2, llayoutV3;
 	TextView monthTV, totalIncomeTV, totalExpenseTV, totalSavingTV;
-	Button lastMonthArrow, nextMonthArrow, addTransactionBtn;
+	Button lastMonthArrow, nextMonthArrow, addTransactionBtn, reportBtn;
 	JSONArray jArray;
 	Calendar currenttime;
 	Bundle b;
@@ -51,6 +53,7 @@ public class Transaction extends Activity {
 		totalIncomeTV = (TextView) findViewById(R.id.totalIncomeTV);
 		totalExpenseTV = (TextView) findViewById(R.id.totalExpenseTV);
 		totalSavingTV = (TextView) findViewById(R.id.totalSavingTV);
+		reportBtn = (Button) findViewById(R.id.reportBtn);
 
 		currenttime = Calendar.getInstance();
 		
@@ -77,6 +80,15 @@ public class Transaction extends Activity {
 			@Override
 			public void onClick(View v) {
 				addTransactionIntent();
+			}
+		});
+		
+		reportBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				generateReportIntent();
 			}
 		});
 		
@@ -108,6 +120,7 @@ public class Transaction extends Activity {
 		protected void onPostExecute(Void result) {
 			llayoutV1 = (LinearLayout) findViewById(R.id.llayoutV1);
 			llayoutV2 = (LinearLayout) findViewById(R.id.llayoutV2);
+			llayoutV3 = (LinearLayout) findViewById(R.id.llayoutV3);
 			try {
 				Log.d("JSON", jObject.toString());
 				if (jObject.getString("status").equals("success")) {
@@ -132,11 +145,18 @@ public class Transaction extends Activity {
 		b.putString("userid", userid);
 		addTransactionIntent.putExtras(b);
 		startActivity(addTransactionIntent);
+		finish();
+	}
+	
+	public void generateReportIntent(){
+		Intent generateReportIntent = new Intent(this, GenerateReport.class);
+		startActivity(generateReportIntent);
 	}
 
-	public void addLL(String x, String y) {
+	public void addLL(String x, String y, String transactionType) {
 		TextView tv1 = new TextView(this);
-		final TextView tv2 = new TextView(this);
+		TextView tv2 = new TextView(this);
+		final ImageButton editButton = new ImageButton(this);
 		
 		tv1.setText(x);
 		
@@ -144,20 +164,42 @@ public class Transaction extends Activity {
 		String aD2S = String.format("%.2f", parseDouble).toString();
 		
 		tv2.setText("RM " + aD2S);
-		tv2.setTag(counter);
+		
+		tv1.setTextSize(16);
+		tv2.setTextSize(16);
+		tv1.setPadding(0, 0, 0, 2);
+		tv2.setPadding(0, 0, 0, 2);
+		editButton.setImageResource(R.drawable.edit_button5);
+		//editButton.setBackgroundColor(Color.TRANSPARENT);
+		editButton.setTag(counter);
+		editButton.setPadding(0, 0, 0, 7);
 		counter++;
+		
+		if(transactionType.equals("1")){
+			tv1.setTextColor(Color.parseColor("#29B32B"));
+		}
+		
+		else if(transactionType.equals("2")){
+			tv1.setTextColor(Color.parseColor("#E31B1B"));
+		}
 
 		// LinearLayout newll = new LinearLayout(this);
 		// newll.setOrientation(LinearLayout.HORIZONTAL);
 
-		LinearLayout.LayoutParams tv_layoutParams1 = new LinearLayout.LayoutParams(
-				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		LinearLayout.LayoutParams tv_layoutParams1 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		tv_layoutParams1.gravity = Gravity.LEFT;
 
-		LinearLayout.LayoutParams tv_layoutParams2 = new LinearLayout.LayoutParams(
-				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		LinearLayout.LayoutParams tv_layoutParams2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		tv_layoutParams2.gravity = Gravity.RIGHT;
-		// tv2.setGravity(Gravity.RIGHT);
+		
+		LinearLayout.LayoutParams button_layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		button_layoutParams.width=35;
+		button_layoutParams.height=35;
+		button_layoutParams.gravity = Gravity.LEFT;
+		
+		//tv1.setBackgroundResource(R.drawable.textview_row);
+		//tv2.setBackgroundResource(R.drawable.textview_row);
+		//tv2.setGravity(Gravity.RIGHT);
 
 		// newll.addView(tv1, tv_layoutParams);
 		// newll.addView(tv2, tv_layoutParams);
@@ -167,12 +209,13 @@ public class Transaction extends Activity {
 
 		llayoutV1.addView(tv1, tv_layoutParams1);
 		llayoutV2.addView(tv2, tv_layoutParams2);
+		llayoutV3.addView(editButton, button_layoutParams);
 		
-		tv2.setOnClickListener(new View.OnClickListener() {
+		editButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				onClickModify(Integer.parseInt(tv2.getTag().toString()));
+				onClickModify(Integer.parseInt(editButton.getTag().toString()));
 			}
 		});
 
@@ -183,6 +226,7 @@ public class Transaction extends Activity {
 		counter = 0;
 		llayoutV1.removeAllViews();
 		llayoutV2.removeAllViews();
+		llayoutV3.removeAllViews();
 		totalIncome = 0.0;
 		totalExpense = 0.0;
 		currentMonth = new SimpleDateFormat("MMM").format(currenttime.getTime());
@@ -219,7 +263,7 @@ public class Transaction extends Activity {
 							Log.d("Fail to add", "Fail to add income / expenses");
 						}
 							
-						addLL(column1, column2);
+						addLL(column1, column2, transactionType);
 					}
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
@@ -242,7 +286,15 @@ public class Transaction extends Activity {
 		
 		String d2sSavingDP = String.format("%.2f", totalSaving);
 		String d2sSaving = d2sSavingDP.toString();
-		totalSavingTV.setText("RM " + d2sSaving);
+		totalSavingTV.setText("Net Balance: RM " + d2sSaving);
+		
+		if(totalSaving > 0){
+			totalSavingTV.setTextColor(Color.parseColor("#6ABF65"));
+		}else if(totalSaving < 0){
+			totalSavingTV.setTextColor(Color.parseColor("#DE0909"));
+		}else{
+			totalSavingTV.setTextColor(Color.parseColor("#000000"));
+		}
 		
 		//totalIncomeTV.setText("RM " + d2sIncome);
 		//totalExpenseTV.setText("RM " + d2sExpense);

@@ -31,7 +31,7 @@ public class AddTransaction extends Activity {
 	TextView selectedSpinnerTV;
 	String userid = "", remarkFieldString;
 	Bundle b;
-	String transactionType = "1"; 
+	String transactionType = "2"; 
 	JSONArray jArray;
 	List<String> spinnerList;
 	boolean addTransFlag = false;

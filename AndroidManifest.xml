@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="16"
         android:targetSdkVersion="19" />
     
     <uses-permission 
@@ -80,6 +80,43 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.pfm.GenerateReport"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.GENERATEREPORT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.pfm.FinancialGoal"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.FINANCIALGOAL" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.pfm.Reminders"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.REMINDERS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.pfm.Settings"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.SETTINGS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
         
     </application>
 
