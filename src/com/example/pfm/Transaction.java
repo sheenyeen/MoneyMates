@@ -293,7 +293,7 @@ public class Transaction extends Activity {
 		}else if(totalSaving < 0){
 			totalSavingTV.setTextColor(Color.parseColor("#DE0909"));
 		}else{
-			totalSavingTV.setTextColor(Color.parseColor("#000000"));
+			totalSavingTV.setTextColor(Color.parseColor("#8C8C8C"));
 		}
 		
 		//totalIncomeTV.setText("RM " + d2sIncome);
