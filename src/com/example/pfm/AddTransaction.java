@@ -85,7 +85,7 @@ public class AddTransaction extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				transactionIntent();
+				AddTransaction.this.finish();
 			}
 		});
 		

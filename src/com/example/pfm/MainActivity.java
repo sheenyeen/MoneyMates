@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -27,6 +28,7 @@ public class MainActivity extends Activity {
 	Button login, register;
 	ProgressBar spin;
 	String userID;
+	TextView loggingIn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class MainActivity extends Activity {
 		password = (EditText) findViewById(R.id.password);
 		login = (Button) findViewById(R.id.loginBtn);
 		register = (Button) findViewById(R.id.registerBtn);
+		loggingIn = (TextView) findViewById(R.id.logginginTV);
 		
 		login.setOnClickListener(new View.OnClickListener() {
 			
@@ -46,8 +49,17 @@ public class MainActivity extends Activity {
 				spin.setVisibility(View.VISIBLE);
 				login = (Button) findViewById(R.id.loginBtn);
 				login.setVisibility(View.INVISIBLE);
-				connectDB connect = new connectDB();
-				connect.execute();
+				loggingIn.setVisibility(View.VISIBLE);
+				if(username.getText().toString().equals("") || password.getText().toString().equals("")){
+					Toast toast = Toast.makeText(getApplicationContext(), "Please insert username and password.", Toast.LENGTH_SHORT);
+					toast.show();
+					spin.setVisibility(View.INVISIBLE);
+					login.setVisibility(View.VISIBLE);	
+					loggingIn.setVisibility(View.INVISIBLE);
+				}else{
+					connectDB connect = new connectDB();
+					connect.execute();
+				}
 			}
 		});		
 		
@@ -82,6 +94,7 @@ public class MainActivity extends Activity {
 		toast.show();
 		spin.setVisibility(View.INVISIBLE);
 		login.setVisibility(View.VISIBLE);	
+		loggingIn.setVisibility(View.INVISIBLE);
 		username.setText("");
 		password.setText("");
 	}

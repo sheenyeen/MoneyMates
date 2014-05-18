@@ -43,8 +43,13 @@ public class Register extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				connectDB connect = new connectDB();
-				connect.execute();				
+				if(firstname.getText().toString().equals("") || lastname.getText().toString().equals("") || emailAdd.getText().toString().equals("") || password.getText().toString().equals("")){
+					Toast toast = Toast.makeText(getApplicationContext(), "Please fill up all fields.", Toast.LENGTH_SHORT);
+					toast.show();	
+				}else{
+					connectDB connect = new connectDB();
+					connect.execute();
+				}				
 			}
 		});
 		
@@ -66,6 +71,15 @@ public class Register extends Activity{
 	public void registerSuccessful(){
 		Toast toast = Toast.makeText(getApplicationContext(), "Successfully registered!", Toast.LENGTH_SHORT);
 		toast.show();
+	}
+	
+	public void registerFailed(){
+		Toast toast = Toast.makeText(getApplicationContext(), "Registration failed.", Toast.LENGTH_SHORT);
+		toast.show();
+		firstname.setText("");
+		lastname.setText("");
+		emailAdd.setText("");
+		password.setText("");
 	}
 	
 	class connectDB extends AsyncTask<Void, Void, Void>{
@@ -103,6 +117,8 @@ public class Register extends Activity{
 			if(registrationFlag==true){
 				registerSuccessful();
 				mainIntent();
+			}else{
+				registerFailed();
 			}
 		}
 

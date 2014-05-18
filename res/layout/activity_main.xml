@@ -76,6 +76,14 @@
         android:background="@drawable/login_button"
         style="@style/btnStyleBeige"  />
 
+    <ImageView
+        android:id="@+id/banner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/banner3" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -84,12 +92,15 @@
         android:layout_alignTop="@+id/loginBtn"
         android:visibility="invisible" />
 
-    <ImageView
-        android:id="@+id/banner"
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/logginginTV"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/banner3" />
+        android:layout_alignBaseline="@+id/loginBtn"
+        android:layout_alignBottom="@+id/loginBtn"
+        android:layout_toRightOf="@+id/progressBar"
+        android:text="Logging in..."
+        android:textStyle="italic"
+        android:visibility="invisible" />
 
 </RelativeLayout>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background = "@drawable/background">
+    android:background = "@drawable/mainbackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,13 +27,15 @@
         android:gravity = "center" 
         android:padding="10dp">
 
-        <LinearLayout
+        <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:gravity="center_horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" 
+            android:gravity="center_horizontal"
+            android:checkedButton="@+id/annualRadioBtn">
 
             <RadioButton
-                android:id="@+id/annualRadioBtn"
+                android:id="@id/annualRadioBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -46,7 +48,7 @@
                 android:layout_weight="1"
                 android:text="Monthly Goal" />
 
-        </LinearLayout>
+        </RadioGroup>
 
         <LinearLayout
             android:layout_width="match_parent"

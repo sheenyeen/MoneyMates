@@ -106,7 +106,7 @@ public class ModifyTransaction extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				transactionIntent();
+				ModifyTransaction.this.finish();
 			}
 		});
 

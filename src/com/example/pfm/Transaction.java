@@ -40,6 +40,10 @@ public class Transaction extends Activity {
 	Bundle b;
 	int counter;
 	JSONObject trans;
+	String transactionType;
+	double[] incomeExpenseArray = new double[2];
+	String labelArray[] = {"Income", "Expenses"};
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +153,12 @@ public class Transaction extends Activity {
 	}
 	
 	public void generateReportIntent(){
-		Intent generateReportIntent = new Intent(this, GenerateReport.class);
+		//b.putString("totalIncome", d2sIncomeDP);
+		//b.putString("totalExpense", d2sExpenseDP);
+		b.putStringArray("labelArray", labelArray);
+		b.putDoubleArray("incomeExpenseArray", incomeExpenseArray);
+		Intent generateReportIntent = new Intent(this, graphActivity.class);
+		generateReportIntent.putExtras(b);
 		startActivity(generateReportIntent);
 	}
 
@@ -248,7 +257,7 @@ public class Transaction extends Activity {
 						currList.add(trans);
 						String column1 = trans.getString("TransactionCategoryName");
 						String column2 = trans.getString("Amount");
-						String transactionType = trans.getString("TransactionTypeID");
+						transactionType = trans.getString("TransactionTypeID");
 						//Log.d("transactionType", transactionType);
 						
 						if(transactionType.equals("1")){
@@ -275,6 +284,9 @@ public class Transaction extends Activity {
 			}
 		}
 		totalSaving = totalIncome - totalExpense;		
+		
+		incomeExpenseArray[0] = totalIncome;
+		incomeExpenseArray[1] = totalExpense;
 		
 		String d2sIncomeDP = String.format("%.2f", totalIncome);
 		String d2sIncome = d2sIncomeDP.toString();
