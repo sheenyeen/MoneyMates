@@ -65,8 +65,8 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Log out?"
-            android:background="@drawable/orange_button"
-            style="@style/btnStyleOrange"
+            android:background="@drawable/button_red"
+           	android:textColor="#ffffff"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="15dp"/>
 

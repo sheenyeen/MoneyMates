@@ -94,8 +94,16 @@ public class AddTransaction extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				addTransaction connect2 = new addTransaction();
-				connect2.execute();
+				if(amountField.getText().toString().equals("")){
+					Toast toast = Toast.makeText(getApplicationContext(), "Please insert amount.", Toast.LENGTH_SHORT);
+					toast.show();
+				}else if(dateField.getText().toString().equals("")){
+					Toast toast = Toast.makeText(getApplicationContext(), "Please insert date.", Toast.LENGTH_SHORT);
+					toast.show();
+				}else{
+					addTransaction connect2 = new addTransaction();
+					connect2.execute();
+				}
 			}
 		});		
 	}

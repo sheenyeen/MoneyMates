@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background = "@drawable/mainbackground">
+    android:background = "#ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -133,17 +133,17 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="Save"
-            android:background="@drawable/blue_button"
             android:layout_marginRight="10dp"
-            style="@style/btnStyleOrange" />
+            android:background="@drawable/button_blue"
+           	android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/cancelBtn"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="Cancel"
-            android:background="@drawable/orange_button"
-            style="@style/btnStyleSeagull" />
+            android:background="@drawable/button_red"
+           	android:textColor="#ffffff" />
 
     </LinearLayout>
 

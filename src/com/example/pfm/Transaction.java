@@ -149,7 +149,6 @@ public class Transaction extends Activity {
 		b.putString("userid", userid);
 		addTransactionIntent.putExtras(b);
 		startActivity(addTransactionIntent);
-		finish();
 	}
 	
 	public void generateReportIntent(){
@@ -329,7 +328,6 @@ public class Transaction extends Activity {
 			Intent modifyTransaction = new Intent(this, ModifyTransaction.class);
 			modifyTransaction.putExtras(b);
 			startActivity(modifyTransaction);
-			finish();
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (JSONException e) {

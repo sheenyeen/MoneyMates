@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background = "@drawable/mainbackground">
+    android:background = "#ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,8 +22,8 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:text="&lt;" 
-                android:background="@drawable/blue_button"
-                style="@style/btnStyleSeagull"/>
+                android:background="@drawable/button_blue"
+                android:textColor="#ffffff"/>
 
         <TextView
             android:id="@+id/displayMonth"
@@ -42,8 +42,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:text=">" 
-            android:background="@drawable/blue_button"
-            style="@style/btnStyleSeagull"/>
+            android:background="@drawable/button_blue"
+            android:textColor="#ffffff"/>
 
         </LinearLayout>
         
@@ -53,10 +53,9 @@
             android:layout_height="35dp"
             android:text="+"
             android:layout_gravity="right" 
-
             android:layout_marginRight="5dp"
-            android:background="@drawable/blue_button"
-            style="@style/btnStyleSeagull"/>
+            android:background="@drawable/button_blue"
+            android:textColor="#ffffff"/>
 
     </LinearLayout>
 
@@ -72,7 +71,8 @@
             android:layout_weight="1"
             android:text="Income"
             android:textSize="25dp"
-            android:background="#ADFFC6"
+            android:textColor="#ffffff"
+            android:background="#3DB36A"
             android:layout_marginLeft="5dp"
             android:gravity="center" />
 
@@ -83,7 +83,8 @@
             android:layout_weight="1"
             android:text="Expenses"
             android:textSize="25dp"
-            android:background="#FFD4F6"
+            android:textColor="#ffffff"
+            android:background="#B33D3D"
             android:layout_marginRight="5dp"
             android:gravity="center" />
     </LinearLayout>
@@ -160,10 +161,10 @@
 
         <Button
             android:id="@+id/reportBtn"
-            style="@style/btnStyleSeagull"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/blue_button"
+            android:background="@drawable/button_blue"
+            android:textColor="#ffffff"
             android:text="Generate report"
             android:textSize="15dp"
             android:layout_marginBottom="10dp"

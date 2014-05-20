@@ -115,8 +115,7 @@ public class ModifyTransaction extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				deleteTransaction connect3 = new deleteTransaction();
-				connect3.execute();
+				deleteAlert();
 			}
 		});
 		
@@ -255,7 +254,9 @@ public class ModifyTransaction extends Activity {
 		protected void onPostExecute(Void result) {
 			// TODO Auto-generated method stub
 			if (deleteFlag == true) {
-				deleteAlert();
+				transactionIntent();
+	            Toast toast = Toast.makeText(getApplicationContext(), "Sucessfully deleted transaction!", Toast.LENGTH_SHORT);
+	    		toast.show();
 			}
 			super.onPostExecute(result);
 		}
@@ -302,9 +303,8 @@ public class ModifyTransaction extends Activity {
 	    .setMessage("Delete this transaction?")
 	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
-	            transactionIntent();
-	            Toast toast = Toast.makeText(getApplicationContext(), "Sucessfully deleted transaction!", Toast.LENGTH_SHORT);
-	    		toast.show();
+	        	deleteTransaction connect3 = new deleteTransaction();
+				connect3.execute();
 	        }
 	     })
 	    .setNegativeButton("No", new DialogInterface.OnClickListener() {

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background = "@drawable/mainbackground" >
+    android:background = "#ffffff" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,20 +13,20 @@
 
         <Button
             android:id="@+id/expenseBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Expense" 
-            android:background="@drawable/blue_button"
-            style="@style/btnStyleSeagull"/>
+            android:background="@drawable/button_blue"
+           	android:textColor="#ffffff"/>
 
         <Button
             android:id="@+id/incomeBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft = "10dp"
             android:text="Income"
-            android:background="@drawable/blue_button"
-			style="@style/btnStyleSeagull" />
+            android:background="@drawable/button_blue"
+           	android:textColor="#ffffff" />
 
     </LinearLayout>
 
@@ -143,16 +143,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight = "10dp"
                 android:text="Save"
-                android:background="@drawable/blue_button"
-                style="@style/btnStyleSeagull" />
+                android:background="@drawable/button_blue"
+           		android:textColor="#ffffff" />
 
             <Button
                 android:id="@+id/deleteBtn"
-                style="@style/btnStyleOrange"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/orange_button"
+                android:background="@drawable/button_red"
+           		android:textColor="#ffffff"
                 android:text="Delete" />
 
             <Button
@@ -160,8 +160,8 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:text="Cancel" 
-                android:background="@drawable/orange_button"
-                style="@style/btnStyleOrange"/>
+                android:background="@drawable/button_red"
+           		android:textColor="#ffffff"/>
 
         </LinearLayout>
 

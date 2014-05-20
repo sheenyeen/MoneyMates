@@ -51,4 +51,6 @@
        <item name="android:background">@drawable/blue_button</item>
        <item name="android:padding">10dip</item>
    </style>
+   
+
 </resources>

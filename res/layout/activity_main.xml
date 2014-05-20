@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/mainbackground"
+    android:background="#F0FFFD"
     tools:context=".MainActivity" >
 
     <TextView
@@ -61,8 +61,8 @@
         android:layout_marginRight="17dp"
         android:layout_toLeftOf="@+id/loginBtn"
         android:text="Register"
-        android:background="@drawable/login_button"
-        style="@style/btnStyleBeige"/>
+        android:textColor="#ffffff"
+        android:background="@drawable/button_blue"/>
 
     <Button
         android:id="@+id/loginBtn"
@@ -73,8 +73,8 @@
         android:layout_marginRight="94dp"
         android:layout_marginTop="52dp"
         android:text="Log in"
-        android:background="@drawable/login_button"
-        style="@style/btnStyleBeige"  />
+        android:textColor="#ffffff"
+        android:background="@drawable/button_blue"  />
 
     <ImageView
         android:id="@+id/banner"
