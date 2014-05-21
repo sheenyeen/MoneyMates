@@ -72,7 +72,7 @@
             android:text="Income"
             android:textSize="25dp"
             android:textColor="#ffffff"
-            android:background="#3DB36A"
+            android:background="#01B18B"
             android:layout_marginLeft="5dp"
             android:gravity="center" />
 
@@ -84,7 +84,7 @@
             android:text="Expenses"
             android:textSize="25dp"
             android:textColor="#ffffff"
-            android:background="#B33D3D"
+            android:background="#F16C5B"
             android:layout_marginRight="5dp"
             android:gravity="center" />
     </LinearLayout>

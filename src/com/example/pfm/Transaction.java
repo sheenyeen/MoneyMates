@@ -184,11 +184,11 @@ public class Transaction extends Activity {
 		counter++;
 		
 		if(transactionType.equals("1")){
-			tv1.setTextColor(Color.parseColor("#29B32B"));
+			tv1.setTextColor(Color.parseColor("#01B18B"));
 		}
 		
 		else if(transactionType.equals("2")){
-			tv1.setTextColor(Color.parseColor("#E31B1B"));
+			tv1.setTextColor(Color.parseColor("#F16C5B"));
 		}
 
 		// LinearLayout newll = new LinearLayout(this);
@@ -300,9 +300,9 @@ public class Transaction extends Activity {
 		totalSavingTV.setText("Net Balance: RM " + d2sSaving);
 		
 		if(totalSaving > 0){
-			totalSavingTV.setTextColor(Color.parseColor("#6ABF65"));
+			totalSavingTV.setTextColor(Color.parseColor("#01B18B"));
 		}else if(totalSaving < 0){
-			totalSavingTV.setTextColor(Color.parseColor("#DE0909"));
+			totalSavingTV.setTextColor(Color.parseColor("#F16C5B"));
 		}else{
 			totalSavingTV.setTextColor(Color.parseColor("#8C8C8C"));
 		}

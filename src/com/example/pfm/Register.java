@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 public class Register extends Activity{
 	
-	EditText firstname, lastname, emailAdd, password;
+	EditText firstname, lastname, emailAdd, password, confirmPassword;
 	Button registerButton, backButton;
 
 	@Override
@@ -35,6 +35,7 @@ public class Register extends Activity{
 		lastname = (EditText) findViewById(R.id.lastname);
 		emailAdd = (EditText) findViewById(R.id.emailAddress);
 		password = (EditText) findViewById(R.id.password);
+		confirmPassword = (EditText) findViewById(R.id.confirmPassword);
 		registerButton = (Button) findViewById(R.id.registerButton);
 		backButton = (Button) findViewById(R.id.backButton);
  		
@@ -43,9 +44,14 @@ public class Register extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(firstname.getText().toString().equals("") || lastname.getText().toString().equals("") || emailAdd.getText().toString().equals("") || password.getText().toString().equals("")){
+				if(firstname.getText().toString().equals("") || lastname.getText().toString().equals("") || emailAdd.getText().toString().equals("") || password.getText().toString().equals("") || confirmPassword.getText().toString().equals("")){
 					Toast toast = Toast.makeText(getApplicationContext(), "Please fill up all fields.", Toast.LENGTH_SHORT);
 					toast.show();	
+				}else if(!password.getText().toString().equals(confirmPassword.getText().toString())){
+					Toast toast = Toast.makeText(getApplicationContext(), "Passwords do not match. Please re-enter password.", Toast.LENGTH_LONG);
+					toast.show();
+					password.setText("");
+					confirmPassword.setText("");
 				}else{
 					connectDB connect = new connectDB();
 					connect.execute();
@@ -69,7 +75,7 @@ public class Register extends Activity{
 	}
 
 	public void registerSuccessful(){
-		Toast toast = Toast.makeText(getApplicationContext(), "Successfully registered!", Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(getApplicationContext(), "Successfully registered.", Toast.LENGTH_SHORT);
 		toast.show();
 	}
 	

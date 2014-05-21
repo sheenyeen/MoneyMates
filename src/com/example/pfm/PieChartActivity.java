@@ -19,7 +19,7 @@ public class PieChartActivity extends Activity {
 	private GraphicalView ChartView1;
 	private GraphicalView mChartView2;
 	int count = 0;
-	int[] Mycolors = new int[] { Color.parseColor("#3BA32F"), Color.parseColor("#D43939"),
+	int[] Mycolors = new int[] { Color.parseColor("#01B18B"), Color.parseColor("#F16C5B"),
 			Color.parseColor("#8489EB"), Color.parseColor("#0AF50E"),
 			Color.parseColor("#D569F6"), Color.parseColor("#FF2D03") };
 
