@@ -2,26 +2,67 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical"
-    android:background="#ffffff" 
-    android:id="@+id/relative"
-    android:padding="30dp">
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp">
 
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:gravity="center_horizontal" >
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/reportTitleTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Financial Report"
             android:textSize="20dp"
-            android:textStyle="bold"/>"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="20dp" >
+
+        <Button
+            android:id="@+id/incomeExpenseBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Income"
+            android:textSize="12dp" />
+
+        <Button
+            android:id="@+id/categoryBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categories"
+            android:textSize="12dp" />
+
+        <Button
+            android:id="@+id/comparisonBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comparison"
+            android:textSize="12dp" />
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout2" >
+    </RelativeLayout>
 
 </RelativeLayout>

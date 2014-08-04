@@ -41,9 +41,11 @@ public class Transaction extends Activity {
 	int counter;
 	JSONObject trans;
 	String transactionType;
-	double[] incomeExpenseArray = new double[2];
+	double[] valueArray = new double[2];
 	String labelArray[] = {"Income", "Expenses"};
-	
+	ArrayList<String> categoryLabelArrayList = new ArrayList<String>();
+	ArrayList<Double> categoryArrayList = new ArrayList<Double>();
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -154,8 +156,26 @@ public class Transaction extends Activity {
 	public void generateReportIntent(){
 		//b.putString("totalIncome", d2sIncomeDP);
 		//b.putString("totalExpense", d2sExpenseDP);
+		
+		double[] categoryArrayDouble = new double[categoryArrayList.size()];
+		String[] categoryLabelArray = new String[categoryLabelArrayList.size()];
+		
+		for(int i = 0; i < categoryLabelArrayList.size(); i++){
+			categoryLabelArray[i] = categoryLabelArrayList.get(i);
+		}
+		for(int i = 0; i < categoryArrayList.size(); i++)
+		{
+			categoryArrayDouble[i] = categoryArrayList.get(i);
+		}
+		
 		b.putStringArray("labelArray", labelArray);
-		b.putDoubleArray("incomeExpenseArray", incomeExpenseArray);
+		b.putDoubleArray("valueArray", valueArray);
+		
+		b.putStringArray("categoryLabelArray", categoryLabelArray);
+		b.putDoubleArray("categoryValueArray", categoryArrayDouble);
+		
+		Log.d("categoryLabelArray", categoryLabelArray.toString());
+		
 		Intent generateReportIntent = new Intent(this, graphActivity.class);
 		generateReportIntent.putExtras(b);
 		startActivity(generateReportIntent);
@@ -228,8 +248,12 @@ public class Transaction extends Activity {
 		});
 
 	}
+	
 	ArrayList<JSONObject> currList;
+	
 	public void setTransaction() {	
+		categoryLabelArrayList.clear();
+		categoryArrayList.clear();
 		currList = new ArrayList<JSONObject>();
 		counter = 0;
 		llayoutV1.removeAllViews();
@@ -258,12 +282,18 @@ public class Transaction extends Activity {
 						String column2 = trans.getString("Amount");
 						transactionType = trans.getString("TransactionTypeID");
 						//Log.d("transactionType", transactionType);
-						
+						//l
 						if(transactionType.equals("1")){
 							Double parseDouble = Double.parseDouble(column2);
 							totalIncome = totalIncome + parseDouble;
 							//Log.d("totalincome", totalIncome.toString());
 						}else if(transactionType.equals("2")){
+							if(!categoryLabelArrayList.contains(column1)){
+								categoryLabelArrayList.add(column1);
+								categoryArrayList.add(Double.parseDouble(column2));
+							}else{
+								categoryArrayList.set(categoryLabelArrayList.indexOf(column1), categoryArrayList.get(categoryLabelArrayList.indexOf(column1))+Double.parseDouble(column2));
+							}
 							Double parseDouble = Double.parseDouble(column2);
 							totalExpense = totalExpense + parseDouble;
 							//Log.d("totalExpense", totalExpense.toString());
@@ -284,8 +314,8 @@ public class Transaction extends Activity {
 		}
 		totalSaving = totalIncome - totalExpense;		
 		
-		incomeExpenseArray[0] = totalIncome;
-		incomeExpenseArray[1] = totalExpense;
+		valueArray[0] = totalIncome;
+		valueArray[1] = totalExpense;
 		
 		String d2sIncomeDP = String.format("%.2f", totalIncome);
 		String d2sIncome = d2sIncomeDP.toString();

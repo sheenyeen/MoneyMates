@@ -48,6 +48,7 @@ public class PieChartActivity extends Activity {
 		}
 		ChartView1 = ChartFactory.getPieChartView(context, categorySeries,
 				renderer);
+		parent.removeAllViews();
 		parent.addView(ChartView1);
 		return ChartFactory.getPieChartIntent(context, categorySeries,
 				renderer, null);

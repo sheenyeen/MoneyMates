@@ -20,6 +20,11 @@ import android.widget.RelativeLayout;
 public class graphActivity extends Activity {
 
 	RelativeLayout LayoutToDisplayChart;
+	Button incomeExpenseBtn, categoryBtn, comparisonBtn;
+	String[] labels;
+	double[] values;
+	ArrayList<String> ar = new ArrayList<String>();
+	ArrayList<Double> arr = new ArrayList<Double>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,9 @@ public class graphActivity extends Activity {
 		setContentView(R.layout.generate_report);
 
 		LayoutToDisplayChart = (RelativeLayout) findViewById(R.id.relative);
+		incomeExpenseBtn = (Button) findViewById(R.id.incomeExpenseBtn);
+		categoryBtn = (Button) findViewById(R.id.categoryBtn);
+		comparisonBtn = (Button) findViewById(R.id.comparisonBtn);
 
 		/*Button b_cancel = (Button) findViewById(R.id.cancel);
 		b_cancel.setOnClickListener(new OnClickListener() {
@@ -39,11 +47,40 @@ public class graphActivity extends Activity {
 
 		});*/
 		
-		Bundle b = getIntent().getExtras();
-		String[] labels = b.getStringArray("labelArray");
-		double[] values = b.getDoubleArray("incomeExpenseArray");
-		ArrayList<String> ar = new ArrayList<String>();
-		ArrayList<Double> arr = new ArrayList<Double>();
+		final Bundle b = getIntent().getExtras();
+		labels = b.getStringArray("labelArray");
+		values = b.getDoubleArray("valueArray");	
+		
+		//String[] categoryLabel = b.getStringArray("categoryLabelArray");
+		//double[] categoryValue = b.getDoubleArray("categoryValueArray");
+		
+		categoryBtn.setOnClickListener(new View.OnClickListener() {	
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				labels = b.getStringArray("categoryLabelArray");
+				values = b.getDoubleArray("categoryValueArray");
+				drawGraph();
+			}
+		});
+		
+		incomeExpenseBtn.setOnClickListener(new View.OnClickListener() {		
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				labels = b.getStringArray("labelArray");
+				values = b.getDoubleArray("valueArray");
+				drawGraph();
+			}
+		});
+		
+		drawGraph();
+	}
+
+	PieChartActivity achartIntent = new PieChartActivity();
+	public void drawGraph(){
+		ar.clear();
+		arr.clear();
 		for(int i = 0; i < labels.length; i++)
 		{
 			if(!ar.contains(labels[i]))
@@ -64,9 +101,7 @@ public class graphActivity extends Activity {
 		Log.d("string array detail",""+ar);
 		Log.d("Int array length",""+arr.size());
 		Log.d("string array detail",""+arr);
-		PieChartActivity achartIntent = new PieChartActivity();
 		achartIntent.setResource(ar, arr);
 		achartIntent.execute(graphActivity.this, LayoutToDisplayChart);
-
 	}
 }

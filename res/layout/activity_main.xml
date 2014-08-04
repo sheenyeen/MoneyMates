@@ -40,8 +40,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint=" e-mail"
                 android:inputType="textEmailAddress"
-                android:hint=" e-mail" >
+                android:text="sy@gmail.com" >
 
                 <requestFocus />
             </EditText>
@@ -66,8 +67,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="password"
                 android:inputType="textPassword"
-                android:hint="password" />
+                android:text="123" />
 
         </LinearLayout>
 
