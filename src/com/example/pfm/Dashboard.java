@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -14,6 +15,7 @@ public class Dashboard extends Activity {
 	
 	ImageView insertTrans, financialGoal, reminders, settings;
 	Button logoutButton;
+	Bundle b;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,10 @@ public class Dashboard extends Activity {
 		reminders = (ImageView) findViewById(R.id.reminders);
 		settings = (ImageView) findViewById(R.id.settings);
 		logoutButton = (Button) findViewById(R.id.logoutBtn);
+		
+		b = getIntent().getExtras();
+		Log.d("onCreateBundle", b.toString());
+		Log.d("onCreateBundleID", b.getString("userid"));
 		
 		insertTrans.setOnClickListener(new OnClickListener(){
 			@Override
@@ -46,6 +52,7 @@ public class Dashboard extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				Log.d("onClickBundle", b.toString());
 				remindersIntent();
 			}
 		});
@@ -92,9 +99,9 @@ public class Dashboard extends Activity {
 	}
 	
 	public void transIntent(){
-		Bundle b = getIntent().getExtras();
 		Intent openTransaction = new Intent(this, Transaction.class);
 		openTransaction.putExtras(b);
+		Log.d("transBundle", b.toString());
 		startActivity(openTransaction);
 	}
 	
@@ -105,6 +112,8 @@ public class Dashboard extends Activity {
 	
 	public void remindersIntent(){
 		Intent remindersIntent = new Intent(this, Reminders.class);
+		remindersIntent.putExtras(b);
+		Log.d("reminderBundle", b.toString());
 		startActivity(remindersIntent);
 	}
 	

@@ -11,6 +11,9 @@
     <uses-permission 
         android:name="android.permission.INTERNET"/>
     
+    <uses-permission 
+        android:name="com.android.alarm.permission.SET_ALARM"/>
+    
 
     <application
         android:allowBackup="true"
@@ -130,6 +133,25 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.PIECHARTACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.pfm.Alarm"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.ALARM" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <receiver android:name=".Alarm" android:process=":remote" />
+        <activity
+            android:name="com.example.pfm.Budget"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.BUDGET" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

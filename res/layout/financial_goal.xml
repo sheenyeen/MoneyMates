@@ -65,7 +65,7 @@
             <requestFocus android:layout_weight="1" />
 
             <EditText
-                android:id="@+id/amountET"
+                android:id="@+id/goalAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -82,14 +82,14 @@
             android:padding="10dp">
 
             <TextView
-                android:id="@+id/fromTV"
+                android:id="@+id/startDateTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="From:" 
+                android:text="Start date:" 
                 android:layout_weight="1"/>
 
             <EditText
-                android:id="@+id/fromET"
+                android:id="@+id/startDateET"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -104,14 +104,14 @@
             android:padding="10dp" >
 
             <TextView
-                android:id="@+id/toTV"
+                android:id="@+id/endDateTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="To:"
+                android:text="End date:"
                 android:layout_weight="2" />
 
             <EditText
-                android:id="@+id/toET"
+                android:id="@+id/endDateET"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
