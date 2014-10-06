@@ -148,10 +148,19 @@
         </activity>
         <receiver android:name=".Alarm" android:process=":remote" />
         <activity
-            android:name="com.example.pfm.Budget"
+            android:name="com.example.pfm.AddBudget"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.BUDGET" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.pfm.ViewBudget"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.ViewBudget" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

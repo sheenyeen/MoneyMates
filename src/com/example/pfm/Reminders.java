@@ -78,7 +78,7 @@ public class Reminders extends Activity{
 	
 	public void budgetIntent(){
 		Bundle b = getIntent().getExtras();
-		Intent budgetIntent = new Intent(this, Budget.class);
+		Intent budgetIntent = new Intent(this, ViewBudget.class);
 		budgetIntent.putExtras(b);
 		startActivity(budgetIntent);
 		Log.d("bundle", b.toString());

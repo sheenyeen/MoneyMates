@@ -28,30 +28,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom= "10dp" >
-
-            <TextView
-                android:id="@+id/budgetNameTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Budget name:"
-                android:textSize="12dp" />
-
-            <EditText
-                android:id="@+id/budgetNameET"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10" >
-                <requestFocus />
-            </EditText>    
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:paddingBottom="10dp" >
 
             <TextView
@@ -91,49 +67,6 @@
                 android:ems="10"
                 android:inputType="date" 
                 android:hint="YYYY-MM-DD"   />
-
-        </LinearLayout>
-        
-          <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp" >
-
-            <TextView
-                android:id="@+id/endDateTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="End date: " />
-
-            <EditText
-                android:id="@+id/endDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="date"
-                android:hint="YYYY-MM-DD"  />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp" >
-
-            <TextView
-                android:id="@+id/budgetCategoryTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Category: " />
-
-            <Spinner
-                android:id="@+id/budgetCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="7" />
 
         </LinearLayout>
 
