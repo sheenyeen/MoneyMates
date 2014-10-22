@@ -106,7 +106,8 @@ public class Dashboard extends Activity {
 	}
 	
 	public void financialGoalIntent(){
-		Intent financialGoalIntent = new Intent(this, FinancialGoal.class);
+		Intent financialGoalIntent = new Intent(this, ViewFinancialGoal.class);
+		financialGoalIntent.putExtras(b);
 		startActivity(financialGoalIntent);
 	}
 	

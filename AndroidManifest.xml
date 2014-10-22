@@ -93,7 +93,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.pfm.FinancialGoal"
+            android:name="com.example.pfm.AddFinancialGoal"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.FINANCIALGOAL" />
@@ -161,6 +161,15 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.ViewBudget" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+         <activity
+            android:name="com.example.pfm.ViewFinancialGoal"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEWFINANCIALGOAL" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

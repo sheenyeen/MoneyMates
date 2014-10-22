@@ -1,28 +1,48 @@
 package com.example.pfm;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
-public class FinancialGoal extends Activity{
+public class AddFinancialGoal extends Activity{
 	
 	Button cancelButton, saveButton;
 	EditText goalAmount, startDate, endDate;
+	Spinner durationSpinner;
+	
+	List<String> durationList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.financial_goal);
+		setContentView(R.layout.add_financial_goal);
 		cancelButton = (Button) findViewById(R.id.cancelBtn);
 		saveButton = (Button) findViewById(R.id.saveBtn);
 		goalAmount = (EditText) findViewById(R.id.goalAmount);
 		startDate = (EditText) findViewById(R.id.startDateET);
-		endDate = (EditText) findViewById(R.id.endDateET);
+		durationSpinner = (Spinner) findViewById(R.id.durationSpinner);
+		
+		durationList = new ArrayList <String>();
+		durationList.add("Weekly");
+		durationList.add("Monthly");
+		durationList.add("Yearly");
+		spinnerAdapter();
 		
 		
 		cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -48,9 +68,13 @@ public class FinancialGoal extends Activity{
 	}
 	
 	public void cancelIntent(){
-		Intent cancelIntent = new Intent(this, Dashboard.class);
-		startActivity(cancelIntent);
 		finish();
+	}
+	
+	public void spinnerAdapter(){
+		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, durationList);
+		durationSpinner.setAdapter(spinnerAdapter);
+		//Log.d("spinner adapt", "blabla");
 	}
 	
 	class saveGoal extends AsyncTask<Void, Void, Void>{
@@ -74,5 +98,4 @@ public class FinancialGoal extends Activity{
 		}
 		
 	}
-
 }

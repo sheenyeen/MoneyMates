@@ -15,24 +15,33 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 @SuppressLint("SimpleDateFormat")
-public class ViewBudget extends Activity{
-	
+public class ViewBudget extends Activity {
+
 	TextView monthTV;
 	Button previousMonth, nextMonth;
 	ListView budgetListView;
-	
+
 	Calendar currenttime;
 	String currentMonth, currentYear;
+	String amountInput, tag, startdate;
 	String userid;
 	Bundle b;
 	JSONArray categoryJArray, budgetJArray;
@@ -41,72 +50,123 @@ public class ViewBudget extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_budget);
-		
+
 		monthTV = (TextView) findViewById(R.id.displayMonth);
 		previousMonth = (Button) findViewById(R.id.lastMonthArrow);
 		nextMonth = (Button) findViewById(R.id.nextMonthArrow);
 		budgetListView = (ListView) findViewById(R.id.budgetListView);
 		currenttime = Calendar.getInstance();
 		Log.d("currenttime", currenttime.toString());
-		
+
 		previousMonth.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				currenttime.add(Calendar.MONTH, -1);
 				setBudget();
 			}
 		});
-		
+
 		nextMonth.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				currenttime.add(Calendar.MONTH, +1);
 				setBudget();
 			}
-		});	
-		
+		});
+
 		b = getIntent().getExtras();
 		userid = b.getString("userid");
+
+		budgetListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapter, View v,
+					int position, long arg3) {
+				Log.d("listview onclick", "" + position);
+			}
+		});
 	}
-	
+
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		getBudget connect = new getBudget();
 		connect.execute();
 		super.onResume();
 	}
 
-	public void setBudget(){
+	ArrayList<HashMap<String, String>> budget;
+
+	public void setBudget() {
 		currentMonth = new SimpleDateFormat("MMM").format(currenttime.getTime());
 		monthTV.setText(currentMonth + " " + currenttime.get(Calendar.YEAR));
-		displayBudget();
+		budget = new ArrayList<HashMap<String, String>>();
+		try {
+
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Log.d("categories", categoryJArray.toString());
+			Log.d("budgets", budgetJArray.toString());
+			for (int i = 0; i < categoryJArray.length(); i++) {
+				JSONObject categoryObj = categoryJArray.getJSONObject(i);
+				HashMap<String, String> hm = new HashMap<String, String>();
+				hm.put("category",categoryObj.getString("TransactionCategoryName"));
+				hm.put("categoryID",categoryObj.getString("TransactionCategoryID"));
+				hm.put("budgetObjIndex", "-"+i);
+				for (int j = 0; j < budgetJArray.length(); j++) {
+					JSONObject budgetObj = budgetJArray.getJSONObject(j);
+					String datetime = budgetObj.getString("BudgetMonth");
+					hm.put("amount", "0.00");
+					Date date = simpleDateFormat.parse(datetime);
+					Calendar c = Calendar.getInstance();
+					c.setTime(date);
+					if ((c.get(Calendar.MONTH) == currenttime.get(Calendar.MONTH)) && (c.get(Calendar.YEAR) == currenttime.get(Calendar.YEAR)))
+						if (budgetObj.getString("TransactionCategoryID").equals(categoryObj.getString("TransactionCategoryID"))) {
+							hm.put("budgetObjIndex", "" + j);
+							hm.put("amount", budgetObj.getString("Amount"));
+							break;
+						}
+
+				}
+
+				budget.add(hm);
+			}
+
+		} catch (NullPointerException e) {
+			Log.d("exeption", e.toString());
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		Log.d("budget arraylist", budget.toString());
+		LazyAdapter adapter = new LazyAdapter(this, budget);
+		budgetListView.setAdapter(adapter);
 	}
-	
-	class getBudget extends AsyncTask<Void, Void, Void>{
+
+	class getBudget extends AsyncTask<Void, Void, Void> {
 		@Override
 		protected Void doInBackground(Void... params) {
 			JSONParser jsonparser = new JSONParser();
 			List<NameValuePair> list = new ArrayList<NameValuePair>();
 			list.add(new BasicNameValuePair("userid", userid));
 			Log.d("GET parameter", list.toString());
-			Log.d("Calling to url", "http://moneymatespfms.net46.net/getBudget.php");
-			JSONObject jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/getBudget.php", "GET", list);
-			
+			Log.d("Calling to url",
+					"http://moneymatespfms.net46.net/getBudget.php");
+			JSONObject jObject = jsonparser.makeHttpRequest(
+					"http://moneymatespfms.net46.net/getBudget.php", "GET",
+					list);
+
 			try {
 				Log.d("JSON", jObject.toString());
-				if(jObject.getString("status").equals("success")){
+				if (jObject.getString("status").equals("success")) {
 					budgetJArray = jObject.getJSONArray("budget");
 					categoryJArray = jObject.getJSONArray("category");
-					
 
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			
+
 			return null;
 		}
 
@@ -115,77 +175,144 @@ public class ViewBudget extends Activity{
 			setBudget();
 		}
 
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+	}
+
+	String categoryid;
+
+	public void Click(View v) {
+		tag = (String) v.getTag();
+
+		Log.d("indexTag", tag);
+
+		AlertDialog.Builder setBudgetDialog = new AlertDialog.Builder(this);
+		setBudgetDialog.setTitle("Set Budget");
+
+		startdate = currenttime.get(Calendar.YEAR) + "-"
+				+ (currenttime.get(Calendar.MONTH) + 1) + "-"
+				+ currenttime.get(Calendar.DATE);
+
+		// Set up the input
+		// final TextView amountTV = new TextView(this);
+		final EditText input = new EditText(this);
+		// Specify the type of input expected; this, for example, sets the input
+		// as a password, and will mask the text
+		// amountTV.setText("Amount:");
+		setBudgetDialog.setMessage("Amount: ");
+		input.setInputType(InputType.TYPE_CLASS_TEXT
+				| InputType.TYPE_NUMBER_FLAG_DECIMAL);
+		setBudgetDialog.setView(input);
+
+		setBudgetDialog.setPositiveButton("Save",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// Log.d("amountOK", "amount ok");
+						amountInput = input.getText().toString();
+						// Log.d("amountInput", amountInput);
+						saveBudget connect = new saveBudget();
+						connect.execute();
+
+					}
+				});
+		setBudgetDialog.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				});
+		setBudgetDialog.setIcon(android.R.drawable.ic_dialog_alert);
+		setBudgetDialog.show();
+	}
+
+	class saveBudget extends AsyncTask<Void, Void, Void> {
+		JSONObject jObject = null;
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			Log.d("async task", "saveBudget");
+			JSONObject budgetObj = new JSONObject();
+			try {
+				if(tag.charAt(0) != '-')
+					budgetObj = budgetJArray.getJSONObject(Integer.parseInt(tag));
+				else{
+					budgetObj.put("TransactionCategoryID", categoryJArray.getJSONObject(Integer.parseInt(tag.substring(1,tag.length()))).getString("TransactionCategoryID"));
+					budgetObj.put("BudgetMonth", currenttime.get(Calendar.YEAR)+"-"+(currenttime.get(Calendar.MONTH)+1)+"-"+currenttime.get(Calendar.DATE));
+				}
+				budgetObj.put("Amount", amountInput);
+				budgetJArray.put(budgetJArray.length(), budgetObj);
+				JSONParser jsonparser = new JSONParser();
+				List<NameValuePair> list = new ArrayList<NameValuePair>();
+				list.add(new BasicNameValuePair("userid", userid));
+				list.add(new BasicNameValuePair("amount", amountInput));
+				list.add(new BasicNameValuePair("startdate", startdate));
+				list.add(new BasicNameValuePair("categoryid", budgetObj.getString("TransactionCategoryID")));
+				// JSONObject jObject =
+				// jsonparser.makeHttpRequest("http://10.0.2.2/login/setBudget.php",
+				// "GET", list);
+				jObject = jsonparser.makeHttpRequest(
+						"http://moneymatespfms.net46.net/setBudget.php", "GET",
+						list);
+				Log.d("URL parameter", list.toString());
+				Log.d("BudgetJSON", jObject.toString());
+			} catch (NumberFormatException e) {
+				Log.d("async task error", "NumberFormatException");
+				e.printStackTrace();
+			} catch (JSONException e) {
+				e.printStackTrace();
+				Log.d("async task error", "JSONException");
+			}
+
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			if (jObject != null) {
+				setBudget();
+				Toast toast = Toast.makeText(getApplicationContext(),
+						"Budget saved.", Toast.LENGTH_SHORT);
+				toast.show();
+			} else {
+				Toast toast = Toast.makeText(getApplicationContext(),
+						"Budget not saved.", Toast.LENGTH_SHORT);
+				toast.show();
+			}
+			/*
+			 * try { if(jObject.getString("status").equals("success")){ String
+			 * isBudgetOver = jObject.getString("overbudget");
+			 * if(isBudgetOver.equals("false")){ Toast toast =
+			 * Toast.makeText(getApplicationContext(),
+			 * "Budget set successfully. u still can spend more money",
+			 * Toast.LENGTH_SHORT); toast.show(); } else{ Toast toast =
+			 * Toast.makeText(getApplicationContext(),
+			 * "Budget set successfully. u r currently overbudget for " +
+			 * jObject.getString("amount"), Toast.LENGTH_SHORT); toast.show(); }
+			 * 
+			 * } else{ Toast toast = Toast.makeText(getApplicationContext(),
+			 * "Fail to save.", Toast.LENGTH_SHORT); toast.show(); } } catch
+			 * (JSONException e) { e.printStackTrace(); }
+			 */
+
+		}
 
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-		}		
-	}
-	
-	public void displayBudget()
-	{
-		ArrayList<HashMap<String, String>> budget;
-		
-		budget = new ArrayList<HashMap<String, String>>();
-		try {
-
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
-
-			Log.d("categories", categoryJArray.toString());
-			Log.d("budgets", budgetJArray.toString());
-			for(int i = 0; i < categoryJArray.length(); i++){
-				JSONObject categoryObj = categoryJArray.getJSONObject(i);
-				HashMap<String, String> hm = new HashMap<String, String>();
-				hm.put("category", categoryObj.getString("TransactionCategoryName"));
-				hm.put("categoryID", categoryObj.getString("TransactionCategoryID"));
-				String amount =  "0";
-				for(int j = 0; j < budgetJArray.length(); j++){
-					JSONObject budgetObj = budgetJArray.getJSONObject(j);
-					
-					// TODO chg column name
-					String datetime = budgetObj.getString("BudgetMonth");
-					
-					Date date = simpleDateFormat.parse(datetime);
-					Log.d("date", date.toString());
-					Calendar c = Calendar.getInstance();
-					c.setTime(date);
-					
-					if((c.get(Calendar.MONTH) == currenttime.get(Calendar.MONTH)) && (c.get(Calendar.YEAR) == currenttime.get(Calendar.YEAR)))
-						if(budgetObj.getString("TransactionCategoryID").equals(categoryObj.getString("TransactionCategoryID")))
-							amount = budgetObj.getString("Amount");
-				}
-				hm.put("amount", amount);
-				budget.add(hm);
-			}			
-				
-		} catch (NullPointerException e) {
-			Log.d("exeption", e.toString());
-			e.printStackTrace();
 		}
-		 catch (Exception e) {
-				e.printStackTrace();
-			}
+	}
 
-		Log.d("budget arraylist", budget.toString());
+	public void budgetSaved() {
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put("category", budget.get(Integer.parseInt(tag)).get("category"));
+		hm.put("categoryID", categoryid);
+		hm.put("amount", amountInput);
+		budget.set(Integer.parseInt(tag), hm);
 		LazyAdapter adapter = new LazyAdapter(this, budget);
 		budgetListView.setAdapter(adapter);
-	} 
-	
-	public void Click(View v){
-		Intent addBudgetIntent = new Intent(this, AddBudget.class);
-		Bundle b = new Bundle();
-		String tag = (String) v.getTag();
-		
-		Log.d("categoryTag", tag);
-
-		b.putString("userid", userid);
-		b.putString("startdate", currenttime.get(Calendar.YEAR) + "-" + (currenttime.get(Calendar.MONTH) +1) + "-" + (currenttime.get(Calendar.DATE)+1));
-		b.putString("categoryid", tag);
-		
-		Log.d("currenttime", currenttime.toString());
-		Log.d("startdate", b.getString("startdate"));
-		addBudgetIntent.putExtras(b);
-		Log.d("Response", b.toString());
-		startActivity(addBudgetIntent);
 	}
+
 }

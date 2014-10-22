@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="15dp" >
+        android:padding="10dp" >
 
         <TextView
             android:id="@+id/textView1"
@@ -27,33 +27,36 @@
         android:gravity = "center" 
         android:padding="10dp">
 
-        <RadioGroup
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" 
-            android:gravity="center_horizontal"
-            android:checkedButton="@+id/annualRadioBtn">
+            android:padding="5dp" >
 
-            <RadioButton
-                android:id="@id/annualRadioBtn"
+            <TextView
+                android:id="@+id/goalNameTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name:" />
+
+            <requestFocus android:layout_weight="1" />
+            
+            <EditText
+                android:id="@+id/goalNameET"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Annual Goal" />
+                android:ems="10">
+               
+               </EditText>
+               
+             <requestFocus />
 
-            <RadioButton
-                android:id="@+id/monthlyRadioBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Monthly Goal" />
-
-        </RadioGroup>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" 
-            android:padding="10dp">
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/amountTV"
@@ -62,8 +65,6 @@
                 android:text="Amount:"
                 android:layout_weight="1" />
 
-            <requestFocus android:layout_weight="1" />
-
             <EditText
                 android:id="@+id/goalAmount"
                 android:layout_width="wrap_content"
@@ -71,7 +72,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="numberDecimal" >
-            <requestFocus />
+           
             </EditText>
             
         </LinearLayout>
@@ -79,7 +80,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" 
-            android:padding="10dp">
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/startDateTV"
@@ -100,24 +101,38 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/durationTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Duration:" />
+
+            <Spinner
+                android:id="@+id/durationSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
             <TextView
-                android:id="@+id/endDateTV"
+                android:id="@+id/priorityTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="End date:"
-                android:layout_weight="2" />
+                android:text="Priority:" />
 
-            <EditText
-                android:id="@+id/endDateET"
+            <RatingBar
+                android:id="@+id/ratingBar1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="date"
-                android:hint="YYYY-MM-DD" />
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
     </LinearLayout>
