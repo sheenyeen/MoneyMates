@@ -99,7 +99,8 @@ public class Transaction extends Activity {
 		});
 		
 		b = getIntent().getExtras();
-		userid = b.getString("userid");
+		//userid = b.getString("userid");
+		userid = MyService.userid;
 		//Log.d("bundlestring", b.toString());
 		//Log.d("userID", userid);
 		

@@ -37,7 +37,8 @@ public class ViewBudget extends Activity {
 
 	TextView monthTV;
 	Button previousMonth, nextMonth;
-	ListView budgetListView;
+	Button amountBtn, progressBtn;
+	ListView budgetListView, progressListView;
 
 	Calendar currenttime;
 	String currentMonth, currentYear;
@@ -55,6 +56,9 @@ public class ViewBudget extends Activity {
 		previousMonth = (Button) findViewById(R.id.lastMonthArrow);
 		nextMonth = (Button) findViewById(R.id.nextMonthArrow);
 		budgetListView = (ListView) findViewById(R.id.budgetListView);
+		progressListView = (ListView) findViewById(R.id.progressListView);
+		amountBtn = (Button) findViewById(R.id.amountBtn);
+		progressBtn = (Button) findViewById(R.id.progressBtn);
 		currenttime = Calendar.getInstance();
 		Log.d("currenttime", currenttime.toString());
 
@@ -73,6 +77,27 @@ public class ViewBudget extends Activity {
 			public void onClick(View v) {
 				currenttime.add(Calendar.MONTH, +1);
 				setBudget();
+			}
+		});
+		
+		amountBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				progressListView.setVisibility(View.INVISIBLE);
+				budgetListView.setVisibility(View.VISIBLE);
+				
+			}
+		});
+		
+		progressBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				budgetListView.setVisibility(View.INVISIBLE);
+				progressListView.setVisibility(View.VISIBLE);
 			}
 		});
 
@@ -195,36 +220,50 @@ public class ViewBudget extends Activity {
 				+ (currenttime.get(Calendar.MONTH) + 1) + "-"
 				+ currenttime.get(Calendar.DATE);
 
-		// Set up the input
-		// final TextView amountTV = new TextView(this);
-		final EditText input = new EditText(this);
-		// Specify the type of input expected; this, for example, sets the input
-		// as a password, and will mask the text
-		// amountTV.setText("Amount:");
-		setBudgetDialog.setMessage("Amount: ");
-		input.setInputType(InputType.TYPE_CLASS_TEXT
-				| InputType.TYPE_NUMBER_FLAG_DECIMAL);
-		setBudgetDialog.setView(input);
+		JSONObject budgetObj = new JSONObject();
+		String tempAmount = "0.00";
+		try {
+				budgetObj = budgetJArray.getJSONObject(Integer.parseInt(tag));
+				tempAmount = budgetObj.getString("Amount");
+			
+		} catch (NumberFormatException e) {
+			Log.d("async task error", "NumberFormatException");
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+			Log.d("async task error", "JSONException");
+		} finally {
+			final EditText input = new EditText(this);
+			input.setText(tempAmount);
+			// Specify the type of input expected; this, for example, sets the input
+			// as a password, and will mask the text
+			// amountTV.setText("Amount:");
+			setBudgetDialog.setMessage("Amount: ");
+			input.setInputType(InputType.TYPE_CLASS_TEXT
+					| InputType.TYPE_NUMBER_FLAG_DECIMAL);
+			setBudgetDialog.setView(input);
 
-		setBudgetDialog.setPositiveButton("Save",
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						// Log.d("amountOK", "amount ok");
-						amountInput = input.getText().toString();
-						// Log.d("amountInput", amountInput);
-						saveBudget connect = new saveBudget();
-						connect.execute();
+			setBudgetDialog.setPositiveButton("Save",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							// Log.d("amountOK", "amount ok");
+							amountInput = input.getText().toString();
+							// Log.d("amountInput", amountInput);
+							saveBudget connect = new saveBudget();
+							connect.execute();
 
-					}
-				});
-		setBudgetDialog.setNegativeButton("Cancel",
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.cancel();
-					}
-				});
-		setBudgetDialog.setIcon(android.R.drawable.ic_dialog_alert);
-		setBudgetDialog.show();
+						}
+					});
+			setBudgetDialog.setNegativeButton("Cancel",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
+			setBudgetDialog.setIcon(android.R.drawable.ic_dialog_alert);
+			setBudgetDialog.show();
+		}
+		
 	}
 
 	class saveBudget extends AsyncTask<Void, Void, Void> {

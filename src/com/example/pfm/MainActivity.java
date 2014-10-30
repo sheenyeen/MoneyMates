@@ -133,6 +133,9 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			if(loginFlag==true){
+				startService(new Intent(getApplicationContext(), MyService.class));
+				Log.d("Call to start", "call to start");
+				MyService.userid = userID;
 				newIntent();
 			}
 			else{

@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -29,7 +31,7 @@ public class Reminders extends Activity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.reminders);
 		
@@ -37,11 +39,18 @@ public class Reminders extends Activity{
 		dailyReminderSwitch = (Switch) findViewById(R.id.dailyReminderSwitch);
 		setBudget = (TextView) findViewById(R.id.budgetTV);
 		
+		boolean alarmOn = (PendingIntent.getBroadcast(getApplicationContext(), 0, 
+		        new Intent("com.example.pfm.Alarm"), 
+		        PendingIntent.FLAG_NO_CREATE) != null);
+
+		if (alarmOn)
+		{
+		    dailyReminderSwitch.setChecked(true);
+		}
 		
-		dailyReminderSwitch.setOnClickListener(new View.OnClickListener() {
+		dailyReminderSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 				if(dailyReminderSwitch.isChecked()){
 					Log.d("Clicked", "Switch on");
 					showDialog(1);
@@ -60,7 +69,6 @@ public class Reminders extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				budgetIntent();
 			}
 		});
@@ -69,7 +77,6 @@ public class Reminders extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				finish();
 				//backIntent();
 			}
@@ -107,6 +114,7 @@ public class Reminders extends Activity{
 			
 			calendar.set(Calendar.HOUR_OF_DAY, mhour);
 			calendar.set(Calendar.MINUTE, mminute);
+			calendar.set(Calendar.SECOND, 0);
 			
 			long alarmTime = calendar.getTimeInMillis();
 			

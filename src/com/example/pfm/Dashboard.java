@@ -15,7 +15,7 @@ public class Dashboard extends Activity {
 	
 	ImageView insertTrans, financialGoal, reminders, settings;
 	Button logoutButton;
-	Bundle b;
+	Bundle b = new Bundle();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,8 @@ public class Dashboard extends Activity {
 		settings = (ImageView) findViewById(R.id.settings);
 		logoutButton = (Button) findViewById(R.id.logoutBtn);
 		
-		b = getIntent().getExtras();
+		//b = getIntent().getExtras();
+		b.putString("userid", MyService.userid);
 		Log.d("onCreateBundle", b.toString());
 		Log.d("onCreateBundleID", b.getString("userid"));
 		

@@ -47,9 +47,9 @@ public class GoalLazyAdapter extends BaseAdapter {
         goal = goals.get(position);
         
         // Setting all values in listview
-        goalName.setText(goal.get("goalname"));
-		duration.setText(goal.get("duration"));
-		amount.setText(goal.get("amount"));
+        goalName.setText(goal.get("GoalName"));
+		duration.setText(goal.get("PeriodName"));
+		amount.setText(goal.get("Amount"));
 		//set tag??
 		
         return vi;    
