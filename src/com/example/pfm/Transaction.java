@@ -36,7 +36,7 @@ public class Transaction extends Activity {
 	TextView monthTV, totalIncomeTV, totalExpenseTV, totalSavingTV;
 	Button lastMonthArrow, nextMonthArrow, addTransactionBtn, reportBtn;
 	JSONArray jArray;
-	Calendar currenttime;
+	public static Calendar currenttime;
 	Bundle b;
 	int counter;
 	JSONObject trans;
@@ -45,6 +45,7 @@ public class Transaction extends Activity {
 	String labelArray[] = {"Income", "Expenses"};
 	ArrayList<String> categoryLabelArrayList = new ArrayList<String>();
 	ArrayList<Double> categoryArrayList = new ArrayList<Double>();
+	public static ArrayList<JSONObject> currList;
 
 
 	@Override
@@ -93,7 +94,6 @@ public class Transaction extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				generateReportIntent();
 			}
 		});
@@ -132,6 +132,7 @@ public class Transaction extends Activity {
 				Log.d("JSON", jObject.toString());
 				if (jObject.getString("status").equals("success")) {
 					jArray = jObject.getJSONArray("transaction");
+					MyService.transArray=jObject.getJSONArray("transaction");
 					setTransaction();
 
 				}
@@ -152,6 +153,7 @@ public class Transaction extends Activity {
 		b.putString("userid", userid);
 		addTransactionIntent.putExtras(b);
 		startActivity(addTransactionIntent);
+		//finish();
 	}
 	
 	public void generateReportIntent(){
@@ -250,7 +252,6 @@ public class Transaction extends Activity {
 
 	}
 	
-	ArrayList<JSONObject> currList;
 	
 	public void setTransaction() {	
 		categoryLabelArrayList.clear();
@@ -305,11 +306,9 @@ public class Transaction extends Activity {
 						addLL(column1, column2, transactionType);
 					}
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			} catch (JSONException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}

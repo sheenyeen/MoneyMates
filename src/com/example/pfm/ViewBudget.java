@@ -28,7 +28,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,7 @@ public class ViewBudget extends Activity {
 	String userid;
 	Bundle b;
 	JSONArray categoryJArray, budgetJArray;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +87,6 @@ public class ViewBudget extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				progressListView.setVisibility(View.INVISIBLE);
 				budgetListView.setVisibility(View.VISIBLE);
 				
@@ -95,7 +97,6 @@ public class ViewBudget extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				budgetListView.setVisibility(View.INVISIBLE);
 				progressListView.setVisibility(View.VISIBLE);
 			}
@@ -121,7 +122,7 @@ public class ViewBudget extends Activity {
 	}
 
 	ArrayList<HashMap<String, String>> budget;
-
+	
 	public void setBudget() {
 		currentMonth = new SimpleDateFormat("MMM").format(currenttime.getTime());
 		monthTV.setText(currentMonth + " " + currenttime.get(Calendar.YEAR));
@@ -144,13 +145,33 @@ public class ViewBudget extends Activity {
 					Date date = simpleDateFormat.parse(datetime);
 					Calendar c = Calendar.getInstance();
 					c.setTime(date);
-					if ((c.get(Calendar.MONTH) == currenttime.get(Calendar.MONTH)) && (c.get(Calendar.YEAR) == currenttime.get(Calendar.YEAR)))
+					double monthlyCategoryTransSum = 0;
+					hm.put("transSum", ""+monthlyCategoryTransSum);
+					Log.d("myservice trans", MyService.transArray.toString());
+					Log.d("transarray length",""+MyService.transArray.length());
+					if ((c.get(Calendar.MONTH) == currenttime.get(Calendar.MONTH)) && (c.get(Calendar.YEAR) == currenttime.get(Calendar.YEAR))){
+						
+						//Log.d("transarray",MyService.transArray.toString());
+						//Log.d("transarray length",""+MyService.transArray.length());
+						for (int k = 0; k < MyService.transArray.length(); k++) {
+							JSONObject transObj = MyService.transArray.getJSONObject(k);
+							String datetime2 = transObj.getString("TransactionDateTime");
+							Date date2 = simpleDateFormat.parse(datetime2);
+							Calendar c2 = Calendar.getInstance();
+							c2.setTime(date2);
+							if (transObj.getString("TransactionCategoryID").equals(categoryObj.getString("TransactionCategoryID")) && (c2.get(Calendar.MONTH) == currenttime.get(Calendar.MONTH)) && (c2.get(Calendar.YEAR) == currenttime.get(Calendar.YEAR))) {
+								monthlyCategoryTransSum += transObj.getDouble("Amount");
+							}
+						}
+
+						hm.put("transSum", ""+monthlyCategoryTransSum);
+						
 						if (budgetObj.getString("TransactionCategoryID").equals(categoryObj.getString("TransactionCategoryID"))) {
 							hm.put("budgetObjIndex", "" + j);
 							hm.put("amount", budgetObj.getString("Amount"));
 							break;
 						}
-
+					}
 				}
 
 				budget.add(hm);
@@ -166,6 +187,9 @@ public class ViewBudget extends Activity {
 		Log.d("budget arraylist", budget.toString());
 		LazyAdapter adapter = new LazyAdapter(this, budget);
 		budgetListView.setAdapter(adapter);
+		
+		ProgressAdapter adapter2 = new ProgressAdapter(this, budget);
+		progressListView.setAdapter(adapter2);
 	}
 
 	class getBudget extends AsyncTask<Void, Void, Void> {
@@ -225,6 +249,8 @@ public class ViewBudget extends Activity {
 		try {
 				budgetObj = budgetJArray.getJSONObject(Integer.parseInt(tag));
 				tempAmount = budgetObj.getString("Amount");
+				View v1 = (View)v.getParent();
+				tempAmount = ""+v1.getTag();
 			
 		} catch (NumberFormatException e) {
 			Log.d("async task error", "NumberFormatException");
@@ -351,7 +377,9 @@ public class ViewBudget extends Activity {
 		hm.put("amount", amountInput);
 		budget.set(Integer.parseInt(tag), hm);
 		LazyAdapter adapter = new LazyAdapter(this, budget);
+		ProgressAdapter adapter2 = new ProgressAdapter(this, budget);
 		budgetListView.setAdapter(adapter);
+		progressListView.setAdapter(adapter2);
 	}
 
 }

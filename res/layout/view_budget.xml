@@ -65,17 +65,24 @@
 
     </LinearLayout>
     
-     <ListView
-          android:id="@+id/budgetListView"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content" >
-    </ListView>
-
-     <ListView
-         android:id="@+id/progressListView"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content" 
-         android:visibility="invisible" >
-     </ListView> 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+        
+	     <ListView
+	          android:id="@+id/budgetListView"
+	          android:layout_width="fill_parent"
+	          android:layout_height="fill_parent" >
+	    </ListView>
+	
+	     <ListView
+	         android:id="@+id/progressListView"
+	         android:layout_width="fill_parent"
+	         android:layout_height="fill_parent" 
+	         android:visibility="invisible" >
+	     </ListView> 
+     
+     </RelativeLayout>
 
 </LinearLayout>

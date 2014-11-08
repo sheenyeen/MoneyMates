@@ -1,5 +1,7 @@
 package com.example.pfm;
 
+import org.json.JSONArray;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
@@ -9,6 +11,10 @@ import android.widget.Toast;
 public class MyService extends Service{
 	
 	static String userid = "";
+
+	static JSONArray transArray = new JSONArray();
+	static JSONArray categoryArray = new JSONArray();
+	static JSONArray budgetArray = new JSONArray();
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -20,7 +26,7 @@ public class MyService extends Service{
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
-		Toast.makeText(this, "Service created.", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, "Service created.", Toast.LENGTH_SHORT).show();
 		Log.d("Service created", "service created");
 	}
 
@@ -28,7 +34,7 @@ public class MyService extends Service{
 	public void onStart(Intent intent, int startId) {
 		// TODO Auto-generated method stub
 		super.onStart(intent, startId);
-		Toast.makeText(this, "Service started.", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, "Service started.", Toast.LENGTH_SHORT).show();
 		Log.d("Service start", "service start");
 	}
 
@@ -36,7 +42,7 @@ public class MyService extends Service{
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		Toast.makeText(this, "Service stopped.", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, "Service stopped.", Toast.LENGTH_SHORT).show();
 	}
 
 }

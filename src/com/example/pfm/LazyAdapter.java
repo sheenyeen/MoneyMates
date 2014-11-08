@@ -53,6 +53,7 @@ public class LazyAdapter extends BaseAdapter{
         // Setting all values in listview
         category.setText(budgets.get("category"));
 		amount.setText(budgets.get("amount"));
+		((View) addBudgetBtn.getParent()).setTag(budgets.get("amount"));
 		addBudgetBtn.setTag(""+budgets.get("budgetObjIndex"));
 		
         return vi;    
