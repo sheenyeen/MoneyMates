@@ -10,7 +10,45 @@
         android:layout_height="wrap_content"
         android:text="Financial Goal"
         android:padding="10dp"
-        android:textSize="15dp" />
+        android:textSize="17dp"
+        android:textStyle="bold" />
+
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="5dp" >
+
+        <Button
+            android:id="@+id/currentGoals"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginRight = "10dp"
+            android:text="Current"
+            android:background="@drawable/button_blue"
+           	android:textColor="#ffffff"/>
+
+        <Button
+            android:id="@+id/pastGoals"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginRight = "10dp"
+            android:text="Past"
+            android:background="@drawable/button_blue"
+           	android:textColor="#ffffff" />
+        
+         <Button
+            android:id="@+id/addGoalBtn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:text="+"
+            android:layout_marginRight="10dp"
+            android:layout_gravity = "right"
+            android:background="@drawable/button_blue"
+            android:textColor="#ffffff"/>
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/goalListView"

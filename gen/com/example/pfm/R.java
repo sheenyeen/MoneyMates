@@ -44,9 +44,10 @@ public final class R {
         public static final int transaction=0x7f020014;
     }
     public static final class id {
-        public static final int action_settings=0x7f08005c;
+        public static final int action_settings=0x7f08005f;
         public static final int addBudgetBtn=0x7f080027;
         public static final int addBudgetBtnParent=0x7f080026;
+        public static final int addGoalBtn=0x7f080055;
         public static final int addTransactionBtn=0x7f080025;
         public static final int amountBtn=0x7f08004e;
         public static final int amountField=0x7f08001e;
@@ -70,6 +71,7 @@ public final class R {
         public static final int comparisonBtn=0x7f080033;
         public static final int confirmPassword=0x7f080041;
         public static final int confirmPasswordTV=0x7f080040;
+        public static final int currentGoals=0x7f080053;
         public static final int dailyReminderSwitch=0x7f080045;
         public static final int dailyReminderTV=0x7f080044;
         public static final int dateField=0x7f080020;
@@ -85,7 +87,7 @@ public final class R {
         public static final int firstname=0x7f08003b;
         public static final int firstnameTV=0x7f08003a;
         public static final int goalAmount=0x7f080016;
-        public static final int goalListView=0x7f080053;
+        public static final int goalListView=0x7f080056;
         public static final int goalNameET=0x7f080014;
         public static final int goalNameTV=0x7f080013;
         public static final int goalTitleTV=0x7f080052;
@@ -99,10 +101,10 @@ public final class R {
         public static final int linearLayout1=0x7f08002e;
         public static final int linearLayout2=0x7f080030;
         public static final int list=0x7f08004a;
-        public static final int llayoutH=0x7f080056;
-        public static final int llayoutV1=0x7f080057;
-        public static final int llayoutV2=0x7f080058;
-        public static final int llayoutV3=0x7f080059;
+        public static final int llayoutH=0x7f080059;
+        public static final int llayoutV1=0x7f08005a;
+        public static final int llayoutV2=0x7f08005b;
+        public static final int llayoutV3=0x7f08005c;
         public static final int logginginTV=0x7f080008;
         public static final int loginBtn=0x7f080006;
         public static final int logoutBtn=0x7f08002d;
@@ -110,11 +112,12 @@ public final class R {
         public static final int nextMonthArrow=0x7f08004d;
         public static final int password=0x7f080004;
         public static final int passwordTV=0x7f080003;
+        public static final int pastGoals=0x7f080054;
         public static final int priorityTV=0x7f08001a;
         public static final int progressBar=0x7f080007;
         public static final int progressBtn=0x7f08004f;
         public static final int progressListView=0x7f080051;
-        public static final int ratingBar1=0x7f08001b;
+        public static final int ratingBar=0x7f08001b;
         public static final int record=0x7f080036;
         public static final int registerBtn=0x7f080005;
         public static final int registerButton=0x7f080042;
@@ -123,7 +126,7 @@ public final class R {
         public static final int remarkField=0x7f080024;
         public static final int remarkTV=0x7f080023;
         public static final int reminders=0x7f08002b;
-        public static final int reportBtn=0x7f08005b;
+        public static final int reportBtn=0x7f08005e;
         public static final int reportTitleTV=0x7f08002f;
         public static final int saveBtn=0x7f080010;
         public static final int scrollView1=0x7f080039;
@@ -132,9 +135,9 @@ public final class R {
         public static final int startDateET=0x7f080017;
         public static final int startDateTV=0x7f08000c;
         public static final int textView1=0x7f080012;
-        public static final int totalExpenseTV=0x7f080055;
-        public static final int totalIncomeTV=0x7f080054;
-        public static final int totalSavingTV=0x7f08005a;
+        public static final int totalExpenseTV=0x7f080058;
+        public static final int totalIncomeTV=0x7f080057;
+        public static final int totalSavingTV=0x7f08005d;
         public static final int username=0x7f080002;
         public static final int usernameTV=0x7f080001;
     }

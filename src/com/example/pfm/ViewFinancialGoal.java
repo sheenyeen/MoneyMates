@@ -26,9 +26,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,8 +38,9 @@ import android.widget.Toast;
 public class ViewFinancialGoal extends Activity {
 
 	TextView monthTV;
-	Button previousMonth, nextMonth;
+	Button addGoalBtn;
 	ListView goalListView;
+	Spinner durationSpinner;
 
 	Calendar currenttime;
 	String currentMonth, currentYear;
@@ -50,26 +53,39 @@ public class ViewFinancialGoal extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_financial_goal);
-
+		
+		addGoalBtn = (Button) findViewById(R.id.addGoalBtn);
 		goalListView = (ListView) findViewById(R.id.goalListView);
 
 		b = getIntent().getExtras();
-		userid = b.getString("userid");
+		//userid = b.getString("userid");
+		userid = MyService.userid;
 
 		ArrayList<HashMap<String, String>> goals = new ArrayList<HashMap<String, String>>();
 		GoalLazyAdapter adapter = new GoalLazyAdapter(this, goals);
 		goalListView.setAdapter(adapter);
+		
 
 		goalListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-
-				Intent intent = new Intent(getApplicationContext(), AddFinancialGoal.class);
-				startActivity(intent);
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				/*Intent intent = new Intent(getApplicationContext(), ModifyFinancialGoal.class);
+				startActivity(intent);*/
+				modifyFinancialGoal();
+				
 			}
 			
+		});
+		
+		addGoalBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent addGoalIntent = new Intent(getApplicationContext(), AddFinancialGoal.class);
+				startActivity(addGoalIntent);
+			}
 		});
 	}
 
@@ -115,11 +131,9 @@ public class ViewFinancialGoal extends Activity {
 			List<NameValuePair> list = new ArrayList<NameValuePair>();
 			list.add(new BasicNameValuePair("userid", userid));
 			Log.d("GET parameter", list.toString());
-			Log.d("Calling to url",
-					"http://moneymatespfms.net46.net/getGoal.php");
-			JSONObject jObject = jsonparser.makeHttpRequest(
-					"http://moneymatespfms.net46.net/getGoal.php", "GET",
-					list);
+			Log.d("Calling to url", "http://moneymatespfms.net46.net/getGoal.php");
+			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/getGoal.php", "GET", list);
+			JSONObject jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/getGoal.php", "GET", list);
 
 			try {
 				Log.d("JSON", jObject.toString());
@@ -144,6 +158,31 @@ public class ViewFinancialGoal extends Activity {
 			super.onPreExecute();
 		}
 	}
+	
+	class modifyGoal extends AsyncTask<Void, Void, Void>{
 
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+		}
+
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+		}
+	}
+
+	public void modifyFinancialGoal(){
+		modifyGoal connect2 = new modifyGoal();
+		connect2.execute();
+	}
 
 }

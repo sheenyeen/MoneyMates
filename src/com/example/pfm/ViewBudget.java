@@ -261,8 +261,6 @@ public class ViewBudget extends Activity {
 		} finally {
 			final EditText input = new EditText(this);
 			input.setText(tempAmount);
-			// Specify the type of input expected; this, for example, sets the input
-			// as a password, and will mask the text
 			// amountTV.setText("Amount:");
 			setBudgetDialog.setMessage("Amount: ");
 			input.setInputType(InputType.TYPE_CLASS_TEXT

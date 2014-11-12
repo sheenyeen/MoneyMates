@@ -36,7 +36,8 @@
                 android:id="@+id/goalNameTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name:" />
+                android:layout_weight="1"
+                android:text="Name" />
 
             <requestFocus android:layout_weight="1" />
             
@@ -62,8 +63,8 @@
                 android:id="@+id/amountTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount:"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="Amount" />
 
             <EditText
                 android:id="@+id/goalAmount"
@@ -86,7 +87,7 @@
                 android:id="@+id/startDateTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start date:" 
+                android:text="Start date" 
                 android:layout_weight="1"/>
 
             <EditText
@@ -107,13 +108,14 @@
                 android:id="@+id/durationTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Duration:" />
+                android:layout_weight="1"
+                android:text="Duration" />
 
             <Spinner
                 android:id="@+id/durationSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="9" />
 
         </LinearLayout>
 
@@ -126,12 +128,15 @@
                 android:id="@+id/priorityTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Priority:" />
+                android:layout_weight="1"
+                android:text="Priority" />
 
             <RatingBar
-                android:id="@+id/ratingBar1"
+                android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="9"
+                android:stepSize="1" />
 
         </LinearLayout>
 

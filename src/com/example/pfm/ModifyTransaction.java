@@ -123,7 +123,7 @@ public class ModifyTransaction extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Log.d("CLICK save", "asd");
+				//Log.d("CLICK save", "asd");
 				modifyTransaction connect = new modifyTransaction();
 				connect.execute();
 			}
