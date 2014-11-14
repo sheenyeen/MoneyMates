@@ -1,5 +1,8 @@
 package com.example.pfm;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.json.JSONArray;
 
 import android.app.Service;
@@ -15,6 +18,8 @@ public class MyService extends Service{
 	static JSONArray transArray = new JSONArray();
 	static JSONArray categoryArray = new JSONArray();
 	static JSONArray budgetArray = new JSONArray();
+	static ArrayList<HashMap<String, String>> savingsArray = new ArrayList<HashMap<String, String>>();
+	static HashMap<String, String> hashMap = new HashMap<String, String>();
 
 	@Override
 	public IBinder onBind(Intent intent) {

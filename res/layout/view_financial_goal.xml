@@ -21,20 +21,20 @@
         android:paddingTop="5dp" >
 
         <Button
-            android:id="@+id/currentGoals"
+            android:id="@+id/amountBtn"
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_marginRight = "10dp"
-            android:text="Current"
+            android:text="Amount"
             android:background="@drawable/button_blue"
            	android:textColor="#ffffff"/>
 
         <Button
-            android:id="@+id/pastGoals"
+            android:id="@+id/progressBtn"
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_marginRight = "10dp"
-            android:text="Past"
+            android:text="Progress"
             android:background="@drawable/button_blue"
            	android:textColor="#ffffff" />
         
@@ -50,10 +50,55 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/goalListView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_height="wrap_content" 
+        android:paddingTop="5dp"
+        android:padding="10dp"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/goalNameTV"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Goal Name" 
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/durationTV"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Duration"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/amountTV"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Amount"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+	
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+	    <ListView
+	        android:id="@+id/goalListView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent" >
+	    </ListView>
+	    <ListView
+	        android:id="@+id/goalProgressListView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:visibility = "invisible" >
+	    </ListView>
+    </RelativeLayout>
 
 </LinearLayout>

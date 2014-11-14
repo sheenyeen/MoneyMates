@@ -22,19 +22,20 @@
                 android:layout_weight="1"
                 android:text="Goal name" />
 
+
             <TextView
-                android:id="@+id/durationTV"
+                android:id="@+id/priorityTV"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Duration" />
+                android:text="Priority" />
 
-            <TextView
-                android:id="@+id/amountTV"
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Amount" />
+                android:layout_weight="1" />
 
         </LinearLayout>
 

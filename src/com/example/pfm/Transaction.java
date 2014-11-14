@@ -46,6 +46,7 @@ public class Transaction extends Activity {
 	ArrayList<String> categoryLabelArrayList = new ArrayList<String>();
 	ArrayList<Double> categoryArrayList = new ArrayList<Double>();
 	public static ArrayList<JSONObject> currList;
+	Calendar c;
 
 
 	@Override
@@ -275,7 +276,7 @@ public class Transaction extends Activity {
 				try {
 					Date date = simpleDateFormat.parse(datetime);
 					Log.d("date", date.toString());
-					Calendar c = Calendar.getInstance();
+					c = Calendar.getInstance();
 					c.setTime(date);
 
 					if ((c.get(Calendar.MONTH) == currenttime.get(Calendar.MONTH)) && (c.get(Calendar.YEAR) == currenttime.get(Calendar.YEAR))) {
@@ -284,7 +285,7 @@ public class Transaction extends Activity {
 						String column2 = trans.getString("Amount");
 						transactionType = trans.getString("TransactionTypeID");
 						//Log.d("transactionType", transactionType);
-						//l
+
 						if(transactionType.equals("1")){
 							Double parseDouble = Double.parseDouble(column2);
 							totalIncome = totalIncome + parseDouble;
@@ -314,6 +315,8 @@ public class Transaction extends Activity {
 		}
 		totalSaving = totalIncome - totalExpense;		
 		
+		Log.d("savingsArray", MyService.savingsArray.toString());
+		
 		valueArray[0] = totalIncome;
 		valueArray[1] = totalExpense;
 		
@@ -327,6 +330,7 @@ public class Transaction extends Activity {
 		
 		String d2sSavingDP = String.format("%.2f", totalSaving);
 		String d2sSaving = d2sSavingDP.toString();
+		
 		totalSavingTV.setText("Net Balance: RM " + d2sSaving);
 		
 		if(totalSaving > 0){

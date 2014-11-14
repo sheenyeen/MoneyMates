@@ -37,9 +37,9 @@ import android.widget.Toast;
 @SuppressLint("SimpleDateFormat")
 public class ViewFinancialGoal extends Activity {
 
-	TextView monthTV;
-	Button addGoalBtn;
-	ListView goalListView;
+	TextView monthTV, goalNameTV, durationTV, amountTV;
+	Button addGoalBtn, amountBtn, progressBtn;
+	ListView goalListView, goalProgressListView;
 	Spinner durationSpinner;
 
 	Calendar currenttime;
@@ -48,6 +48,7 @@ public class ViewFinancialGoal extends Activity {
 	String userid;
 	Bundle b;
 	JSONArray goalJArray;
+	int periodId = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,12 @@ public class ViewFinancialGoal extends Activity {
 		
 		addGoalBtn = (Button) findViewById(R.id.addGoalBtn);
 		goalListView = (ListView) findViewById(R.id.goalListView);
+		goalProgressListView = (ListView) findViewById(R.id.goalProgressListView);
+		amountBtn = (Button) findViewById(R.id.amountBtn);
+		progressBtn = (Button) findViewById(R.id.progressBtn);
+		goalNameTV = (TextView) findViewById(R.id.goalNameTV);
+		durationTV = (TextView) findViewById(R.id.durationTV);
+		amountTV = (TextView) findViewById(R.id.amountTV);
 
 		b = getIntent().getExtras();
 		//userid = b.getString("userid");
@@ -65,14 +72,103 @@ public class ViewFinancialGoal extends Activity {
 		GoalLazyAdapter adapter = new GoalLazyAdapter(this, goals);
 		goalListView.setAdapter(adapter);
 		
-
+		amountBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				goalProgressListView.setVisibility(View.INVISIBLE);
+				goalListView.setVisibility(View.VISIBLE);
+				durationTV.setText("Duration");
+				amountTV.setText("Amount");
+			}
+		});
+		
+		progressBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				goalListView.setVisibility(View.INVISIBLE);
+				goalProgressListView.setVisibility(View.VISIBLE);
+				durationTV.setText("Priority");
+				amountTV.setText("Saving Progress");
+				
+				
+			}
+		});
+		
 		goalListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 				/*Intent intent = new Intent(getApplicationContext(), ModifyFinancialGoal.class);
 				startActivity(intent);*/
-				modifyFinancialGoal();
+				//modifyFinancialGoal();
+
+				JSONObject job = new JSONObject();
+				try {
+					job = (JSONObject) goalJArray.get(position);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+
+				try {
+					b.putString("userid", userid);
+					b.putString("goalid", job.getString("GoalID"));
+					b.putString("goalname", job.getString("GoalName"));
+					b.putString("amount", job.getString("Amount"));
+					b.putString("startdate", job.getString("GoalStartDate"));
+					b.putString("priority", job.getString("Priority"));
+					b.putString("period", job.getString("GoalPeriodID"));
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				Log.d("goalJob", job.toString());
+				
+				Intent modifyGoalIntent = new Intent(getApplicationContext(), ModifyFinancialGoal.class);
+				modifyGoalIntent.putExtras(b);
+				startActivity(modifyGoalIntent);
+				
+			}
+			
+		});
+		
+		goalProgressListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+				/*Intent intent = new Intent(getApplicationContext(), ModifyFinancialGoal.class);
+				startActivity(intent);*/
+				//modifyFinancialGoal();
+
+				JSONObject job = new JSONObject();
+				try {
+					job = (JSONObject) goalJArray.get(position);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+
+				try {
+					b.putString("userid", userid);
+					b.putString("goalid", job.getString("GoalID"));
+					b.putString("goalname", job.getString("GoalName"));
+					b.putString("amount", job.getString("Amount"));
+					b.putString("startdate", job.getString("GoalStartDate"));
+					b.putString("priority", job.getString("Priority"));
+					b.putString("period", job.getString("GoalPeriodID"));
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				Log.d("goalJob", job.toString());
+				
+				Intent modifyGoalIntent = new Intent(getApplicationContext(), ModifyFinancialGoal.class);
+				modifyGoalIntent.putExtras(b);
+				startActivity(modifyGoalIntent);
 				
 			}
 			
@@ -82,7 +178,6 @@ public class ViewFinancialGoal extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent addGoalIntent = new Intent(getApplicationContext(), AddFinancialGoal.class);
 				startActivity(addGoalIntent);
 			}
@@ -109,6 +204,8 @@ public class ViewFinancialGoal extends Activity {
 				hm.put("GoalName", goalObj.getString("GoalName"));
 				hm.put("PeriodName", goalObj.getString("PeriodName"));
 				hm.put("Amount", goalObj.getString("Amount"));
+				hm.put("Priority", goalObj.getString("Priority"));
+				hm.put("Saving", goalObj.getString("Saving"));
 				goal.add(hm);
 			}
 
@@ -119,9 +216,13 @@ public class ViewFinancialGoal extends Activity {
 			e.printStackTrace();
 		}
 
-		Log.d("budget arraylist", goal.toString());
+		Log.d("goal arraylist", goal.toString());
 		GoalLazyAdapter adapter = new GoalLazyAdapter(this, goal);
 		goalListView.setAdapter(adapter);
+		
+		GoalProgressAdapter adapter2 = new GoalProgressAdapter(this, goal);
+		goalProgressListView.setAdapter(adapter2);
+		
 	}
 
 	class GetGoal extends AsyncTask<Void, Void, Void> {
@@ -158,31 +259,11 @@ public class ViewFinancialGoal extends Activity {
 			super.onPreExecute();
 		}
 	}
-	
-	class modifyGoal extends AsyncTask<Void, Void, Void>{
 
-		@Override
-		protected Void doInBackground(Void... arg0) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-		}
-
-		@Override
-		protected void onPreExecute() {
-			// TODO Auto-generated method stub
-			super.onPreExecute();
-		}
-	}
 
 	public void modifyFinancialGoal(){
-		modifyGoal connect2 = new modifyGoal();
-		connect2.execute();
+		Intent modifyGoalIntent = new Intent(this, ModifyFinancialGoal.class);
+		startActivity(modifyGoalIntent);
 	}
 
 }

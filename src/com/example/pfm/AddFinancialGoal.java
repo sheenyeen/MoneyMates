@@ -12,11 +12,19 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.KeyListener;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnKeyListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 
@@ -26,15 +34,17 @@ public class AddFinancialGoal extends Activity{
 	EditText goalAmount, goalName, startDate;
 	Spinner durationSpinner;
 	RatingBar ratingBar;
+	LinearLayout monthlyAmount;
+	EditText monthlyAmountET;
 	
 	List<String> durationList;
 	String userid;
 	float ratingBarValue;
 	boolean addGoalFlag = false;
+	int monthlyAmt;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_financial_goal);
 		cancelButton = (Button) findViewById(R.id.cancelBtn);
@@ -45,6 +55,8 @@ public class AddFinancialGoal extends Activity{
 		startDate = (EditText) findViewById(R.id.startDateET);
 		durationSpinner = (Spinner) findViewById(R.id.durationSpinner);
 		ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+		monthlyAmount = (LinearLayout) findViewById(R.id.monthlyAmountLL);
+		monthlyAmountET = (EditText) findViewById(R.id.monthlyAmountET);
 		
 		durationList = new ArrayList <String>();
 		durationList.add("Weekly");
@@ -54,12 +66,72 @@ public class AddFinancialGoal extends Activity{
 		
 		userid = MyService.userid;
 		
+		goalAmount.addTextChangedListener(new TextWatcher(){
+
+
+			@Override
+			public void afterTextChanged(Editable arg0) {
+				// TODO Auto-generated method stub
+				if(durationSpinner.getSelectedItem().toString().equals("Yearly")){
+					if(!goalAmount.getText().toString().equals(null)){
+						monthlyAmt = Integer.parseInt(goalAmount.getText().toString()) / 12;
+						monthlyAmountET.setText(""+monthlyAmt);
+					}
+				}
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1,
+					int arg2, int arg3) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+					int arg3) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		durationSpinner.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				if(durationSpinner.getSelectedItem().toString().equals("Yearly")){
+					monthlyAmount.setVisibility(View.VISIBLE);
+					if(!goalAmount.getText().toString().equals(null)){
+						monthlyAmt = Integer.parseInt(goalAmount.getText().toString()) / 12;
+						monthlyAmountET.setText(""+monthlyAmt);
+					}
+					else{
+						monthlyAmt = 0;
+						monthlyAmountET.setText("");
+					}
+				}
+				
+				else{
+					monthlyAmount.setVisibility(View.INVISIBLE);
+					monthlyAmt = 0;
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				
+			}
+			
+		});
+		
+		
+		
 		ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 			
 			@Override
 			public void onRatingChanged(RatingBar ratingBar, float rating,
 					boolean fromUser) {
-				// TODO Auto-generated method stub
 				ratingBarValue = ratingBar.getRating();
 				Log.d("Rating value", String.valueOf(ratingBarValue));
 				
@@ -69,7 +141,6 @@ public class AddFinancialGoal extends Activity{
 		cancelButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				cancelIntent();
 			}
 		});
@@ -78,7 +149,6 @@ public class AddFinancialGoal extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				saveGoal connect = new saveGoal();
 				connect.execute();
 			}
@@ -100,7 +170,6 @@ public class AddFinancialGoal extends Activity{
 		JSONObject jObject;
 		@Override
 		protected Void doInBackground(Void... params) {
-			// TODO Auto-generated method stub
 			JSONParser jsonparser = new JSONParser();
 			List<NameValuePair> list = new ArrayList<NameValuePair>();
 			list.add(new BasicNameValuePair("userid", userid));
@@ -109,6 +178,7 @@ public class AddFinancialGoal extends Activity{
 			list.add(new BasicNameValuePair("startdate",startDate.getText().toString()));
 			list.add(new BasicNameValuePair("duration", durationSpinner.getSelectedItem().toString()));
 			list.add(new BasicNameValuePair("priority", String.valueOf(ratingBarValue)));
+			list.add(new BasicNameValuePair("monthlyamount", String.valueOf(monthlyAmt)));
 			
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/addFinancialGoal.php", "GET", list);
 			jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/addFinancialGoal.php", "GET", list);
@@ -118,7 +188,6 @@ public class AddFinancialGoal extends Activity{
 					addGoalFlag = true;	
 				}
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
 			return null;
@@ -126,7 +195,6 @@ public class AddFinancialGoal extends Activity{
 
 		@Override
 		protected void onPostExecute(Void result) {
-			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			if(addGoalFlag==true){
 				viewGoalIntent();
@@ -136,7 +204,6 @@ public class AddFinancialGoal extends Activity{
 
 		@Override
 		protected void onPreExecute() {
-			// TODO Auto-generated method stub
 			super.onPreExecute();
 		}
 		
