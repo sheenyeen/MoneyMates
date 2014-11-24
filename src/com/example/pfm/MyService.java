@@ -20,6 +20,9 @@ public class MyService extends Service{
 	static JSONArray budgetArray = new JSONArray();
 	static ArrayList<HashMap<String, String>> savingsArray = new ArrayList<HashMap<String, String>>();
 	static HashMap<String, String> hashMap = new HashMap<String, String>();
+	static int calendarMonth = 0; 
+	static int calendarYear = 0; 
+	static int calendarDate = 0;
 
 	@Override
 	public IBinder onBind(Intent intent) {

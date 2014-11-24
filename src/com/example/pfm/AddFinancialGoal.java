@@ -71,7 +71,6 @@ public class AddFinancialGoal extends Activity{
 
 			@Override
 			public void afterTextChanged(Editable arg0) {
-				// TODO Auto-generated method stub
 				if(durationSpinner.getSelectedItem().toString().equals("Yearly")){
 					if(!goalAmount.getText().toString().equals(null)){
 						monthlyAmt = Integer.parseInt(goalAmount.getText().toString()) / 12;
@@ -83,14 +82,12 @@ public class AddFinancialGoal extends Activity{
 			@Override
 			public void beforeTextChanged(CharSequence arg0, int arg1,
 					int arg2, int arg3) {
-				// TODO Auto-generated method stub
 				
 			}
 
 			@Override
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
 					int arg3) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
@@ -178,7 +175,7 @@ public class AddFinancialGoal extends Activity{
 			list.add(new BasicNameValuePair("startdate",startDate.getText().toString()));
 			list.add(new BasicNameValuePair("duration", durationSpinner.getSelectedItem().toString()));
 			list.add(new BasicNameValuePair("priority", String.valueOf(ratingBarValue)));
-			list.add(new BasicNameValuePair("monthlyamount", String.valueOf(monthlyAmt)));
+			list.add(new BasicNameValuePair("monthlyamount", monthlyAmountET.getText().toString()));
 			
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/addFinancialGoal.php", "GET", list);
 			jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/addFinancialGoal.php", "GET", list);

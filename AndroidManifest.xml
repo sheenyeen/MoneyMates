@@ -30,6 +30,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.example.pfm.testActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="com.example.pfm.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
@@ -179,6 +188,33 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MODIFYFINANCIALGOAL" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+         <activity
+            android:name="com.example.pfm.BillPayment"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.BILLPAYMENT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+         <activity
+            android:name="com.example.pfm.AddBill"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.ADDBILL" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.pfm.ModifyBill"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MODIFYBILL" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

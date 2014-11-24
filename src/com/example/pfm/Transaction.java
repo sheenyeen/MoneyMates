@@ -37,7 +37,7 @@ public class Transaction extends Activity {
 	Button lastMonthArrow, nextMonthArrow, addTransactionBtn, reportBtn;
 	JSONArray jArray;
 	public static Calendar currenttime;
-	Bundle b;
+	Bundle b = new Bundle();
 	int counter;
 	JSONObject trans;
 	String transactionType;

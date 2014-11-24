@@ -140,10 +140,7 @@ public class ViewFinancialGoal extends Activity {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				/*Intent intent = new Intent(getApplicationContext(), ModifyFinancialGoal.class);
-				startActivity(intent);*/
-				//modifyFinancialGoal();
-
+				
 				JSONObject job = new JSONObject();
 				try {
 					job = (JSONObject) goalJArray.get(position);

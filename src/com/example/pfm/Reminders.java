@@ -24,7 +24,7 @@ public class Reminders extends Activity{
 	
 	Button backButton;
 	Switch dailyReminderSwitch;
-	TextView setBudget;
+	TextView setBudget, billPaymentTV;
 	int mhour, mminute;
 	PendingIntent pi;
 	String userid="";
@@ -38,6 +38,7 @@ public class Reminders extends Activity{
 		backButton = (Button) findViewById(R.id.backBtn);
 		dailyReminderSwitch = (Switch) findViewById(R.id.dailyReminderSwitch);
 		setBudget = (TextView) findViewById(R.id.budgetTV);
+		billPaymentTV = (TextView) findViewById(R.id.billPaymentTV);
 		
 		boolean alarmOn = (PendingIntent.getBroadcast(getApplicationContext(), 0, 
 		        new Intent("com.example.pfm.Alarm"), 
@@ -81,6 +82,20 @@ public class Reminders extends Activity{
 				//backIntent();
 			}
 		});
+		
+		billPaymentTV.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				billPaymentIntent();
+			}
+		});
+	}
+	
+	public void billPaymentIntent(){
+		Intent billPaymentIntent = new Intent(this, BillPayment.class);
+		startActivity(billPaymentIntent);
 	}
 	
 	public void budgetIntent(){
