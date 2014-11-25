@@ -23,7 +23,7 @@ public class AddBill extends Activity{
 	
 	EditText billNameET, amountET, dateET, remarkET;
 	Spinner categorySpinner;
-	Button addBillBtn, payBillBtn, cancelBtn;
+	Button addBillBtn, cancelBtn;
 	
 	Bundle b;
 	String selectedDate, userid, remarkFieldString;
@@ -42,7 +42,6 @@ public class AddBill extends Activity{
 		remarkET = (EditText) findViewById(R.id.remarkET);
 		categorySpinner = (Spinner) findViewById(R.id.categorySpinner);
 		addBillBtn = (Button) findViewById(R.id.addBillBtn);
-		payBillBtn = (Button) findViewById(R.id.payBillBtn);
 		cancelBtn = (Button) findViewById(R.id.cancelBtn);
 		
 		b = getIntent().getExtras();
@@ -51,22 +50,16 @@ public class AddBill extends Activity{
 		Log.d("selectedDate", selectedDate);
 		dateET.setText(selectedDate);
 		
+		getCategory connect = new getCategory();
+		connect.execute();
+		
 		addBillBtn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				addBillPayment connect = new addBillPayment();
-				connect.execute();
-			}
-		});
-		
-		payBillBtn.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
+				addBillPayment connect2 = new addBillPayment();
+				connect2.execute();
 			}
 		});
 		
@@ -147,6 +140,7 @@ public class AddBill extends Activity{
 			try {
 				Log.d("JSON", jObject.toString());
 				if(jObject.getString("status").equals("success")){
+					finish();
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();

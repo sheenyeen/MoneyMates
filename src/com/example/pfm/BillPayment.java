@@ -36,6 +36,7 @@ public class BillPayment extends Activity {
 	
 	JSONArray jArray;
 	ArrayList<String> eventlist = new ArrayList<String>();
+	ArrayList<Bill> bills = new ArrayList<Bill>();
 	 
 	public GregorianCalendar month, itemmonth;// calendar instances.
 
@@ -46,12 +47,20 @@ public class BillPayment extends Activity {
     public HashMap<String, List<String>> list_items;
     
     String[] days = {"S", "M", "T", "W", "T", "F", "S"};
-    String currentMonth, userid;
+    String currentMonth, userid, selectedGridDate, selectedBillId;
     Calendar currenttime;
     Bundle b = new Bundle();
     Button previousMonth, nextMonth, addBillBtn;
     TextView monthTV, dateTV;
     ListView billListView;
+
+	@Override
+	protected void onResume() {
+
+		final getBill connect = new getBill();
+		connect.execute();
+		super.onResume();
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,8 +82,6 @@ public class BillPayment extends Activity {
         list_items = new HashMap<String, List<String>>();
 
 		adapter = new CalendarAdapter(this, month);
-		final getBill connect = new getBill();
-		connect.execute();
 
 		GridView dayGridView = (GridView) findViewById(R.id.dayGridView);
 		final GridView gridview = (GridView) findViewById(R.id.gridView);
@@ -85,6 +92,11 @@ public class BillPayment extends Activity {
 		monthTV.setText(currentMonth + " " + currenttime.get(Calendar.YEAR));
 
 		dateTV.setText(currenttime.get(Calendar.YEAR) + "-" + (currenttime.get(Calendar.MONTH)+1) + "-" + currenttime.get(Calendar.DATE));
+		selectedGridDate = currenttime.get(Calendar.YEAR) + "-" + (currenttime.get(Calendar.MONTH)+1) + "-" + currenttime.get(Calendar.DATE);
+		
+		b.putString("selectedDate", selectedGridDate);
+		Log.d("selectedDate", selectedGridDate);
+		Log.d("selectedDateBundle", b.getString("selectedDate").toString());
 		
 		previousMonth.setOnClickListener(new View.OnClickListener() {
 			
@@ -120,16 +132,6 @@ public class BillPayment extends Activity {
 		dayGridView.setAdapter(arrayAdapter);
 		gridview.setAdapter(adapter);
 		
-		billListView.setOnItemClickListener(new OnItemClickListener(){
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View v, int position,
-					long arg3) {
-				selectedDateBillID.get(position);//id of the bill
-				modifyBillIntent();
-			}
-		});
-		
 		gridview.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
@@ -139,7 +141,7 @@ public class BillPayment extends Activity {
 				selectedDateBillString.clear();
 				selectedDateBillID.clear();
 				((CalendarAdapter) parent.getAdapter()).setSelected(v);
-				String selectedGridDate = CalendarAdapter.dayString.get(position);
+				selectedGridDate = CalendarAdapter.dayString.get(position);
 				dateTV.setText(selectedGridDate);
 				b.putString("selectedDate", selectedGridDate);
 				Log.d("selectedDate", selectedGridDate);
@@ -150,14 +152,34 @@ public class BillPayment extends Activity {
 					selectedDateBillString.add(list_items.get(selectedGridDate).get(0)+" ( RM"+list_items.get(selectedGridDate).get(2)+" )");
 					
 					
-					selectedDateBillID.add(list_items.get(selectedGridDate).get(0));
+					selectedDateBillID.add(list_items.get(selectedGridDate).get(1));
                 }
 				//ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(BillPayment.this, android.R.layout.simple_list_item_1, selectedDateBillString);
 				//billListView.setAdapter(arrayAdapter);
 				BillAdapter adapter = new BillAdapter(BillPayment.this, selectedDateBillString);
 				billListView.setAdapter(adapter);
+
 			}
 		});
+		
+		billListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View v, int position,
+					long arg3) {
+				Log.d("asdclick,", ""+selectedDateBillID.get(position));
+				for(Bill bill : bills){
+					Log.d("bill", ""+bill.billId);
+					if(bill.billId.equals(selectedDateBillID.get(position))){
+						b.putString("bill", ""+bill);
+						Log.d("bill", ""+bill);
+						modifyBillIntent();
+						break;
+					}
+				}
+				//modifyBillIntent();
+			}
+		});		
 		
 		addBillBtn.setOnClickListener(new View.OnClickListener() {
 			
@@ -179,6 +201,7 @@ public class BillPayment extends Activity {
 	
 	public void modifyBillIntent(){
 		Intent modifyBillIntent = new Intent(this, ModifyBill.class);
+		modifyBillIntent.putExtras(b);
 		startActivity(modifyBillIntent);
 	}
 	
@@ -214,6 +237,9 @@ public class BillPayment extends Activity {
 						 billItem.add(job.getString("BillID"));
 						 billItem.add(job.getString("Amount")); 
 						 
+						 bills.add(new Bill(job.getString("BillID"),job.getString("BillName"),job.getString("Amount"),job.getString("BillDate"),
+								 job.getString("TransactionCategoryID"),job.getString("Remark")));
+						 
 						 list_items.put(job.getString("BillDate"), billItem);
 	
 					 }
@@ -229,10 +255,13 @@ public class BillPayment extends Activity {
 
 		@Override
 		protected void onPreExecute() {
+			list_items.clear();
+			bills.clear();
 			super.onPreExecute();
 		}
 		
 	}
+	
 	
 /*	
 	CalendarView calendarView;

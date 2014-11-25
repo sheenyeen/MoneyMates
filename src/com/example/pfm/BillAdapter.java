@@ -47,7 +47,6 @@ public class BillAdapter extends BaseAdapter {
         // Setting all values in listview
         billTV.setText(bills.get(position));
 		
-		
         return vi;    
     }
 }
