@@ -1,6 +1,7 @@
 package com.example.pfm;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -10,20 +11,31 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Dialog;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TimePicker;
+import android.widget.Toast;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class AddBill extends Activity{
 	
 	EditText billNameET, amountET, dateET, remarkET;
 	Spinner categorySpinner;
 	Button addBillBtn, cancelBtn;
+	Switch reminderSwitch;
 	
 	Bundle b;
 	String selectedDate, userid, remarkFieldString;
@@ -33,7 +45,6 @@ public class AddBill extends Activity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_bill);
 		billNameET = (EditText) findViewById(R.id.billNameET);
@@ -43,6 +54,7 @@ public class AddBill extends Activity{
 		categorySpinner = (Spinner) findViewById(R.id.categorySpinner);
 		addBillBtn = (Button) findViewById(R.id.addBillBtn);
 		cancelBtn = (Button) findViewById(R.id.cancelBtn);
+		reminderSwitch = (Switch) findViewById(R.id.switch1);
 		
 		b = getIntent().getExtras();
 		selectedDate = b.getString("selectedDate");
@@ -57,7 +69,6 @@ public class AddBill extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				addBillPayment connect2 = new addBillPayment();
 				connect2.execute();
 			}
@@ -67,17 +78,23 @@ public class AddBill extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				finish();
 			}
 		});	
+		
+
+		reminderSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				Log.d("Clicked", "Switch");
+			}
+		});
 	}
 	
 	class getCategory extends AsyncTask<Void, Void, Void>{
 
 		@Override
 		protected Void doInBackground(Void... arg0) {
-			// TODO Auto-generated method stub
 			JSONParser jsonparser = new JSONParser();
 			List<NameValuePair> list = new ArrayList<NameValuePair>();
 			list.add(new BasicNameValuePair("transactionType", "2"));
@@ -103,22 +120,19 @@ public class AddBill extends Activity{
 
 		@Override
 		protected void onPostExecute(Void result) {
-			// TODO Auto-generated method stub
 			spinnerAdapter();
 		}
 
 		@Override
 		protected void onPreExecute() {
-			// TODO Auto-generated method stub
 			super.onPreExecute();
 		}	
 	}
 	
 	class addBillPayment extends AsyncTask<Void, Void, Void>{
-
+		JSONObject jObject ;
 		@Override
 		protected Void doInBackground(Void... arg0) {
-			// TODO Auto-generated method stub
 			JSONParser jsonparser = new JSONParser();
 			List<NameValuePair> list = new ArrayList<NameValuePair>();
 			list.add(new BasicNameValuePair("userid", userid));
@@ -135,29 +149,32 @@ public class AddBill extends Activity{
 			}
 			
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/addBill.php", "GET", list);
-			JSONObject jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/addBill.php", "GET", list);
+			jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/addBill.php", "GET", list);
 			
-			try {
-				Log.d("JSON", jObject.toString());
-				if(jObject.getString("status").equals("success")){
-					finish();
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
+			
 			
 			return null;
 		}
 
 		@Override
 		protected void onPostExecute(Void result) {
-			// TODO Auto-generated method stub
+			
+			try {
+				Log.d("JSON", jObject.toString());
+				if(jObject.getString("status").equals("success")){
+
+					finish();
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			
 			super.onPostExecute(result);
 		}
 
 		@Override
 		protected void onPreExecute() {
-			// TODO Auto-generated method stub
 			super.onPreExecute();
 		}		
 	}
@@ -167,4 +184,7 @@ public class AddBill extends Activity{
 		categorySpinner.setAdapter(spinnerAdapter);
 		//Log.d("spinner adapt", "blabla");
 	}
+	
+	
+	
 }

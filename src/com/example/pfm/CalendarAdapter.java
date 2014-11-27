@@ -47,7 +47,7 @@ public class CalendarAdapter extends BaseAdapter {
 
 	public CalendarAdapter(Context c, GregorianCalendar monthCalendar) {
 		CalendarAdapter.dayString = new ArrayList<String>();
-		 Locale.setDefault( Locale.US );
+		Locale.setDefault( Locale.US );
 		month = monthCalendar;
 		selectedDate = (GregorianCalendar) monthCalendar.clone();
 		mContext = c;

@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,11 +38,13 @@ public class BillPayment extends Activity {
 	JSONArray jArray;
 	ArrayList<String> eventlist = new ArrayList<String>();
 	ArrayList<Bill> bills = new ArrayList<Bill>();
+	ArrayList<Bill> filteredbills = new ArrayList<Bill>();
 	 
 	public GregorianCalendar month, itemmonth;// calendar instances.
 
 	public CalendarAdapter adapter;// adapter instance
 	public ArrayList<String> items;
+	public ArrayList<Bill> selectedDateBill = new ArrayList<Bill>();
 	public ArrayList<String> selectedDateBillString = new ArrayList<String>();
 	public ArrayList<String> selectedDateBillID = new ArrayList<String>(); 
     public HashMap<String, List<String>> list_items;
@@ -53,12 +56,17 @@ public class BillPayment extends Activity {
     Button previousMonth, nextMonth, addBillBtn;
     TextView monthTV, dateTV;
     ListView billListView;
+    BillAdapter listViewAdapter;
 
 	@Override
 	protected void onResume() {
 
 		final getBill connect = new getBill();
 		connect.execute();
+		filteredbills.clear(); 
+		listViewAdapter = new BillAdapter(BillPayment.this, filteredbills);
+		//BillAdapter adapter = new BillAdapter(BillPayment.this, selectedDateBill);
+		billListView.setAdapter(listViewAdapter);
 		super.onResume();
 	}
 
@@ -156,8 +164,22 @@ public class BillPayment extends Activity {
                 }
 				//ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(BillPayment.this, android.R.layout.simple_list_item_1, selectedDateBillString);
 				//billListView.setAdapter(arrayAdapter);
-				BillAdapter adapter = new BillAdapter(BillPayment.this, selectedDateBillString);
-				billListView.setAdapter(adapter);
+				filteredbills.clear();
+		        for(Bill haiz : bills){
+					Log.d("loop bills,", ""+haiz);
+		        	if(haiz.billDate.equals(selectedGridDate)){
+		        		filteredbills.add(haiz);
+
+						Log.d("kena", "yes!");
+		        	}
+		        	else
+						Log.d("bill date", haiz.billDate);
+		        }
+		        
+		        
+				listViewAdapter = new BillAdapter(BillPayment.this, filteredbills);
+				//BillAdapter adapter = new BillAdapter(BillPayment.this, selectedDateBill);
+				billListView.setAdapter(listViewAdapter);
 
 			}
 		});
@@ -167,16 +189,11 @@ public class BillPayment extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int position,
 					long arg3) {
-				Log.d("asdclick,", ""+selectedDateBillID.get(position));
-				for(Bill bill : bills){
-					Log.d("bill", ""+bill.billId);
-					if(bill.billId.equals(selectedDateBillID.get(position))){
-						b.putString("bill", ""+bill);
-						Log.d("bill", ""+bill);
-						modifyBillIntent();
-						break;
-					}
-				}
+
+				b.putString("bill", ""+filteredbills.get(position));
+				Log.d("bill", ""+filteredbills.get(position));
+				modifyBillIntent();
+				
 				//modifyBillIntent();
 			}
 		});		
@@ -237,8 +254,10 @@ public class BillPayment extends Activity {
 						 billItem.add(job.getString("BillID"));
 						 billItem.add(job.getString("Amount")); 
 						 
-						 bills.add(new Bill(job.getString("BillID"),job.getString("BillName"),job.getString("Amount"),job.getString("BillDate"),
-								 job.getString("TransactionCategoryID"),job.getString("Remark")));
+						 Bill aBill = new Bill(job.getString("BillID"),job.getString("BillName"),job.getString("Amount"),job.getString("BillDate"),
+								 job.getString("TransactionCategoryID"),job.getString("Remark"),""+job.getString("IsPaid").equals("1"));
+						 
+						 bills.add(aBill);
 						 
 						 list_items.put(job.getString("BillDate"), billItem);
 	
@@ -262,7 +281,73 @@ public class BillPayment extends Activity {
 		
 	}
 	
+	public void paybtnclick(View v){
+
+		Log.d("BTN tag", v.getTag().toString());
+		payBill p = new payBill();
+		for(Bill haiz: bills)
+			if(haiz.billId.equals(v.getTag().toString())){
+				p.bill = haiz;
+				Log.d("matched tag", v.getTag().toString());
+			}
+		p.v = (TextView) v;
+		p.execute();
+	}
 	
+	
+	class payBill extends AsyncTask<Void, Void, Void>{
+		Bill bill;
+		TextView v = null;
+		JSONObject jObject;
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			JSONParser jsonparser = new JSONParser();
+			List<NameValuePair> list = new ArrayList<NameValuePair>();
+			list.add(new BasicNameValuePair("userid", MyService.userid));
+			list.add(new BasicNameValuePair("BillID", bill.billId));
+			list.add(new BasicNameValuePair("BillAmount", bill.billAmount));
+			list.add(new BasicNameValuePair("billCategoryId", bill.billCategoryId));
+			list.add(new BasicNameValuePair("BillRemark", bill.billRemark));
+			Log.d("GET parameter", list.toString());
+			Log.d("Calling to url", "http://moneymatespfms.net46.net/payBill.php");
+			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/getBill.php", "GET", list);
+			jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/payBill.php", "GET", list);
+
+			Log.d("JSON", jObject.toString());
+			
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+
+			try {
+				if (jObject.getString("status").equals("success")) {
+					v.setEnabled(false);
+					v.setText("Paid");
+					v.setBackgroundResource(R.drawable.button_red);
+					Toast toast = Toast.makeText(getApplicationContext(), "Pay liao bill yay ^__^ no owe money luu", Toast.LENGTH_SHORT);
+					toast.show();
+				}
+				else{
+					Toast toast = Toast.makeText(getApplicationContext(), "Fail to pay bill", Toast.LENGTH_SHORT);
+					toast.show();
+				}
+			} catch (JSONException e) {
+				Toast toast = Toast.makeText(getApplicationContext(), "Fail to pay bill", Toast.LENGTH_SHORT);
+				toast.show();
+				e.printStackTrace();
+			}
+			super.onPostExecute(result);
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+		
+	}	
+
 /*	
 	CalendarView calendarView;
 	TextView billTV;

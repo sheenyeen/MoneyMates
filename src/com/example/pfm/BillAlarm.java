@@ -13,7 +13,7 @@ import android.net.Uri;
 import android.os.Vibrator;
 
 
-public class Alarm extends BroadcastReceiver{
+public class BillAlarm extends BroadcastReceiver{
 	   
 	 Vibrator vibrator;
 
@@ -21,27 +21,19 @@ public class Alarm extends BroadcastReceiver{
 	public void onReceive(Context context, Intent intent) {
 		// TODO Auto-generated method stub
 		
-		Toast toast = Toast.makeText(context, "Alarm received.", Toast.LENGTH_SHORT);
+		long alarmTime = intent.getLongExtra("alarmTime", 0);
+		Toast toast = Toast.makeText(context, "BillAlarm received.", Toast.LENGTH_SHORT);
 		toast.show();
 		
-		/*NotificationManager notificationMgr = (NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
-	    Notification notification = new Notification(R.drawable.pfm_logo, "Alarm", alarmTime);
-	    vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-	    
-	    // launch dashboard when user clicks on notification
-	    PendingIntent contentIntent = PendingIntent.getActivity(context, 0, new Intent(context, Dashboard.class), 0);
-	    notification.setLatestEventInfo(context, "MoneyMates Reminder", "Remember to key in your expenses for today!", contentIntent);
-	    notificationMgr.notify("Alarm", 0, notification);
-	    vibrator.vibrate(1000);*/
-	    
 	   NotificationCompat.Builder mBuilder =
 	    	    new NotificationCompat.Builder(context)
 	   			.setSmallIcon(R.drawable.pfm_logo_small)
-	   			.setContentTitle("Daily Reminder")
-	   			.setContentText("Remember to insert daily transactions!");
+	   			.setContentTitle("Bill Payment Reminder")
+	   			.setContentText("Remember to pay your bill - ");
 	   
 	   mBuilder.setVibrate(new long[] {1000,1000,1000,1000,1000});
-	   PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(context, Dashboard.class), 0);
+	   Intent nextintent = new Intent(context, BillPayment.class);
+	   PendingIntent pi = PendingIntent.getActivity(context, 0, nextintent, 0);
 	   mBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
 	   mBuilder.setContentIntent(pi);
 	   NotificationManager notificationMgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

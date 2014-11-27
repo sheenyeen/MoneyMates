@@ -53,7 +53,7 @@ public class ModifyBill extends Activity {
 		categorySpinner = (Spinner) findViewById(R.id.categorySpinner);
 		
 		userid = MyService.userid;
-
+		
 		billNameET.setText(bill.billName);
 		billAmountET.setText(bill.billAmount);
 		billDateET.setText(bill.billDate);

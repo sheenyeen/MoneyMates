@@ -42,7 +42,8 @@
                 android:text="Pay Bill"
                 android:textSize="12dp" 
                 android:background="@drawable/button_blue"
-                android:textColor="#ffffff"/>
+                android:textColor="#ffffff"
+                android:onClick="paybtnclick"/>
 
         </LinearLayout>
 
