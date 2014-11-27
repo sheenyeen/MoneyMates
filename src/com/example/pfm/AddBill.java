@@ -42,6 +42,8 @@ public class AddBill extends Activity{
 	List<String> spinnerList;
 	JSONArray categoryjArray;
 	int isPaid = 0;
+	int mhour, mminute;
+	PendingIntent pi2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,17 @@ public class AddBill extends Activity{
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 				Log.d("Clicked", "Switch");
+				if(reminderSwitch.isChecked()){
+					Log.d("Clicked", "Switch on");
+					showDialog(1);
+				}else{
+					Log.d("Switch", "Switch off");
+					//cancel alarm
+					AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+					alarmManager.cancel(pi2);
+					Toast toast = Toast.makeText(getApplicationContext(), "Alarm off.", Toast.LENGTH_SHORT);
+					toast.show();
+				}
 			}
 		});
 	}
@@ -162,7 +175,29 @@ public class AddBill extends Activity{
 			try {
 				Log.d("JSON", jObject.toString());
 				if(jObject.getString("status").equals("success")){
-
+					Calendar calendar = Calendar.getInstance();
+					AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
+					//mPickTime.setText(new StringBuilder().append(pad(mhour)).append(":").append(pad(mminute)));
+					//calendar.set(calendar.get(Calendar.YEAR), eventtime.get(Calendar.MONTH), eventtime.get(Calendar.DATE), eventtime.get(Calendar.HOUR_OF_DAY), eventtime.get(Calendar.MINUTE), eventtime.get(Calendar.SECOND));
+					
+					//if alarm hour b4 currtime
+					if(calendar.get(Calendar.HOUR_OF_DAY) > mhour || (calendar.get(Calendar.HOUR_OF_DAY) == mhour && calendar.get(Calendar.MINUTE) >= mminute)){
+						calendar.add(Calendar.DATE, 1);		
+					}	
+					
+					calendar.set(Calendar.HOUR_OF_DAY, mhour);
+					calendar.set(Calendar.MINUTE, mminute);
+					calendar.set(Calendar.SECOND, 0);
+					
+					long alarmTime = calendar.getTimeInMillis();
+					
+					Intent alarmIntent = new Intent(getApplicationContext(), BillAlarm.class);
+					alarmIntent.putExtra("alarmTime", alarmTime);
+					
+					pi2 = PendingIntent.getBroadcast(getApplicationContext(), 1, alarmIntent, pi2.FLAG_ONE_SHOT);
+					am.set(AlarmManager.RTC_WAKEUP, alarmTime, pi2); 
+					Toast toast = Toast.makeText(getApplicationContext(), "Alarm set.", Toast.LENGTH_SHORT);
+					toast.show();	
 					finish();
 				}
 			} catch (JSONException e) {
@@ -183,6 +218,26 @@ public class AddBill extends Activity{
 		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerList);
 		categorySpinner.setAdapter(spinnerAdapter);
 		//Log.d("spinner adapt", "blabla");
+	}
+	
+	private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+
+		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+			mhour = hourOfDay;
+			mminute = minute;
+			
+		}
+	};
+	
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case 0:
+			//return new DatePickerDialog(this, mDateSetListener, mYear, mMonth, mDay);
+
+		case 1:
+			return new TimePickerDialog(this, mTimeSetListener, mhour, mminute, false);
+		}
+		return null;
 	}
 	
 	

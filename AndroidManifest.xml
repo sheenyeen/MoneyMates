@@ -220,7 +220,25 @@
             </intent-filter>
         </activity>
         <service android:name=".MyService" ></service>
-        
+        <activity
+            android:name="com.example.pfm.BillAlarm"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.BILLALARM" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <receiver android:name=".BillAlarm" android:process=":remote" />
+        <activity
+            android:name="com.example.pfm.LineChart"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.LINECHART" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         
     </application>
 

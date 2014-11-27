@@ -74,7 +74,21 @@ public class graphActivity extends Activity {
 			}
 		});
 		
+		comparisonBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				lineGraph();
+			}
+		});
+		
 		drawGraph();
+	}
+	
+	public void lineGraph(){
+		Intent intent = new Intent(this, LineChart.class);
+		startActivity(intent);
 	}
 
 	PieChartActivity achartIntent = new PieChartActivity();
