@@ -11,8 +11,11 @@ import org.json.JSONObject;
 
 import com.example.pfm.AddBill.addBillPayment;
 import com.example.pfm.AddBill.getCategory;
+import com.example.pfm.ModifyTransaction.deleteTransaction;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -83,10 +86,29 @@ public class ModifyBill extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				DeleteBill connect2 = new DeleteBill();
-				connect2.execute();
+				deleteAlert();
 			}
 		});
+		
+	}
+	
+	public void deleteAlert(){
+		AlertDialog logoutAlert = new AlertDialog.Builder(this)
+		.setTitle("Delete transaction")
+	    .setMessage("Delete this bill?")
+	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	        	DeleteBill connect3 = new DeleteBill();
+				connect3.execute();
+	        }
+	     })
+	    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            // do nothing
+	        }
+	     })
+	    .setIcon(android.R.drawable.ic_dialog_alert)
+	     .show();
 		
 	}
 	

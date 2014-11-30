@@ -199,12 +199,12 @@ public class Transaction extends Activity {
 		
 		tv1.setTextSize(16);
 		tv2.setTextSize(16);
-		tv1.setPadding(0, 0, 0, 2);
-		tv2.setPadding(0, 0, 0, 2);
-		editButton.setImageResource(R.drawable.edit_button5);
+		tv1.setPadding(0, 0, 0, 7);
+		tv2.setPadding(0, 0, 0, 7);
+		editButton.setImageResource(android.R.drawable.ic_menu_manage);
 		//editButton.setBackgroundColor(Color.TRANSPARENT);
 		editButton.setTag(counter);
-		editButton.setPadding(0, 0, 0, 7);
+		editButton.setPadding(0, 0, 0, 2);
 		counter++;
 		
 		if(transactionType.equals("1")){

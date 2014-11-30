@@ -35,10 +35,10 @@ public class Reminders extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.reminders);
 		
-		backButton = (Button) findViewById(R.id.backBtn);
+		//backButton = (Button) findViewById(R.id.backBtn);
 		dailyReminderSwitch = (Switch) findViewById(R.id.dailyReminderSwitch);
-		setBudget = (TextView) findViewById(R.id.budgetTV);
-		billPaymentTV = (TextView) findViewById(R.id.billPaymentTV);
+		//setBudget = (TextView) findViewById(R.id.budgetTV);
+		//billPaymentTV = (TextView) findViewById(R.id.billPaymentTV);
 		
 		boolean alarmOn = (PendingIntent.getBroadcast(getApplicationContext(), 0, 
 		        new Intent("com.example.pfm.Alarm"), 
@@ -66,7 +66,7 @@ public class Reminders extends Activity{
 			}
 		});
 		
-		setBudget.setOnClickListener(new View.OnClickListener() {
+		/*setBudget.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -90,7 +90,7 @@ public class Reminders extends Activity{
 				// TODO Auto-generated method stub
 				billPaymentIntent();
 			}
-		});
+		});*/
 	}
 	
 	public void billPaymentIntent(){

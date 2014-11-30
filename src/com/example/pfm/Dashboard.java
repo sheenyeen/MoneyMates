@@ -24,26 +24,49 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 public class Dashboard extends Activity {
 	
 	ImageView insertTrans, financialGoal, reminders, settings;
+	ImageButton transactionBtn, goalBtn, budgetBtn, billBtn, reportBtn, settingBtn;
 	Button logoutButton;
 	Bundle b = new Bundle();
 	String userid;
 	JSONArray categoryJArray, budgetJArray; 
+	public static ArrayList<JSONObject> currList;
+	Double totalIncome = 0.00, totalExpense = 0.00, totalSaving = 0.00; 
+	int counter;
+	JSONObject trans;
+	String transactionType;
+	JSONArray jArray;
+	public static Calendar currenttime;
+	Calendar c;
+	
+	double[] valueArray = new double[2];
+	String labelArray[] = {"Income", "Expenses"};
+	ArrayList<String> categoryLabelArrayList = new ArrayList<String>();
+	ArrayList<Double> categoryArrayList = new ArrayList<Double>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.dashboard);
-		insertTrans = (ImageView) findViewById(R.id.insertTrans);
-		financialGoal = (ImageView) findViewById(R.id.financialGoal);
-		reminders = (ImageView) findViewById(R.id.reminders);
-		settings = (ImageView) findViewById(R.id.settings);
-		logoutButton = (Button) findViewById(R.id.logoutBtn);
+		//setContentView(R.layout.dashboard);
+		//insertTrans = (ImageView) findViewById(R.id.insertTrans);
+		//financialGoal = (ImageView) findViewById(R.id.financialGoal);
+		//reminders = (ImageView) findViewById(R.id.reminders);
+		//settings = (ImageView) findViewById(R.id.settings);
+		//logoutButton = (Button) findViewById(R.id.logoutBtn);
+		
+		setContentView(R.layout.dashboard_page);
+		transactionBtn = (ImageButton) findViewById(R.id.transactionBtn);
+		goalBtn = (ImageButton) findViewById(R.id.goalBtn);
+		budgetBtn = (ImageButton) findViewById(R.id.budgetBtn); 
+		billBtn = (ImageButton) findViewById(R.id.billBtn);
+		reportBtn = (ImageButton) findViewById(R.id.reportBtn);
+		settingBtn = (ImageButton) findViewById(R.id.settingBtn); 
 		
 		//b = getIntent().getExtras();
 		b.putString("userid", MyService.userid);
@@ -52,41 +75,69 @@ public class Dashboard extends Activity {
 		Log.d("onCreateBundleID", b.getString("userid"));
 		
 		
-		insertTrans.setOnClickListener(new OnClickListener(){
+		transactionBtn.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				transIntent();			
 			}			
 		});
 		
-		financialGoal.setOnClickListener(new View.OnClickListener() {
+		goalBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				financialGoalIntent();
 			}
 		});
 		
-		reminders.setOnClickListener(new View.OnClickListener() {
+		budgetBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				budgetIntent();
+				
+			}
+		});
+		
+		billBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				billIntent();
+			}
+		});
+		
+		/*reminders.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Log.d("onClickBundle", b.toString());
 				remindersIntent();
 			}
+		});*/
+		
+		reportBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				reportIntent();
+			}
 		});
 		
-		settings.setOnClickListener(new View.OnClickListener() {
+		settingBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				settingsIntent();
 			}
 		});
 		
-		logoutButton.setOnClickListener(new View.OnClickListener(){
+		/*logoutButton.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				logoutDialog();
 			}		
-		});
+		});*/
 	}
 	
 	@Override
@@ -147,6 +198,22 @@ public class Dashboard extends Activity {
 	public void settingsIntent(){
 		Intent settingsIntent = new Intent(this, Settings.class);
 		startActivity(settingsIntent);
+	}
+	
+	public void budgetIntent(){
+		Intent budgetIntent = new Intent(this, ViewBudget.class);
+		budgetIntent.putExtras(b);
+		startActivity(budgetIntent);
+	}
+	
+	public void billIntent(){
+		Intent billIntent = new Intent(this, BillPayment.class);
+		startActivity(billIntent);
+	}
+	
+	public void reportIntent(){
+		Intent reportIntent = new Intent(this, ReportList.class);
+		startActivity(reportIntent);
 	}
 	
 	class getTransaction extends AsyncTask<Void, Void, Void> {

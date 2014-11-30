@@ -31,7 +31,7 @@ public class graphActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.generate_report);
+		setContentView(R.layout.income_vs_expenses);
 
 		LayoutToDisplayChart = (RelativeLayout) findViewById(R.id.relative);
 		incomeExpenseBtn = (Button) findViewById(R.id.incomeExpenseBtn);
@@ -54,7 +54,7 @@ public class graphActivity extends Activity {
 		//String[] categoryLabel = b.getStringArray("categoryLabelArray");
 		//double[] categoryValue = b.getDoubleArray("categoryValueArray");
 		
-		categoryBtn.setOnClickListener(new View.OnClickListener() {	
+		/*categoryBtn.setOnClickListener(new View.OnClickListener() {	
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -81,7 +81,7 @@ public class graphActivity extends Activity {
 				// TODO Auto-generated method stub
 				lineGraph();
 			}
-		});
+		});*/
 		
 		drawGraph();
 	}

@@ -8,7 +8,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.pfm.ModifyTransaction.deleteTransaction;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -116,8 +120,7 @@ public class ModifyFinancialGoal extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				deleteGoal connect2 = new deleteGoal();
-				connect2.execute();
+				deleteAlert();
 				
 			}
 		});
@@ -145,6 +148,26 @@ public class ModifyFinancialGoal extends Activity{
 		viewFinancialGoalIntent.putExtras(b);
 		startActivity(viewFinancialGoalIntent);
 		finish();
+	}
+	
+	public void deleteAlert(){
+		AlertDialog logoutAlert = new AlertDialog.Builder(this)
+		.setTitle("Delete transaction")
+	    .setMessage("Delete goal?")
+	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	        	deleteGoal connect3 = new deleteGoal();
+				connect3.execute();
+	        }
+	     })
+	    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            // do nothing
+	        }
+	     })
+	    .setIcon(android.R.drawable.ic_dialog_alert)
+	     .show();
+		
 	}
 	
 	class modifyGoal extends AsyncTask<Void, Void, Void>{

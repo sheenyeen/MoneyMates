@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="30dp" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:id="@+id/reportTitleTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Income VS Expenses"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_below="@+id/linearLayout1"
+        android:gravity="center" 
+        android:paddingTop="5dp">
+
+        <Button
+            android:id="@+id/previousMonthBtn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/button_blue"
+            android:text="&lt;"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/monthTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dip"
+            android:text="Month"
+            android:textColor="#545454"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/nextMonthBtn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/button_blue"
+            android:text=">"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_marginTop="17dp" >
+    </RelativeLayout>
+
+</RelativeLayout>

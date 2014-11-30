@@ -239,6 +239,33 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+         <activity
+            android:name="com.example.pfm.ReportList"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.REPORTLIST" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+         <activity
+            android:name="com.example.pfm.IncomeVsExpenses"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.INCOMEVSEXPENSES" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+         <activity
+            android:name="com.example.pfm.ExpenseCategories"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.EXPENSECATEGORIES" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         
     </application>
 
