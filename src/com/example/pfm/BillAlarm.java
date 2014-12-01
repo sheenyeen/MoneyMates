@@ -32,7 +32,7 @@ public class BillAlarm extends BroadcastReceiver{
 	   			.setContentText("Remember to pay your bill - ");
 	   
 	   mBuilder.setVibrate(new long[] {1000,1000,1000,1000,1000});
-	   Intent nextintent = new Intent(context, BillPayment.class);
+	   Intent nextintent = new Intent(context, ViewBillPayment.class);
 	   PendingIntent pi = PendingIntent.getActivity(context, 0, nextintent, 0);
 	   mBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
 	   mBuilder.setContentIntent(pi);

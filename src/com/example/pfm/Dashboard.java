@@ -207,7 +207,7 @@ public class Dashboard extends Activity {
 	}
 	
 	public void billIntent(){
-		Intent billIntent = new Intent(this, BillPayment.class);
+		Intent billIntent = new Intent(this, ViewBillPayment.class);
 		startActivity(billIntent);
 	}
 	

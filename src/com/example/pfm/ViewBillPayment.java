@@ -33,7 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 @SuppressLint("SimpleDateFormat")
-public class BillPayment extends Activity {
+public class ViewBillPayment extends Activity {
 	
 	JSONArray jArray;
 	ArrayList<String> eventlist = new ArrayList<String>();
@@ -64,7 +64,7 @@ public class BillPayment extends Activity {
 		final getBill connect = new getBill();
 		connect.execute();
 		filteredbills.clear(); 
-		listViewAdapter = new BillAdapter(BillPayment.this, filteredbills);
+		listViewAdapter = new BillAdapter(ViewBillPayment.this, filteredbills);
 		//BillAdapter adapter = new BillAdapter(BillPayment.this, selectedDateBill);
 		billListView.setAdapter(listViewAdapter);
 		super.onResume();
@@ -114,7 +114,7 @@ public class BillPayment extends Activity {
 				currenttime.add(Calendar.MONTH, -1);
 				currentMonth = new SimpleDateFormat("MMM").format(currenttime.getTime());
 				monthTV.setText(currentMonth + " " + currenttime.get(Calendar.YEAR));
-				adapter = new CalendarAdapter(BillPayment.this, month);
+				adapter = new CalendarAdapter(ViewBillPayment.this, month);
 				gridview.setAdapter(adapter);
 				adapter.setListItems(list_items);
 				adapter.notifyDataSetChanged();
@@ -129,7 +129,7 @@ public class BillPayment extends Activity {
 				currenttime.add(Calendar.MONTH, +1);
 				currentMonth = new SimpleDateFormat("MMM").format(currenttime.getTime());
 				monthTV.setText(currentMonth + " " + currenttime.get(Calendar.YEAR));
-				adapter = new CalendarAdapter(BillPayment.this, month);
+				adapter = new CalendarAdapter(ViewBillPayment.this, month);
 				gridview.setAdapter(adapter);
 				adapter.setListItems(list_items);
 				adapter.notifyDataSetChanged();
@@ -177,7 +177,7 @@ public class BillPayment extends Activity {
 		        }
 		        
 		        
-				listViewAdapter = new BillAdapter(BillPayment.this, filteredbills);
+				listViewAdapter = new BillAdapter(ViewBillPayment.this, filteredbills);
 				//BillAdapter adapter = new BillAdapter(BillPayment.this, selectedDateBill);
 				billListView.setAdapter(listViewAdapter);
 

@@ -94,7 +94,7 @@ public class Reminders extends Activity{
 	}
 	
 	public void billPaymentIntent(){
-		Intent billPaymentIntent = new Intent(this, BillPayment.class);
+		Intent billPaymentIntent = new Intent(this, ViewBillPayment.class);
 		startActivity(billPaymentIntent);
 	}
 	

@@ -1,5 +1,10 @@
 package com.example.pfm;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.XYMultipleSeriesDataset;
@@ -7,12 +12,15 @@ import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.BasicStroke;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -23,6 +31,13 @@ public class LineChart extends Activity {
 	private View mChart;
 	private String[] mMonth = new String[] { "Jan", "Feb", "Mar", "Apr", "May",
 			"Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+	
+	Calendar currenttime;
+	int currentmonth;
+	JSONObject trans;
+	Calendar c;
+	String transactionType;
+	Double totalIncome = 0.00, totalExpense = 0.00, totalSaving = 0.00; 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +46,10 @@ public class LineChart extends Activity {
 
 		// Getting reference to the button btn_chart
 		Button btnChart = (Button) findViewById(R.id.btn_chart);
+		
+		currenttime = Calendar.getInstance();
+		currentmonth = currenttime.get(Calendar.MONTH);
+		
 
 		// Defining click event listener for the button btn_chart
 		OnClickListener clickListener = new OnClickListener() {
@@ -49,11 +68,52 @@ public class LineChart extends Activity {
 	}
 
 	private void openChart() {
-		int[] x = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
-		int[] income = { 2000, 2500, 2700, 3000, 2800, 3500, 3700, 3800, 0, 0,
-				0, 0 };
-		int[] expense = { 2200, 2700, 2900, 2800, 2600, 3000, 3300, 3400, 0, 0,
-				0, 0 };
+		int[] x = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }; // x-axis month
+		//int[] income = { 2000, 2500, 2700, 3000, 2800, 3500, 3700, 3800, 0, 0, 0, 0 }; //first line graph values
+		//int[] expense = { 2200, 2700, 2900, 2800, 2600, 3000, 3300, 3400, 0, 0, 0, 0 }; //second line graph values
+		
+		double[] expense12months = new double[12]; 
+		double maxy = 0;
+		
+		for(int i = 0; i < expense12months.length; i++){
+			totalExpense = 0.0;
+			for(int j = 0; j < MyService.transArray.length(); j++){
+				try {
+					trans = MyService.transArray.getJSONObject(j);
+					String datetime = trans.getString("TransactionDateTime");
+					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+					try {
+						Date date = simpleDateFormat.parse(datetime);
+						Log.d("date", date.toString());
+						c = Calendar.getInstance();
+						c.setTime(date);
+
+						if ((c.get(Calendar.MONTH) == i && (c.get(Calendar.YEAR) == currenttime.get(Calendar.YEAR)))) {
+							String amount = trans.getString("Amount");
+							transactionType = trans.getString("TransactionTypeID");
+
+							if(transactionType.equals("2")){
+								Double parseDouble = Double.parseDouble(amount);
+								totalExpense = totalExpense + parseDouble;		
+							}else{
+								Log.d("Not this month", date.toString());
+							}
+						}
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(totalExpense>maxy){
+				maxy = totalExpense;
+			}
+			expense12months[i] = totalExpense;
+			Log.d("i month", String.valueOf(i));
+			Log.d("totalExpense", String.valueOf(totalExpense));	
+		}
 
 		// Creating an XYSeries for Income
 		XYSeries incomeSeries = new XYSeries("Income");
@@ -61,8 +121,8 @@ public class LineChart extends Activity {
 		XYSeries expenseSeries = new XYSeries("Expense");
 		// Adding data to Income and Expense Series
 		for (int i = 0; i < x.length; i++) {
-			incomeSeries.add(i, income[i]);
-			expenseSeries.add(i, expense[i]);
+			//incomeSeries.add(i, income[i]);
+			expenseSeries.add(i, expense12months[i]);
 		}
 
 		// Creating a dataset to hold each series
@@ -87,7 +147,7 @@ public class LineChart extends Activity {
 
 		// Creating XYSeriesRenderer to customize expenseSeries
 		XYSeriesRenderer expenseRenderer = new XYSeriesRenderer();
-		expenseRenderer.setColor(Color.GREEN);
+		expenseRenderer.setColor(Color.BLUE);
 		expenseRenderer.setFillPoints(true);
 		expenseRenderer.setLineWidth(2f);
 		expenseRenderer.setDisplayChartValues(true);
@@ -99,9 +159,9 @@ public class LineChart extends Activity {
 		// Creating a XYMultipleSeriesRenderer to customize the whole chart
 		XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
 		multiRenderer.setXLabels(0);
-		multiRenderer.setChartTitle("Income vs Expense Chart");
-		multiRenderer.setXTitle("Year 2014");
-		multiRenderer.setYTitle("Amount in Dollars");
+		multiRenderer.setChartTitle("Expense Trend");
+		multiRenderer.setXTitle("Year " + currenttime.get(Calendar.YEAR));
+		multiRenderer.setYTitle("Amount in RM");
 
 		/***
 		 * Customizing graphs
@@ -111,15 +171,20 @@ public class LineChart extends Activity {
 		// setting text size of the axis title
 		multiRenderer.setAxisTitleTextSize(24);
 		// setting text size of the graph lable
-		multiRenderer.setLabelsTextSize(24);
+		multiRenderer.setLabelsTextSize(15);
+		multiRenderer.setLabelsColor(Color.BLACK);
+		multiRenderer.setAxesColor(Color.BLACK);
+		multiRenderer.setXLabelsColor(Color.BLACK);
+		multiRenderer.setYLabelsColor(0, Color.BLACK);
+		multiRenderer.setGridColor(Color.GRAY);
 		// setting zoom buttons visiblity
-		multiRenderer.setZoomButtonsVisible(false);
+		multiRenderer.setZoomButtonsVisible(true);
 		// setting pan enablity which uses graph to move on both axis
-		multiRenderer.setPanEnabled(false, false);
+		multiRenderer.setPanEnabled(true, true);
 		// setting click false on graph
-		multiRenderer.setClickEnabled(false);
+		multiRenderer.setClickEnabled(true);
 		// setting zoom to false on both axis
-		multiRenderer.setZoomEnabled(false, false);
+		multiRenderer.setZoomEnabled(true, true);
 		// setting lines to display on y axis
 		multiRenderer.setShowGridY(true);
 		// setting lines to display on x axis
@@ -129,14 +194,14 @@ public class LineChart extends Activity {
 		// setting displaying line on grid
 		multiRenderer.setShowGrid(true);
 		// setting zoom to false
-		multiRenderer.setZoomEnabled(false);
+		multiRenderer.setZoomEnabled(true);
 		// setting external zoom functions to false
-		multiRenderer.setExternalZoomEnabled(false);
+		multiRenderer.setExternalZoomEnabled(true);
 		// setting displaying lines on graph to be formatted(like using
 		// graphics)
 		multiRenderer.setAntialiasing(true);
 		// setting to in scroll to false
-		multiRenderer.setInScroll(false);
+		multiRenderer.setInScroll(true);
 		// setting to set legend height of the graph
 		multiRenderer.setLegendHeight(30);
 		// setting x axis label align
@@ -150,7 +215,7 @@ public class LineChart extends Activity {
 		// setting y axis max value, Since i'm using static values inside the
 		// graph so i'm setting y max value to 4000.
 		// if you use dynamic values then get the max y value and set here
-		multiRenderer.setYAxisMax(4000);
+		multiRenderer.setYAxisMax(maxy);
 		// setting used to move the graph on xaxiz to .5 to the right
 		multiRenderer.setXAxisMin(-0.5);
 		// setting used to move the graph on xaxiz to .5 to the right
