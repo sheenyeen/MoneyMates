@@ -115,7 +115,7 @@
                 android:id="@+id/durationSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="9" />
+                android:layout_weight="7" />
 
         </LinearLayout>
 
@@ -135,8 +135,30 @@
                 android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="9"
+                android:layout_weight="7"
                 android:stepSize="1" />
+
+        </LinearLayout>
+        
+         <LinearLayout
+            android:id="@+id/monthlyAmountLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/monthlyAmountTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monthly Amount" />
+
+            <EditText
+                android:id="@+id/monthlyAmountET"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="numberDecimal" />
 
         </LinearLayout>
 

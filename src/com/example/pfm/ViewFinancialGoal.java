@@ -69,7 +69,7 @@ public class ViewFinancialGoal extends Activity {
 		userid = MyService.userid;
 
 		ArrayList<HashMap<String, String>> goals = new ArrayList<HashMap<String, String>>();
-		GoalLazyAdapter adapter = new GoalLazyAdapter(this, goals);
+		GoalAdapter adapter = new GoalAdapter(this, goals);
 		goalListView.setAdapter(adapter);
 		
 		amountBtn.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +77,8 @@ public class ViewFinancialGoal extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				amountBtn.setBackgroundResource(R.drawable.button_grey);
+				progressBtn.setBackgroundResource(R.drawable.button_blue_square);
 				goalProgressListView.setVisibility(View.INVISIBLE);
 				goalListView.setVisibility(View.VISIBLE);
 				durationTV.setText("Duration");
@@ -89,6 +91,8 @@ public class ViewFinancialGoal extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				progressBtn.setBackgroundResource(R.drawable.button_grey);
+				amountBtn.setBackgroundResource(R.drawable.button_blue_square);
 				goalListView.setVisibility(View.INVISIBLE);
 				goalProgressListView.setVisibility(View.VISIBLE);
 				durationTV.setText("Priority");
@@ -122,6 +126,7 @@ public class ViewFinancialGoal extends Activity {
 					b.putString("startdate", job.getString("GoalStartDate"));
 					b.putString("priority", job.getString("Priority"));
 					b.putString("period", job.getString("GoalPeriodID"));
+					b.putString("monthlyamount", job.getString("MonthlyAmount"));
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -157,6 +162,7 @@ public class ViewFinancialGoal extends Activity {
 					b.putString("startdate", job.getString("GoalStartDate"));
 					b.putString("priority", job.getString("Priority"));
 					b.putString("period", job.getString("GoalPeriodID"));
+					b.putString("monthlyamount", job.getString("MonthlyAmount"));
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -214,7 +220,7 @@ public class ViewFinancialGoal extends Activity {
 		}
 
 		Log.d("goal arraylist", goal.toString());
-		GoalLazyAdapter adapter = new GoalLazyAdapter(this, goal);
+		GoalAdapter adapter = new GoalAdapter(this, goal);
 		goalListView.setAdapter(adapter);
 		
 		GoalProgressAdapter adapter2 = new GoalProgressAdapter(this, goal);

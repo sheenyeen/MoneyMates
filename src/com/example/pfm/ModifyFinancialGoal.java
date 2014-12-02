@@ -21,23 +21,26 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 public class ModifyFinancialGoal extends Activity{
 
-	String userid, goalid, goalname, amount, startdate, priority, period, durationString;
+	String userid, goalid, goalname, amount, startdate, priority, period, durationString, monthlyamount;
 	Bundle b;
 	List<String> durationList;
 	int duration;
 	int periodid;
 	boolean modifyFlag = false, deleteFlag = false;
+	int monthlyAmt;
 	
-	EditText goalName, goalAmount, startDate;
+	EditText goalName, goalAmount, startDate, monthlyAmount;
 	Spinner durationSpinner;
 	RatingBar priorityBar;
 	Button saveBtn, deleteBtn, cancelBtn;
+	LinearLayout monthlyAmountLL;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +59,18 @@ public class ModifyFinancialGoal extends Activity{
 		startdate = b.getString("startdate");
 		priority = b.getString("priority");
 		period = b.getString("period");
+		monthlyamount = b.getString("monthlyamount");
 
 		goalName = (EditText) findViewById(R.id.goalNameET);
 		goalAmount = (EditText) findViewById(R.id.goalAmount);
 		startDate = (EditText) findViewById(R.id.startDateET);
 		durationSpinner = (Spinner) findViewById(R.id.durationSpinner);
 		priorityBar = (RatingBar) findViewById(R.id.ratingBar);
+		monthlyAmount = (EditText) findViewById(R.id.monthlyAmountET);
 		saveBtn = (Button) findViewById(R.id.saveBtn);
 		deleteBtn = (Button) findViewById(R.id.deleteBtn);
 		cancelBtn = (Button) findViewById(R.id.cancelBtn);
+		monthlyAmountLL = (LinearLayout) findViewById(R.id.monthlyAmountLL);
 		
 		
 		
@@ -90,6 +96,23 @@ public class ModifyFinancialGoal extends Activity{
 		durationList.add("Monthly");
 		durationList.add("Yearly");
 		spinnerAdapter();
+		
+		if(durationSpinner.getSelectedItem().toString().equals("Yearly")){
+			monthlyAmount.setVisibility(View.VISIBLE);
+			if(!goalAmount.getText().toString().equals("")){
+				monthlyAmountLL.setVisibility(View.VISIBLE);
+				monthlyAmount.setText(monthlyamount);
+			}
+			else{
+				monthlyAmt=0;
+				monthlyAmount.setText("");
+			}
+		}
+		
+		else{
+			monthlyAmount.setVisibility(View.INVISIBLE);
+		}
+		
 		
 		saveBtn.setOnClickListener(new View.OnClickListener() {
 			

@@ -34,14 +34,14 @@ public class AddFinancialGoal extends Activity{
 	EditText goalAmount, goalName, startDate;
 	Spinner durationSpinner;
 	RatingBar ratingBar;
-	LinearLayout monthlyAmount;
+	LinearLayout monthlyAmountLL;
 	EditText monthlyAmountET;
 	
 	List<String> durationList;
 	String userid;
 	float ratingBarValue;
 	boolean addGoalFlag = false;
-	int monthlyAmt;
+	int monthlyAmt = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class AddFinancialGoal extends Activity{
 		startDate = (EditText) findViewById(R.id.startDateET);
 		durationSpinner = (Spinner) findViewById(R.id.durationSpinner);
 		ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-		monthlyAmount = (LinearLayout) findViewById(R.id.monthlyAmountLL);
+		monthlyAmountLL = (LinearLayout) findViewById(R.id.monthlyAmountLL);
 		monthlyAmountET = (EditText) findViewById(R.id.monthlyAmountET);
 		
 		durationList = new ArrayList <String>();
@@ -72,9 +72,12 @@ public class AddFinancialGoal extends Activity{
 			@Override
 			public void afterTextChanged(Editable arg0) {
 				if(durationSpinner.getSelectedItem().toString().equals("Yearly")){
-					if(!goalAmount.getText().toString().equals(null)){
+					if(!goalAmount.getText().toString().equals("")){
 						monthlyAmt = Integer.parseInt(goalAmount.getText().toString()) / 12;
 						monthlyAmountET.setText(""+monthlyAmt);
+					}
+					else{
+						monthlyAmountET.setText("");
 					}
 				}
 			}
@@ -98,10 +101,11 @@ public class AddFinancialGoal extends Activity{
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				if(durationSpinner.getSelectedItem().toString().equals("Yearly")){
-					monthlyAmount.setVisibility(View.VISIBLE);
-					if(!goalAmount.getText().toString().equals(null)){
+					monthlyAmountLL.setVisibility(View.VISIBLE);
+					if(!goalAmount.getText().toString().equals("")){
 						monthlyAmt = Integer.parseInt(goalAmount.getText().toString()) / 12;
-						monthlyAmountET.setText(""+monthlyAmt);
+						Log.d("monthlyAmount", String.valueOf(monthlyAmt));
+						monthlyAmountET.setText(String.valueOf(monthlyAmt));
 					}
 					else{
 						monthlyAmt = 0;
@@ -110,7 +114,7 @@ public class AddFinancialGoal extends Activity{
 				}
 				
 				else{
-					monthlyAmount.setVisibility(View.INVISIBLE);
+					monthlyAmountLL.setVisibility(View.INVISIBLE);
 					monthlyAmt = 0;
 				}
 			}

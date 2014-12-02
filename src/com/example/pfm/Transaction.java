@@ -61,7 +61,7 @@ public class Transaction extends Activity {
 		totalIncomeTV = (TextView) findViewById(R.id.totalIncomeTV);
 		totalExpenseTV = (TextView) findViewById(R.id.totalExpenseTV);
 		totalSavingTV = (TextView) findViewById(R.id.totalSavingTV);
-		reportBtn = (Button) findViewById(R.id.reportBtn);
+		//reportBtn = (Button) findViewById(R.id.reportBtn);
 
 		currenttime = Calendar.getInstance();
 		
@@ -91,13 +91,13 @@ public class Transaction extends Activity {
 			}
 		});
 		
-		reportBtn.setOnClickListener(new View.OnClickListener() {
+		/*reportBtn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				generateReportIntent();
 			}
-		});
+		});*/
 		
 		b = getIntent().getExtras();
 		//userid = b.getString("userid");
@@ -202,9 +202,9 @@ public class Transaction extends Activity {
 		tv1.setPadding(0, 0, 0, 7);
 		tv2.setPadding(0, 0, 0, 7);
 		editButton.setImageResource(android.R.drawable.ic_menu_manage);
-		//editButton.setBackgroundColor(Color.TRANSPARENT);
+		editButton.setBackgroundColor(Color.TRANSPARENT);
 		editButton.setTag(counter);
-		editButton.setPadding(0, 0, 0, 2);
+		editButton.setPadding(0, 0, 3, 2);
 		counter++;
 		
 		if(transactionType.equals("1")){
@@ -225,7 +225,7 @@ public class Transaction extends Activity {
 		tv_layoutParams2.gravity = Gravity.RIGHT;
 		
 		LinearLayout.LayoutParams button_layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		button_layoutParams.width=35;
+		button_layoutParams.width=45;
 		button_layoutParams.height=35;
 		button_layoutParams.gravity = Gravity.LEFT;
 		

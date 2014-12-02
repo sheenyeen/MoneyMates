@@ -170,7 +170,7 @@ public class ViewBillPayment extends Activity {
 		        	if(haiz.billDate.equals(selectedGridDate)){
 		        		filteredbills.add(haiz);
 
-						Log.d("kena", "yes!");
+						//Log.d("kena", "yes!");
 		        	}
 		        	else
 						Log.d("bill date", haiz.billDate);
@@ -326,15 +326,15 @@ public class ViewBillPayment extends Activity {
 					v.setEnabled(false);
 					v.setText("Paid");
 					v.setBackgroundResource(R.drawable.button_red);
-					Toast toast = Toast.makeText(getApplicationContext(), "Pay liao bill yay ^__^ no owe money luu", Toast.LENGTH_SHORT);
+					Toast toast = Toast.makeText(getApplicationContext(), "Bill paid", Toast.LENGTH_SHORT);
 					toast.show();
 				}
 				else{
-					Toast toast = Toast.makeText(getApplicationContext(), "Fail to pay bill", Toast.LENGTH_SHORT);
+					Toast toast = Toast.makeText(getApplicationContext(), "Failed to pay bill", Toast.LENGTH_SHORT);
 					toast.show();
 				}
 			} catch (JSONException e) {
-				Toast toast = Toast.makeText(getApplicationContext(), "Fail to pay bill", Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(getApplicationContext(), "Failed to pay bill", Toast.LENGTH_SHORT);
 				toast.show();
 				e.printStackTrace();
 			}

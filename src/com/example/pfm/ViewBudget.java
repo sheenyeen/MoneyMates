@@ -87,6 +87,8 @@ public class ViewBudget extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				amountBtn.setBackgroundResource(R.drawable.button_grey);
+				progressBtn.setBackgroundResource(R.drawable.button_blue_square);
 				progressListView.setVisibility(View.INVISIBLE);
 				budgetListView.setVisibility(View.VISIBLE);
 				
@@ -97,6 +99,8 @@ public class ViewBudget extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				amountBtn.setBackgroundResource(R.drawable.button_blue_square);
+				progressBtn.setBackgroundResource(R.drawable.button_grey);
 				budgetListView.setVisibility(View.INVISIBLE);
 				progressListView.setVisibility(View.VISIBLE);
 			}
@@ -147,8 +151,8 @@ public class ViewBudget extends Activity {
 					c.setTime(date);
 					double monthlyCategoryTransSum = 0;
 					hm.put("transSum", ""+monthlyCategoryTransSum);
-					Log.d("myservice trans", MyService.transArray.toString());
-					Log.d("transarray length",""+MyService.transArray.length());
+					//Log.d("myservice trans", MyService.transArray.toString());
+					//Log.d("transarray length",""+MyService.transArray.length());
 					if ((c.get(Calendar.MONTH) == currenttime.get(Calendar.MONTH)) && (c.get(Calendar.YEAR) == currenttime.get(Calendar.YEAR))){
 						
 						//Log.d("transarray",MyService.transArray.toString());
@@ -185,7 +189,7 @@ public class ViewBudget extends Activity {
 		}
 
 		Log.d("budget arraylist", budget.toString());
-		LazyAdapter adapter = new LazyAdapter(this, budget);
+		BudgetAdapter adapter = new BudgetAdapter(this, budget);
 		budgetListView.setAdapter(adapter);
 		
 		ProgressAdapter adapter2 = new ProgressAdapter(this, budget);
@@ -374,7 +378,7 @@ public class ViewBudget extends Activity {
 		hm.put("categoryID", categoryid);
 		hm.put("amount", amountInput);
 		budget.set(Integer.parseInt(tag), hm);
-		LazyAdapter adapter = new LazyAdapter(this, budget);
+		BudgetAdapter adapter = new BudgetAdapter(this, budget);
 		ProgressAdapter adapter2 = new ProgressAdapter(this, budget);
 		budgetListView.setAdapter(adapter);
 		progressListView.setAdapter(adapter2);

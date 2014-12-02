@@ -37,8 +37,9 @@ public class PieChartActivity extends Activity {
 		renderer.setZoomButtonsVisible(false);
 		renderer.setShowLabels(true);
 		renderer.setChartTitle("");
-		renderer.setLabelsTextSize(13);
+		renderer.setLabelsTextSize(12);
 		renderer.setDisplayValues(true);
+		renderer.setLegendTextSize(20);
 
 		renderer.setChartTitleTextSize(30);
 		CategorySeries categorySeries = new CategorySeries("Fruits");

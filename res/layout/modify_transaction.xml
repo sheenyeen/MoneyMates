@@ -6,27 +6,30 @@
     android:background = "#ffffff" >
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="10dp" >
+        android:padding="5dp"
+        android:paddingTop="15dp" >
 
         <Button
             android:id="@+id/expenseBtn"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Expense" 
-            android:background="@drawable/button_blue"
-           	android:textColor="#ffffff"/>
+            android:layout_marginRight = "5dp"
+            android:background="@drawable/button_grey"
+           	android:textColor="#ffffff"
+           	android:layout_weight="1"/>
 
         <Button
             android:id="@+id/incomeBtn"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft = "10dp"
             android:text="Income"
-            android:background="@drawable/button_blue"
-           	android:textColor="#ffffff" />
+            android:background="@drawable/button_blue_square"
+           	android:textColor="#ffffff"
+           	android:layout_weight="1" />
 
     </LinearLayout>
 

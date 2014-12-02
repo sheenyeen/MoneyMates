@@ -85,6 +85,8 @@ public class ModifyTransaction extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				incomeButton.setBackgroundResource(R.drawable.button_blue_square);
+				expenseButton.setBackgroundResource(R.drawable.button_grey);
 				transtypeid = "2";
 				getSpinnerCategory connect = new getSpinnerCategory();
 				connect.execute();
@@ -96,6 +98,8 @@ public class ModifyTransaction extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				incomeButton.setBackgroundResource(R.drawable.button_grey);
+				expenseButton.setBackgroundResource(R.drawable.button_blue_square);
 				transtypeid = "1";
 				getSpinnerCategory connect = new getSpinnerCategory();
 				connect.execute();

@@ -12,6 +12,7 @@ import java.util.Map;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -189,7 +190,8 @@ public class CalendarAdapter extends BaseAdapter {
             //event_detail.setText(temp_str);
             selectedDayBill.setText(temp_str);
             //selectedDayBill.setTextSize(20);
-            selectedDayBill.setTextColor(Color.RED);
+            selectedDayBill.setTextColor(Color.BLACK);
+            selectedDayBill.setTypeface(Typeface.DEFAULT_BOLD);
         } else {
         	selectedDayBill.setText(date.toString().substring(8)+"\n");
         }

@@ -41,27 +41,30 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingTop="10dp" >
-
-        <Button
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp" >
+        
+         <Button
             android:id="@+id/amountBtn"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_marginRight = "10dp"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginRight = "5dp"
             android:text="Amount"
-            android:background="@drawable/button_blue"
-           	android:textColor="#ffffff"/>
+            android:background="@drawable/button_grey"
+           	android:textColor="#ffffff"
+           	android:layout_weight="1"/>
 
         <Button
             android:id="@+id/progressBtn"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
             android:text="Progress"
-            android:background="@drawable/button_blue"
-           	android:textColor="#ffffff" />
+            android:background="@drawable/button_blue_square"
+           	android:textColor="#ffffff" 
+           	android:layout_weight="1"/>
 
     </LinearLayout>
     

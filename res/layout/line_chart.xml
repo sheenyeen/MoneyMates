@@ -3,23 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <Button
-        android:id="@+id/btn_chart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp"
-        android:text="Draw chart" />
-
     <LinearLayout
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/btn_chart"
+        android:paddingTop="65dp"
         tools:ignore="Orientation" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonLL"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp" >
+
+        <Button
+            android:id="@+id/btn_chart_thirtyDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_blue_square"
+            android:text="30 days"
+            android:textColor="#ffffff" 
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:layout_marginRight="5dp"/>
+
+        <Button
+            android:id="@+id/btn_chart_sixMonths"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_blue_square"
+            android:text="6 months"
+            android:textColor="#ffffff"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:layout_marginRight="5dp" />
+
+        <Button
+            android:id="@+id/btn_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_blue_square"
+            android:text="12 months"
+            android:textColor="#ffffff"
+            android:layout_weight="1" 
+            android:padding="5dp"
+            android:layout_marginRight="5dp"/>
     </LinearLayout>
 
 </RelativeLayout>

@@ -116,12 +116,12 @@
                 android:id="@+id/durationSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="9" />
+                android:layout_weight="7" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp" >
 
@@ -136,7 +136,8 @@
                 android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="9"
+                android:layout_weight="7"
+                android:numStars="5"
                 android:stepSize="1" />
 
         </LinearLayout>

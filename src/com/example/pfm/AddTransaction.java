@@ -62,11 +62,14 @@ public class AddTransaction extends Activity {
 
 		getCategory connect = new getCategory();
 		connect.execute();
+		expenseButton.setBackgroundResource(R.drawable.button_grey);
 		expenseButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				transactionType = "2";
+				incomeButton.setBackgroundResource(R.drawable.button_blue_square);
+				expenseButton.setBackgroundResource(R.drawable.button_grey);
 				getCategory connect = new getCategory();
 				connect.execute();
 			}
@@ -77,6 +80,8 @@ public class AddTransaction extends Activity {
 			@Override
 			public void onClick(View v) {
 				transactionType = "1";
+				incomeButton.setBackgroundResource(R.drawable.button_grey);
+				expenseButton.setBackgroundResource(R.drawable.button_blue_square);
 				getCategory connect = new getCategory();
 				connect.execute();
 			}
@@ -101,7 +106,7 @@ public class AddTransaction extends Activity {
 					Toast toast = Toast.makeText(getApplicationContext(), "Please insert date.", Toast.LENGTH_SHORT);
 					toast.show();
 				}else{
-					Log.d("Check", "Enter else loop");
+					//Log.d("Check", "Enter else loop");
 					double categorytotalexpenses = 0;
 					String selectedCategoryId = "0";
 					
