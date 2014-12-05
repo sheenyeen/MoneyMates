@@ -21,7 +21,7 @@ public class PieChartActivity extends Activity {
 	int count = 0;
 	int[] Mycolors = new int[] { Color.parseColor("#01B18B"), Color.parseColor("#F16C5B"),
 			Color.parseColor("#8489EB"), Color.parseColor("#0AF50E"),
-			Color.parseColor("#D569F6"), Color.parseColor("#FF2D03") };
+			Color.parseColor("#D569F6"), Color.parseColor("#FF2D03") }; //16 colours
 
 	public Intent execute(Context context, RelativeLayout parent) {
 		// public Intent execute(Context context,RelativeLayout parent) {

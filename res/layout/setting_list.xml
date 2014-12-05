@@ -35,8 +35,9 @@
                 android:id="@+id/settingTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="TextView" />
+                android:paddingTop="17dp"
+                android:text="TextView"
+                android:textSize="15dp" />
 
         </LinearLayout>
 

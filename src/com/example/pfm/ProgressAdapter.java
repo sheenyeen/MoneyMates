@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,8 @@ public class ProgressAdapter extends BaseAdapter{
 	        HashMap<String, String> budgets = new HashMap<String, String>();
 	        budgets = budget.get(position);
 	        
+	        Log.d("transSum", budgets.get("transSum"));
+	        Log.d("amount", budgets.get("amount"));
 	        // Setting all values in listview
 	        category.setText(budgets.get("category"));
 			progressBar.setProgress(0);

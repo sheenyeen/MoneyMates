@@ -5,7 +5,7 @@
     android:background="#ffffff"
     android:orientation="vertical" >
 
-    <ImageView
+   <!--  <ImageView
         android:id="@+id/banner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -70,6 +70,6 @@
             android:layout_marginBottom="15dp"
             android:layout_marginTop="40dp"/>
 
-    </LinearLayout>
+    </LinearLayout> -->
 
 </LinearLayout>

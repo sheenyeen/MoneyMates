@@ -142,15 +142,15 @@ public class ViewBudget extends Activity {
 				hm.put("category",categoryObj.getString("TransactionCategoryName"));
 				hm.put("categoryID",categoryObj.getString("TransactionCategoryID"));
 				hm.put("budgetObjIndex", "-"+i);
+				hm.put("amount", "0.00");
+				double monthlyCategoryTransSum = 0;
+				hm.put("transSum", ""+monthlyCategoryTransSum);
 				for (int j = 0; j < budgetJArray.length(); j++) {
 					JSONObject budgetObj = budgetJArray.getJSONObject(j);
 					String datetime = budgetObj.getString("BudgetMonth");
-					hm.put("amount", "0.00");
 					Date date = simpleDateFormat.parse(datetime);
 					Calendar c = Calendar.getInstance();
 					c.setTime(date);
-					double monthlyCategoryTransSum = 0;
-					hm.put("transSum", ""+monthlyCategoryTransSum);
 					//Log.d("myservice trans", MyService.transArray.toString());
 					//Log.d("transarray length",""+MyService.transArray.length());
 					if ((c.get(Calendar.MONTH) == currenttime.get(Calendar.MONTH)) && (c.get(Calendar.YEAR) == currenttime.get(Calendar.YEAR))){
@@ -169,6 +169,7 @@ public class ViewBudget extends Activity {
 						}
 
 						hm.put("transSum", ""+monthlyCategoryTransSum);
+						Log.d("transSum", String.valueOf(monthlyCategoryTransSum));
 						
 						if (budgetObj.getString("TransactionCategoryID").equals(categoryObj.getString("TransactionCategoryID"))) {
 							hm.put("budgetObjIndex", "" + j);
@@ -265,21 +266,24 @@ public class ViewBudget extends Activity {
 		} finally {
 			final EditText input = new EditText(this);
 			input.setText(tempAmount);
+			input.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 			// amountTV.setText("Amount:");
 			setBudgetDialog.setMessage("Amount: ");
-			input.setInputType(InputType.TYPE_CLASS_TEXT
-					| InputType.TYPE_NUMBER_FLAG_DECIMAL);
 			setBudgetDialog.setView(input);
-
+			
 			setBudgetDialog.setPositiveButton("Save",
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							// Log.d("amountOK", "amount ok");
 							amountInput = input.getText().toString();
 							// Log.d("amountInput", amountInput);
-							saveBudget connect = new saveBudget();
-							connect.execute();
-
+							if(input.getText().toString().equals("")){
+								Toast toast = Toast.makeText(getApplicationContext(), "Please insert an amount.", Toast.LENGTH_SHORT);
+								toast.show();
+							}else{
+								saveBudget connect = new saveBudget();
+								connect.execute();
+							}
 						}
 					});
 			setBudgetDialog.setNegativeButton("Cancel",
@@ -288,7 +292,29 @@ public class ViewBudget extends Activity {
 							dialog.cancel();
 						}
 					});
-			setBudgetDialog.setIcon(android.R.drawable.ic_dialog_alert);
+			setBudgetDialog.setIcon(android.R.drawable.ic_dialog_alert);		
+			/*final AlertDialog dialog = setBudgetDialog.create();
+			dialog.show();
+			dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+		      {            
+		          @Override
+		          public void onClick(View v)
+		          {
+		              Boolean wantToCloseDialog = false;
+		              //Do stuff, possibly set wantToCloseDialog to true then...
+		              if(input.getText().toString().equals("")){
+							Toast toast = Toast.makeText(getApplicationContext(), "Please insert amount.", Toast.LENGTH_SHORT);
+							toast.show();
+						}else{
+							wantToCloseDialog=true;
+							saveBudget connect = new saveBudget();
+							connect.execute();
+						}
+		              if(wantToCloseDialog)
+		                  dialog.dismiss();
+		              //else dialog stays open. Make sure you have an obvious way to close the dialog especially if you set cancellable to false.
+		          }
+		      });*/
 			setBudgetDialog.show();
 		}
 		

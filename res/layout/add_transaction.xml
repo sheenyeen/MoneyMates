@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Amount:" />
+                android:text="Amount *" />
 
             <EditText
                 android:id="@+id/amountField"
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="Date:" />
+                android:text="Date *" />
 
             <EditText
                 android:id="@+id/dateField"
@@ -98,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Category:" />
+                android:text="Category *" />
 
             <Spinner
                 android:id="@+id/categoryList"
@@ -135,11 +135,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" 
-        android:gravity="center">
+        android:gravity="center"
+        android:paddingTop="30dp">
 
         <Button
             android:id="@+id/addTransactionBtn"
-            android:layout_width="160dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="Add Transaction"
@@ -148,7 +149,7 @@
 
         <Button
             android:id="@+id/cancelBtn"
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="Cancel"
             android:background="@drawable/button_red"
@@ -163,7 +164,17 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:padding="20dp" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:text="* Required Field"
+                android:textColor="#A9ABAB" />
+
         </LinearLayout>
 
         <LinearLayout

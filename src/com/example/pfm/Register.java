@@ -47,7 +47,11 @@ public class Register extends Activity{
 				if(firstname.getText().toString().equals("") || lastname.getText().toString().equals("") || emailAdd.getText().toString().equals("") || password.getText().toString().equals("") || confirmPassword.getText().toString().equals("")){
 					Toast toast = Toast.makeText(getApplicationContext(), "Please fill up all fields.", Toast.LENGTH_SHORT);
 					toast.show();	
-				}else if(!password.getText().toString().equals(confirmPassword.getText().toString())){
+				}else if(password.getText().toString().length()<6){
+					Toast toast = Toast.makeText(getApplicationContext(), "Password must be of 6 or more characters.", Toast.LENGTH_LONG);
+					toast.show();
+				}
+				else if(!password.getText().toString().equals(confirmPassword.getText().toString())){
 					Toast toast = Toast.makeText(getApplicationContext(), "Passwords do not match. Please re-enter password.", Toast.LENGTH_LONG);
 					toast.show();
 					password.setText("");

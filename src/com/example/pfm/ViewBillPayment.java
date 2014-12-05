@@ -13,8 +13,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.pfm.ModifyFinancialGoal.deleteGoal;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -281,17 +285,33 @@ public class ViewBillPayment extends Activity {
 		
 	}
 	
-	public void paybtnclick(View v){
 
-		Log.d("BTN tag", v.getTag().toString());
-		payBill p = new payBill();
-		for(Bill haiz: bills)
-			if(haiz.billId.equals(v.getTag().toString())){
-				p.bill = haiz;
-				Log.d("matched tag", v.getTag().toString());
-			}
-		p.v = (TextView) v;
-		p.execute();
+	
+	public void paybtnclick(final View v){
+		
+		AlertDialog payBillAlert = new AlertDialog.Builder(this)
+		.setTitle("Pay Bill")
+	    .setMessage("Pay this bill?")
+	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	        	Log.d("BTN tag", v.getTag().toString());
+	    		payBill p = new payBill();
+	    		for(Bill haiz: bills)
+	    			if(haiz.billId.equals(v.getTag().toString())){
+	    				p.bill = haiz;
+	    				Log.d("matched tag", v.getTag().toString());
+	    			}
+	    		p.v = (TextView) v;
+	    		p.execute();
+	        }
+	     })
+	    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            // do nothing
+	        }
+	     })
+	    .setIcon(android.R.drawable.ic_dialog_alert)
+	    .show();
 	}
 	
 	

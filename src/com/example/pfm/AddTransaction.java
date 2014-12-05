@@ -137,6 +137,7 @@ public class AddTransaction extends Activity {
 					Log.d("total category expenses", String.valueOf(categorytotalexpenses));
 					
 					Log.d("budgetArray", String.valueOf(MyService.budgetArray.length()));
+					
 					for(int i = 0; i < MyService.budgetArray.length(); i++)
 					{
 						try {
@@ -252,6 +253,9 @@ public class AddTransaction extends Activity {
 				Log.d("JSON", jObject.toString());
 				if(jObject.getString("status").equals("success")){
 					addTransFlag = true;					
+				}
+				else{
+					Log.d("Fail to add transaction", "Fail to add transaction");
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();

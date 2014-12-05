@@ -15,19 +15,19 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SettingAdapter extends BaseAdapter{
+public class ReportAdapter extends BaseAdapter{
 	private Activity activity;
-	private ArrayList<HashMap<String, String>> setting;
+	private ArrayList<HashMap<String, String>> report;
     private static LayoutInflater inflater=null;
     
-    public SettingAdapter(Activity a, ArrayList<HashMap<String, String>> b) {
+    public ReportAdapter(Activity a, ArrayList<HashMap<String, String>> b) {
         activity = a;
-        setting=b;
+        report=b;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);  
     }
 
     public int getCount() {
-        return setting.size();
+        return report.size();
     }
 
     public Object getItem(int position) {
@@ -46,14 +46,14 @@ public class SettingAdapter extends BaseAdapter{
         ImageView settingIcon= (ImageView)vi.findViewById(R.id.settingIcon); 
         TextView settingTV = (TextView)vi.findViewById(R.id.settingTV); 
         
-        HashMap<String, String> settings = new HashMap<String, String>();
-		settings = setting.get(position);
+        HashMap<String, String> reports = new HashMap<String, String>();
+		reports = report.get(position);
 
 		// Setting all values in listview
-		settingTV.setText(settings.get("name"));
+		settingTV.setText(reports.get("name"));
 
 		Context context = settingIcon.getContext();
-		int id = context.getResources().getIdentifier(settings.get("imagename"), "drawable", context.getPackageName());
+		int id = context.getResources().getIdentifier(reports.get("imagename"), "drawable", context.getPackageName());
         
          Bitmap j=decodeSampledBitmapFromResource(context.getResources(),id, 50, 50);
 		

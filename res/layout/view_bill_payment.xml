@@ -81,7 +81,7 @@
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
-        android:layout_height="238dp"
+        android:layout_height="wrap_content"
         android:numColumns="7" >
 
     </GridView>
@@ -92,6 +92,7 @@
         android:layout_height="wrap_content"
         android:text="Date"
         android:paddingLeft="10dp"
+        android:paddingTop="10dp"
         android:textStyle="bold"
         android:textSize="14dp" />
 

@@ -48,7 +48,8 @@ public class ModifyTransaction extends Activity {
 		setContentView(R.layout.modify_transaction);
 
 		b = getIntent().getExtras();
-		userid = b.getString("userid");
+		//userid = b.getString("userid");
+		userid = MyService.userid;
 		transid = b.getString("transid");
 		transtypeid = b.getString("transtypeid");
 		transcategoryid = b.getString("transcategoryid");
@@ -217,7 +218,11 @@ public class ModifyTransaction extends Activity {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			if (modifyFlag == true) {
+				Toast toast = Toast.makeText(getApplicationContext(), "Transaction updated", Toast.LENGTH_SHORT);
+	    		toast.show();
 				transactionIntent();
+			}else{
+				Log.d("Modify Fail", "Fail to modify transaction");
 			}
 		}
 
@@ -225,6 +230,7 @@ public class ModifyTransaction extends Activity {
 		protected void onPreExecute() {
 			// TODO Auto-generated method stub
 			super.onPreExecute();
+			Log.d("Execute modify", "Modify PreExecute");
 		}
 
 	}
@@ -245,7 +251,7 @@ public class ModifyTransaction extends Activity {
 				Log.d("JSON", jObject.toString());
 				if (jObject.getString("status").equals("success")) {
 					deleteFlag = true;
-					Log.d("Deletion", "Successfully deleted transaction.");
+					Log.d("Deletion", "Transaction deleted.");
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -259,7 +265,7 @@ public class ModifyTransaction extends Activity {
 			// TODO Auto-generated method stub
 			if (deleteFlag == true) {
 				transactionIntent();
-	            Toast toast = Toast.makeText(getApplicationContext(), "Sucessfully deleted transaction!", Toast.LENGTH_SHORT);
+	            Toast toast = Toast.makeText(getApplicationContext(), "Transaction deleted", Toast.LENGTH_SHORT);
 	    		toast.show();
 			}
 			super.onPostExecute(result);
@@ -316,7 +322,7 @@ public class ModifyTransaction extends Activity {
 	            // do nothing
 	        }
 	     })
-	    .setIcon(android.R.drawable.ic_dialog_alert)
+	    .setIcon(android.R.drawable.ic_menu_delete)
 	     .show();
 		
 	}

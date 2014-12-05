@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class AddFinancialGoal extends Activity{
 	
@@ -150,8 +151,14 @@ public class AddFinancialGoal extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				saveGoal connect = new saveGoal();
-				connect.execute();
+				if(goalAmount.getText().toString().equals("") || goalName.getText().toString().equals("") || startDate.getText().toString().equals("") || ratingBar.getNumStars() == 0){
+					Toast toast = Toast.makeText(getApplicationContext(), "Please fill in all required fields.", Toast.LENGTH_SHORT);
+					toast.show();
+				}else{
+					Log.d("Click save goal", "MING MING JIU CLICK D");
+					saveGoal connect = new saveGoal();
+					connect.execute();
+				}
 			}
 		});
 		
@@ -183,7 +190,7 @@ public class AddFinancialGoal extends Activity{
 			
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/addFinancialGoal.php", "GET", list);
 			jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/addFinancialGoal.php", "GET", list);
-			Log.d("BudgetJSON", jObject.toString());
+			Log.d("GoalJSON", jObject.toString());
 			try {
 				if(jObject.getString("status").equals("success")){
 					addGoalFlag = true;	
@@ -197,14 +204,18 @@ public class AddFinancialGoal extends Activity{
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
+			Log.d("post execute", "MING MING JIU CLICK D "+addGoalFlag);
 			if(addGoalFlag==true){
 				viewGoalIntent();
+			}else{
+				Log.d("Add goal failed", "Fail to add goal");
 			}
 							
 		}
 
 		@Override
 		protected void onPreExecute() {
+			Log.d("Click save goal22222", "MING MING JIU CLICK D");
 			super.onPreExecute();
 		}
 		

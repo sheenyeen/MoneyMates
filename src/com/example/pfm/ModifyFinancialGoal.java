@@ -174,7 +174,7 @@ public class ModifyFinancialGoal extends Activity{
 	}
 	
 	public void deleteAlert(){
-		AlertDialog logoutAlert = new AlertDialog.Builder(this)
+		AlertDialog deleteAlert = new AlertDialog.Builder(this)
 		.setTitle("Delete transaction")
 	    .setMessage("Delete goal?")
 	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -188,7 +188,7 @@ public class ModifyFinancialGoal extends Activity{
 	            // do nothing
 	        }
 	     })
-	    .setIcon(android.R.drawable.ic_dialog_alert)
+	    .setIcon(android.R.drawable.ic_menu_delete)
 	     .show();
 		
 	}

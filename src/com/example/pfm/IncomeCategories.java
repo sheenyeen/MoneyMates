@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class ExpenseCategories extends Activity{
+public class IncomeCategories extends Activity{
 	TextView monthTV;
 	Button previousMonthBtn, nextMonthBtn;
 	
@@ -45,7 +45,7 @@ public class ExpenseCategories extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.expense_categories_piechart);
+		setContentView(R.layout.income_categories_piechart);
 		monthTV = (TextView) findViewById(R.id.monthTV);
 		previousMonthBtn = (Button) findViewById(R.id.previousMonthBtn);
 		nextMonthBtn = (Button) findViewById(R.id.nextMonthBtn);
@@ -106,11 +106,11 @@ public class ExpenseCategories extends Activity{
 						transactionType = trans.getString("TransactionTypeID");
 						//Log.d("transactionType", transactionType);
 
-						if(transactionType.equals("1")){
+						if(transactionType.equals("2")){
 							Double parseDouble = Double.parseDouble(column2);
-							totalIncome = totalIncome + parseDouble;
+							totalExpense = totalExpense + parseDouble;
 							//Log.d("totalincome", totalIncome.toString());
-						}else if(transactionType.equals("2")){
+						}else if(transactionType.equals("1")){
 							if(!categoryLabelArrayList.contains(column1)){
 								categoryLabelArrayList.add(column1);
 								categoryArrayList.add(Double.parseDouble(column2));
@@ -118,7 +118,7 @@ public class ExpenseCategories extends Activity{
 								categoryArrayList.set(categoryLabelArrayList.indexOf(column1), categoryArrayList.get(categoryLabelArrayList.indexOf(column1))+Double.parseDouble(column2));
 							}
 							Double parseDouble = Double.parseDouble(column2);
-							totalExpense = totalExpense + parseDouble;
+							totalIncome = totalIncome + parseDouble;
 							//Log.d("totalExpense", totalExpense.toString());
 						}else{
 							Log.d("Fail to add", "Fail to add income / expenses");
@@ -236,5 +236,4 @@ public class ExpenseCategories extends Activity{
 		achartIntent.setResource(ar, arr);
 		achartIntent.execute(this, LayoutToDisplayChart);
 	}
-
 }
