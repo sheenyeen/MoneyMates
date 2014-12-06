@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import com.example.pfm.ModifyFinancialGoal.deleteGoal;
+
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -57,7 +61,22 @@ public class Settings extends Activity{
 				}
 				
 				else if(position==1){
-					logoutIntent();
+					AlertDialog logoutAlert = new AlertDialog.Builder(Settings.this)
+					.setTitle("Log out")
+				    .setMessage("Are you sure you want to log out?")
+				    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				        public void onClick(DialogInterface dialog, int which) { 
+				        	logoutIntent();
+				        }
+				     })
+				    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+				        public void onClick(DialogInterface dialog, int which) { 
+				            // do nothing
+				        }
+				     })
+				    .setIcon(android.R.drawable.ic_lock_power_off)
+				    .show();
+					
 				}
 			}
 		});

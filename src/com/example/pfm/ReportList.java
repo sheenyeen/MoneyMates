@@ -14,7 +14,7 @@ import android.widget.ListView;
 
 public class ReportList extends Activity{
 	
-	String reports[] = {"Income VS Expenses", "Income Categories", "Expense Categories", "Expense Trend"};
+	String reports[] = {"Income VS Expenses", "Income Categories", "Expense Categories", "Income Trend", "Expense Trend"};
 	ArrayList<HashMap<String,String>> reportList = new ArrayList<HashMap<String,String>>();
 	
 	ListView reportListview;
@@ -40,6 +40,11 @@ public class ReportList extends Activity{
 		hm = new HashMap<String,String>();
 		hm.put("name","Expense Categories");
 		hm.put("imagename","pie");
+		reportList.add(hm);
+		
+		hm = new HashMap<String,String>();
+		hm.put("name","Income Trend");
+		hm.put("imagename","line");
 		reportList.add(hm);
 		
 		hm = new HashMap<String,String>();
@@ -71,7 +76,10 @@ public class ReportList extends Activity{
 					expenseCategories();
 				}	
 				else if(position==3){
-					lineChart();
+					incomeTrend();
+				}
+				else if(position==4){
+					expenseTrend();
 				}
 			}
 		});
@@ -92,9 +100,15 @@ public class ReportList extends Activity{
 		startActivity(expenseCategoriesIntent);
 	}
 	
-	public void lineChart(){
-		Intent lineChartIntent = new Intent(this, LineChart.class);
-		startActivity(lineChartIntent);         
+	public void expenseTrend(){
+		Intent expenseTrendIntent = new Intent(this, ExpenseTrend.class);
+		startActivity(expenseTrendIntent);         
 	}
+	
+	public void incomeTrend(){
+		Intent incomeTrendIntent = new Intent(this, IncomeTrend.class);
+		startActivity(incomeTrendIntent);
+	}
+	
 	
 }

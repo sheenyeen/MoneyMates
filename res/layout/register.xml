@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dip"
                 android:paddingBottom="5dip"
-                android:text="First Name:" />
+                android:text="First Name *" />
 
             <EditText
                 android:id="@+id/firstname"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dip"
                 android:paddingBottom="5dip"
-                android:text="Last Name:" />
+                android:text="Last Name *" />
 
             <EditText
                 android:id="@+id/lastname"
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dip"
                 android:paddingBottom="5dip"
-                android:text="Email address:" />
+                android:text="Email address *" />
 
             <EditText
                 android:id="@+id/emailAddress"
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dip"
                 android:paddingBottom="5dip"
-                android:text="Password:" />
+                android:text="Password *" />
 
             <EditText
                 android:id="@+id/password"
@@ -108,7 +108,7 @@
                 android:id="@+id/confirmPasswordTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Confirm Password:"
+                android:text="Confirm Password *"
                 android:paddingBottom="5dip"
                 android:padding="10dip" />
 
@@ -129,8 +129,9 @@
 
                 <Button
                     android:id="@+id/registerButton"
-                    android:layout_width="100dp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
+                   	android:layout_weight="1"
                     android:text="Sign Up"
                     android:textSize="15dp"
                     android:background="@drawable/button_blue"
@@ -138,9 +139,10 @@
 
                 <Button
                     android:id="@+id/backButton"
-                    android:layout_width="100dp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
                     android:text="Cancel"
                     android:textSize="15dp"
                     android:background="@drawable/button_red"

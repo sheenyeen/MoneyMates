@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class Dashboard extends Activity {
 	
@@ -44,6 +45,7 @@ public class Dashboard extends Activity {
 	JSONArray jArray;
 	public static Calendar currenttime;
 	Calendar c;
+	TextView totalExpenseTV, totalIncomeTV, totalSavingsTV;
 	
 	double[] valueArray = new double[2];
 	String labelArray[] = {"Income", "Expenses"};
@@ -67,12 +69,17 @@ public class Dashboard extends Activity {
 		billBtn = (ImageButton) findViewById(R.id.billBtn);
 		reportBtn = (ImageButton) findViewById(R.id.reportBtn);
 		settingBtn = (ImageButton) findViewById(R.id.settingBtn); 
+		totalExpenseTV = (TextView) findViewById(R.id.totalExpense);
+		totalIncomeTV = (TextView) findViewById(R.id.totalIncome);
+		totalSavingsTV = (TextView) findViewById(R.id.totalSavings);
 		
 		//b = getIntent().getExtras();
 		b.putString("userid", MyService.userid);
 		userid = MyService.userid;
 		Log.d("onCreateBundle", b.toString());
 		Log.d("onCreateBundleID", b.getString("userid"));
+		
+		currenttime = Calendar.getInstance();
 		
 		
 		transactionBtn.setOnClickListener(new OnClickListener(){
@@ -236,7 +243,9 @@ public class Dashboard extends Activity {
 			try {
 				Log.d("JSON", jObject.toString());
 				if (jObject.getString("status").equals("success")) {
-					MyService.transArray = jObject.getJSONArray("transaction");
+					jArray = jObject.getJSONArray("transaction");
+					MyService.transArray=jObject.getJSONArray("transaction");
+					setTransaction();
 					
 				}
 			} catch (JSONException e) {
@@ -290,6 +299,79 @@ public class Dashboard extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();
 		}
+	}
+	
+	public void setTransaction() {	
+		currList = new ArrayList<JSONObject>();
+		counter = 0;
+		totalIncome = 0.0;
+		totalExpense = 0.0;
+		
+		for (int i = 0; i < jArray.length(); i++) {
+			try {
+				trans = jArray.getJSONObject(i);
+
+				String datetime = trans.getString("TransactionDateTime");
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+				try {
+					Date date = simpleDateFormat.parse(datetime);
+					Log.d("date", date.toString());
+					c = Calendar.getInstance();
+					c.setTime(date);
+					currList.add(trans);
+					String column1 = trans.getString("TransactionCategoryName");
+					String column2 = trans.getString("Amount");
+					transactionType = trans.getString("TransactionTypeID");
+					//Log.d("transactionType", transactionType);
+
+					if(transactionType.equals("1")){
+						Double parseDouble = Double.parseDouble(column2);
+						totalIncome = totalIncome + parseDouble;
+						//Log.d("totalincome", totalIncome.toString());
+					}else if(transactionType.equals("2")){
+						if(!categoryLabelArrayList.contains(column1)){
+							categoryLabelArrayList.add(column1);
+							categoryArrayList.add(Double.parseDouble(column2));
+						}else{
+							categoryArrayList.set(categoryLabelArrayList.indexOf(column1), categoryArrayList.get(categoryLabelArrayList.indexOf(column1))+Double.parseDouble(column2));
+						}
+						Double parseDouble = Double.parseDouble(column2);
+						totalExpense = totalExpense + parseDouble;
+						//Log.d("totalExpense", totalExpense.toString());
+					}else{
+						Log.d("Fail to add", "Fail to add income / expenses");
+					}
+							
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}
+		}
+		totalSaving = totalIncome - totalExpense;		
+		
+		//Log.d("savingsArray", MyService.savingsArray.toString());
+		
+		valueArray[0] = totalIncome;
+		valueArray[1] = totalExpense;
+		
+		String d2sIncomeDP = String.format("%.2f", totalIncome);
+		String d2sIncome = d2sIncomeDP.toString();
+		totalIncomeTV.setText("RM " + d2sIncome);
+		
+		String d2sExpenseDP = String.format("%.2f", totalExpense);
+		String d2sExpense = d2sExpenseDP.toString();
+		totalExpenseTV.setText("RM " + d2sExpense);
+		
+		String d2sSavingDP = String.format("%.2f", totalSaving);
+		String d2sSaving = d2sSavingDP.toString();
+		
+		totalSavingsTV.setText("RM " + d2sSaving);
+		
+		//totalIncomeTV.setText("RM " + d2sIncome);
+		//totalExpenseTV.setText("RM " + d2sExpense);
+		//totalSavingTV.setText("RM " + d2sSaving);
 	}
 }
 	

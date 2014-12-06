@@ -26,7 +26,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-public class LineChart extends Activity {
+public class ExpenseTrend extends Activity {
 
 	private View mChart;
 	private String[] mMonth = new String[] { "Jan", "Feb", "Mar", "Apr", "May",
@@ -295,7 +295,7 @@ public class LineChart extends Activity {
 		// remove any views before u paint the chart
 		chartContainer.removeAllViews();
 		// drawing bar chart
-		mChart = ChartFactory.getLineChartView(LineChart.this, dataset,
+		mChart = ChartFactory.getLineChartView(ExpenseTrend.this, dataset,
 				multiRenderer);
 		// adding the view to the linearlayout
 		chartContainer.addView(mChart);
@@ -493,7 +493,7 @@ public class LineChart extends Activity {
 		// remove any views before u paint the chart
 		chartContainer.removeAllViews();
 		// drawing bar chart
-		mChart = ChartFactory.getLineChartView(LineChart.this, dataset,
+		mChart = ChartFactory.getLineChartView(ExpenseTrend.this, dataset,
 				multiRenderer);
 		// adding the view to the linearlayout
 		chartContainer.addView(mChart);
@@ -694,7 +694,7 @@ public class LineChart extends Activity {
 		// remove any views before u paint the chart
 		chartContainer.removeAllViews();
 		// drawing bar chart
-		mChart = ChartFactory.getLineChartView(LineChart.this, dataset,
+		mChart = ChartFactory.getLineChartView(ExpenseTrend.this, dataset,
 				multiRenderer);
 		// adding the view to the linearlayout
 		chartContainer.addView(mChart);

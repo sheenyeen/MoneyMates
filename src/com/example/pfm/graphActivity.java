@@ -87,7 +87,7 @@ public class graphActivity extends Activity {
 	}
 	
 	public void lineGraph(){
-		Intent intent = new Intent(this, LineChart.class);
+		Intent intent = new Intent(this, ExpenseTrend.class);
 		startActivity(intent);
 	}
 

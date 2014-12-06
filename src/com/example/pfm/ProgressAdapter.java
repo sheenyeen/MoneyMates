@@ -62,7 +62,7 @@ public class ProgressAdapter extends BaseAdapter{
 	        category.setText(budgets.get("category"));
 			progressBar.setProgress(0);
 			((View) addBudgetBtn.getParent()).setTag(budgets.get("amount"));
-			int progress = (int)(Double.parseDouble(budgets.get("transSum"))/Double.parseDouble(budgets.get("amount"))*100);
+			final int progress = (int)(Double.parseDouble(budgets.get("transSum"))/Double.parseDouble(budgets.get("amount"))*100);
 			if(Double.parseDouble(budgets.get("amount"))>0)
 				progressBar.setProgress(progress);
 			addBudgetBtn.setTag(""+budgets.get("budgetObjIndex"));
@@ -76,8 +76,11 @@ public class ProgressAdapter extends BaseAdapter{
 			progressBar.setProgressDrawable(myProgressBar);
 			
 			progressBar.setProgress(0);
-			progressBar.setProgress(progress);
+			if(Double.parseDouble(budgets.get("amount"))>0)
+				progressBar.setProgress(progress);
 			progressBar.invalidate();
+			
+			final String budgetAmount = budgets.get("amount");
 			
 			final String progressString = ""+ progress + "%";
 			
@@ -86,9 +89,13 @@ public class ProgressAdapter extends BaseAdapter{
 				@Override
 				public void onClick(View v) {
 					
-					
-					Toast toast = Toast.makeText(activity, progressString, Toast.LENGTH_SHORT);
-					toast.show();
+					if(progress>0 && progress <= 100 && Double.parseDouble(budgetAmount)>0){
+						Toast toast = Toast.makeText(activity, progressString, Toast.LENGTH_SHORT);
+						toast.show();
+					}else if(progress>100 && Double.parseDouble(budgetAmount)>0){
+						Toast toast = Toast.makeText(activity, "100%", Toast.LENGTH_SHORT);
+						toast.show();
+					}
 					/*Toast toast = Toast.makeText(activity,
 							budget.get(position).get("transSum") + " / " + budget.get(position).get("amount"), Toast.LENGTH_SHORT);
 					toast.show();*/

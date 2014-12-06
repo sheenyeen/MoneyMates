@@ -24,6 +24,7 @@ public class Register extends Activity{
 	
 	EditText firstname, lastname, emailAdd, password, confirmPassword;
 	Button registerButton, backButton;
+	String failMsg = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class Register extends Activity{
 	}
 	
 	public void registerFailed(){
-		Toast toast = Toast.makeText(getApplicationContext(), "Registration failed.", Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(getApplicationContext(), "Registration failed. Please try again.", Toast.LENGTH_SHORT);
 		toast.show();
 		firstname.setText("");
 		lastname.setText("");
@@ -111,6 +112,10 @@ public class Register extends Activity{
 				Log.d("JSON", jObject.toString());
 				if(jObject.getString("status").equals("success")){
 					registrationFlag = true;
+				}else{
+					failMsg = jObject.getString("msg");
+					Toast toast = Toast.makeText(getApplicationContext(), failMsg, Toast.LENGTH_SHORT);
+					toast.show();
 				}
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
