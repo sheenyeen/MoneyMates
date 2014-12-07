@@ -196,7 +196,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="TextView"
+                android:text="RM 0.00"
                 android:textColor="#316903" />
 
             <TextView
@@ -225,7 +225,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="TextView"
+                android:text="RM 0.00"
                 android:textColor="#BA0909" />
 
             <TextView
@@ -253,7 +253,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="TextView" />
+                android:text="RM 0.00" />
 
             <TextView
                 android:id="@+id/totalSavingsTV"

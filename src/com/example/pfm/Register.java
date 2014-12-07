@@ -85,8 +85,8 @@ public class Register extends Activity{
 	}
 	
 	public void registerFailed(){
-		Toast toast = Toast.makeText(getApplicationContext(), "Registration failed. Please try again.", Toast.LENGTH_SHORT);
-		toast.show();
+		//Toast toast = Toast.makeText(getApplicationContext(), "Registration failed. Please try again.", Toast.LENGTH_SHORT);
+		//toast.show();
 		firstname.setText("");
 		lastname.setText("");
 		emailAdd.setText("");
@@ -106,7 +106,7 @@ public class Register extends Activity{
 			list.add(new BasicNameValuePair("email",emailAdd.getText().toString()));
 			list.add(new BasicNameValuePair("password",password.getText().toString()));
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/register.php", "GET", list);
-			JSONObject jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/register.php", "GET", list);
+			JSONObject jObject = jsonparser.makeHttpRequest(MyService.URL+"register.php", "GET", list);
 			
 			try {
 				Log.d("JSON", jObject.toString());
@@ -114,8 +114,6 @@ public class Register extends Activity{
 					registrationFlag = true;
 				}else{
 					failMsg = jObject.getString("msg");
-					Toast toast = Toast.makeText(getApplicationContext(), failMsg, Toast.LENGTH_SHORT);
-					toast.show();
 				}
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -133,6 +131,8 @@ public class Register extends Activity{
 				registerSuccessful();
 				mainIntent();
 			}else{
+				Toast toast = Toast.makeText(getApplicationContext(), failMsg, Toast.LENGTH_SHORT);
+				toast.show();
 				registerFailed();
 			}
 		}

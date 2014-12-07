@@ -129,7 +129,7 @@ public class CalendarAdapter extends BaseAdapter {
 			calendarBillTV.setFocusable(false);
 		} else {
 			// setting curent month's days in blue color.
-			calendarBillTV.setTextColor(Color.BLUE);
+			calendarBillTV.setTextColor(Color.BLACK);
 		}
 
 		if (dayString.get(position).equals(curentDateString)) {
@@ -190,7 +190,8 @@ public class CalendarAdapter extends BaseAdapter {
             //event_detail.setText(temp_str);
             selectedDayBill.setText(temp_str);
             //selectedDayBill.setTextSize(20);
-            selectedDayBill.setTextColor(Color.BLACK);
+            //selectedDayBill.setTextColor(Color.BLUE);
+            selectedDayBill.setTextColor(Color.parseColor("#5B9ADE"));
             selectedDayBill.setTypeface(Typeface.DEFAULT_BOLD);
         } else {
         	selectedDayBill.setText(date.toString().substring(8)+"\n");

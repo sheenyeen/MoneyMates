@@ -209,7 +209,7 @@ public class ModifyFinancialGoal extends Activity{
 
 			Log.d("JSON", list.toString());
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/modifyTransaction.php", "GET", list);
-			JSONObject jObject =jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/modifyFinancialGoal.php", "GET", list);
+			JSONObject jObject =jsonparser.makeHttpRequest(MyService.URL+"modifyFinancialGoal.php", "GET", list);
 
 			try {
 				Log.d("JSON", jObject.toString());
@@ -255,7 +255,7 @@ public class ModifyFinancialGoal extends Activity{
 			list.add(new BasicNameValuePair("goalid", goalid));
 
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/deleteTransaction.php", "GET", list);
-			JSONObject jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/deleteFinancialGoal.php","GET", list);
+			JSONObject jObject = jsonparser.makeHttpRequest(MyService.URL+"deleteFinancialGoal.php","GET", list);
 
 			try {
 				Log.d("JSON", jObject.toString());

@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class MyService extends Service{
 	
 	static String userid = "";
-
+	static final String URL = "http://54.169.79.91/MoneyMatesPHP/";
 	static JSONArray transArray = new JSONArray();
 	static JSONArray categoryArray = new JSONArray();
 	static JSONArray budgetArray = new JSONArray();

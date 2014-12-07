@@ -1,6 +1,7 @@
 package com.example.pfm;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -43,6 +44,8 @@ public class AddFinancialGoal extends Activity{
 	float ratingBarValue;
 	boolean addGoalFlag = false;
 	int monthlyAmt = 0;
+	Calendar c;
+	Bundle b = new Bundle();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,9 @@ public class AddFinancialGoal extends Activity{
 		spinnerAdapter();
 		
 		userid = MyService.userid;
+		c = Calendar.getInstance();
+		
+		startDate.setText(c.get(Calendar.YEAR)+ "-" + (c.get(Calendar.MONTH)+1) + "-" + c.get(Calendar.DATE));
 		
 		goalAmount.addTextChangedListener(new TextWatcher(){
 
@@ -189,9 +195,11 @@ public class AddFinancialGoal extends Activity{
 			list.add(new BasicNameValuePair("monthlyamount", monthlyAmountET.getText().toString()));
 			
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/addFinancialGoal.php", "GET", list);
-			jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/addFinancialGoal.php", "GET", list);
-			Log.d("GoalJSON", jObject.toString());
+			jObject = jsonparser.makeHttpRequest(MyService.URL+"addFinancialGoal.php", "GET", list);
+			//jObject = jsonparser.makeHttpRequest("http://54.169.79.91/MoneyMatesPHP/addFinancialGoal.php", "GET", list);
+			
 			try {
+				Log.d("GoalJSON", jObject.toString());
 				if(jObject.getString("status").equals("success")){
 					addGoalFlag = true;	
 				}
@@ -223,6 +231,8 @@ public class AddFinancialGoal extends Activity{
 	
 	public void viewGoalIntent(){
 		Intent viewGoalIntent = new Intent(this, ViewFinancialGoal.class);
+		b.putString("userid", MyService.userid);
+		viewGoalIntent.putExtras(b);
 		startActivity(viewGoalIntent);
 		finish();
 	}

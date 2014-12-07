@@ -235,9 +235,9 @@ public class ViewFinancialGoal extends Activity {
 			List<NameValuePair> list = new ArrayList<NameValuePair>();
 			list.add(new BasicNameValuePair("userid", userid));
 			Log.d("GET parameter", list.toString());
-			Log.d("Calling to url", "http://moneymatespfms.net46.net/getGoal.php");
+			Log.d("Calling to url", MyService.URL+"getGoal.php");
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/getGoal.php", "GET", list);
-			JSONObject jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/getGoal.php", "GET", list);
+			JSONObject jObject = jsonparser.makeHttpRequest(MyService.URL+"getGoal.php", "GET", list);
 
 			try {
 				Log.d("JSON", jObject.toString());

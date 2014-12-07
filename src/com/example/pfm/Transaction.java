@@ -120,7 +120,7 @@ public class Transaction extends Activity {
 			list.add(new BasicNameValuePair("userid", userid));
 			//Log.d("userid", userid);
 			//jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/viewTransaction.php", "GET", list);
-			jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/viewTransaction.php", "GET", list);
+			jObject = jsonparser.makeHttpRequest(MyService.URL+"viewTransaction.php", "GET", list);
 			return null;
 		}
 
@@ -331,7 +331,7 @@ public class Transaction extends Activity {
 		String d2sSavingDP = String.format("%.2f", totalSaving);
 		String d2sSaving = d2sSavingDP.toString();
 		
-		totalSavingTV.setText("Net Balance: RM " + d2sSaving);
+		totalSavingTV.setText("RM " + d2sSaving);
 		
 		if(totalSaving > 0){
 			totalSavingTV.setTextColor(Color.parseColor("#01B18B"));

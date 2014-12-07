@@ -39,6 +39,7 @@ public class AddTransaction extends Activity {
 	JSONArray categoryjArray, categoryidjArray;
 	List<String> spinnerList;
 	boolean addTransFlag = false;
+	Calendar currenttime;
 	
 
 	@Override
@@ -59,6 +60,10 @@ public class AddTransaction extends Activity {
 		userid = b.getString("userid");
 		Log.d("bundlestring", b.toString());
 		Log.d("userID", userid);
+		
+		currenttime = Calendar.getInstance();
+		
+		dateField.setText(currenttime.get(Calendar.YEAR) + "-" + (currenttime.get(Calendar.MONTH)+1) + "-" + currenttime.get(Calendar.DATE));
 
 		getCategory connect = new getCategory();
 		connect.execute();
@@ -195,7 +200,8 @@ public class AddTransaction extends Activity {
 			List<NameValuePair> list = new ArrayList<NameValuePair>();
 			list.add(new BasicNameValuePair("transactionType", transactionType));
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/getCategory.php", "GET", list);
-			JSONObject jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/getCategory.php", "GET", list);
+			JSONObject jObject = jsonparser.makeHttpRequest(MyService.URL+"getCategory.php", "GET", list);
+			//JSONObject jObject = jsonparser.makeHttpRequest("http://54.169.79.91/MoneyMatesPHP/getCategory.php", "GET", list);
 			
 			try {
 				Log.d("JSON", jObject.toString());
@@ -247,7 +253,8 @@ public class AddTransaction extends Activity {
 			}
 			
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/addTransaction.php", "GET", list);
-			JSONObject jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/addTransaction.php", "GET", list);
+			JSONObject jObject = jsonparser.makeHttpRequest(MyService.URL+"addTransaction.php", "GET", list);
+			//JSONObject jObject = jsonparser.makeHttpRequest("http://54.169.79.91/MoneyMatesPHP/addTransaction.php", "GET", list);
 			
 			try {
 				Log.d("JSON", jObject.toString());

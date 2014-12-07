@@ -89,7 +89,8 @@ public class AddBudget extends Activity {
 			list.add(new BasicNameValuePair("startdate",startdate));
 			list.add(new BasicNameValuePair("categoryid",categoryid));
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/setBudget.php", "GET", list);
-			jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/setBudget.php", "GET", list);
+			jObject = jsonparser.makeHttpRequest(MyService.URL+"setBudget.php", "GET", list);
+			//jObject = jsonparser.makeHttpRequest("http://54.169.79.91/MoneyMatesPHP/setBudget.php", "GET", list);
 			Log.d("BudgetJSON", jObject.toString());
 			return null;
 		}
@@ -146,7 +147,7 @@ public class AddBudget extends Activity {
 			List<NameValuePair> list = new ArrayList<NameValuePair>();
 			list.add(new BasicNameValuePair("transactionType", "2"));
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/getCategory.php", "GET", list);
-			JSONObject jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/getCategory.php", "GET", list);
+			JSONObject jObject = jsonparser.makeHttpRequest(MyService.URL+"getCategory.php", "GET", list);
 			
 			try {
 				Log.d("JSON", jObject.toString());

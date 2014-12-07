@@ -120,7 +120,7 @@ public class ModifyBill extends Activity {
 			List<NameValuePair> list = new ArrayList<NameValuePair>();
 			list.add(new BasicNameValuePair("transactionType", "2"));
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/getCategory.php", "GET", list);
-			JSONObject jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/getCategory.php", "GET", list);
+			JSONObject jObject = jsonparser.makeHttpRequest(MyService.URL+"getCategory.php", "GET", list);
 			
 			try {
 				Log.d("JSON", jObject.toString());
@@ -167,8 +167,8 @@ public class ModifyBill extends Activity {
 			list.add(new BasicNameValuePair("billCategoryId", spinnerListId.get(spinnerList.indexOf(categorySpinner.getSelectedItem()))));
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/getCategory.php", "GET", list);
 			Log.d("GET parameter", list.toString());
-			Log.d("Calling to url", "http://moneymatespfms.net46.net/editBill.php");
-			jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/editBill.php", "GET", list);
+			Log.d("Calling to url", MyService.URL+"editBill.php");
+			jObject = jsonparser.makeHttpRequest(MyService.URL+"editBill.php", "GET", list);
 
 			Log.d("JSON", jObject.toString());
 			
@@ -208,8 +208,8 @@ public class ModifyBill extends Activity {
 			List<NameValuePair> list = new ArrayList<NameValuePair>();
 			list.add(new BasicNameValuePair("BillID", bill.billId));//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/getCategory.php", "GET", list);
 			Log.d("GET parameter", list.toString());
-			Log.d("Calling to url", "http://moneymatespfms.net46.net/deleteBill.php");
-			jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/deleteBill.php", "GET", list);
+			Log.d("Calling to url", MyService.URL+"deleteBill.php");
+			jObject = jsonparser.makeHttpRequest(MyService.URL+"deleteBill.php", "GET", list);
 
 			Log.d("JSON", jObject.toString());
 			

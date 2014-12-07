@@ -19,9 +19,15 @@ public class PieChartActivity extends Activity {
 	private GraphicalView ChartView1;
 	private GraphicalView mChartView2;
 	int count = 0;
-	int[] Mycolors = new int[] { Color.parseColor("#01B18B"), Color.parseColor("#F16C5B"),
-			Color.parseColor("#8489EB"), Color.parseColor("#0AF50E"),
-			Color.parseColor("#D569F6"), Color.parseColor("#FF2D03") }; //16 colours
+	int[] Mycolors = new int[] { 
+			Color.parseColor("#01B18B"), Color.parseColor("#F16C5B"),
+			Color.parseColor("#8489EB"), Color.parseColor("#119913"),
+			Color.parseColor("#D569F6"), Color.parseColor("#A17A10"), 
+			Color.parseColor("#DB5AB9"), Color.parseColor("#FA9B16"), 
+			Color.parseColor("#00FFBF"), Color.parseColor("#EBEB63"), 
+			Color.parseColor("#082DFF"), Color.parseColor("#AD0C0C"),
+			Color.parseColor("#00EBF7"), Color.parseColor("#FBA6FF"),
+			Color.parseColor("#A1EDA6"), Color.parseColor("#EA4DFF")}; //16 colours
 
 	public Intent execute(Context context, RelativeLayout parent) {
 		// public Intent execute(Context context,RelativeLayout parent) {

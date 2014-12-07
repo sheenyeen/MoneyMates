@@ -205,9 +205,9 @@ public class ViewBudget extends Activity {
 			list.add(new BasicNameValuePair("userid", userid));
 			Log.d("GET parameter", list.toString());
 			Log.d("Calling to url",
-					"http://moneymatespfms.net46.net/getBudget.php");
+					MyService.URL+"getBudget.php");
 			JSONObject jObject = jsonparser.makeHttpRequest(
-					"http://moneymatespfms.net46.net/getBudget.php", "GET",
+					MyService.URL+"getBudget.php", "GET",
 					list);
 
 			try {
@@ -346,7 +346,7 @@ public class ViewBudget extends Activity {
 				// jsonparser.makeHttpRequest("http://10.0.2.2/login/setBudget.php",
 				// "GET", list);
 				jObject = jsonparser.makeHttpRequest(
-						"http://moneymatespfms.net46.net/setBudget.php", "GET",
+						MyService.URL+"setBudget.php", "GET",
 						list);
 				Log.d("URL parameter", list.toString());
 				Log.d("BudgetJSON", jObject.toString());

@@ -111,7 +111,8 @@ public class MainActivity extends Activity {
 			list.add(new BasicNameValuePair("username",username.getText().toString()));
 			list.add(new BasicNameValuePair("password",password.getText().toString()));
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/login.php", "GET", list);
-			JSONObject jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/login.php", "GET", list);
+			JSONObject jObject = jsonparser.makeHttpRequest(MyService.URL+"login.php", "GET", list);
+			//JSONObject jObject = jsonparser.makeHttpRequest("http://54.169.79.91/MoneyMatesPHP/login.php", "GET", list);
 			
 			try {
 				Log.d("JSON", jObject.toString());

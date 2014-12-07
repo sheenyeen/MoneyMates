@@ -144,7 +144,7 @@ public class ModifyTransaction extends Activity {
 			List<NameValuePair> list = new ArrayList<NameValuePair>();
 			list.add(new BasicNameValuePair("transactionType", transtypeid));
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/getSpinnerCategory.php","GET", list);
-			JSONObject jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/getSpinnerCategory.php","GET", list);
+			JSONObject jObject = jsonparser.makeHttpRequest(MyService.URL+"getSpinnerCategory.php","GET", list);
 
 			try {
 				Log.d("JSON", jObject.toString());
@@ -198,7 +198,7 @@ public class ModifyTransaction extends Activity {
 			}
 
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/modifyTransaction.php", "GET", list);
-			JSONObject jObject =jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/modifyTransaction.php", "GET", list);
+			JSONObject jObject =jsonparser.makeHttpRequest(MyService.URL+"modifyTransaction.php", "GET", list);
 
 			try {
 				Log.d("JSON", jObject.toString());
@@ -245,7 +245,7 @@ public class ModifyTransaction extends Activity {
 			list.add(new BasicNameValuePair("transid", transid));
 
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/deleteTransaction.php", "GET", list);
-			JSONObject jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/deleteTransaction.php","GET", list);
+			JSONObject jObject = jsonparser.makeHttpRequest(MyService.URL+"deleteTransaction.php","GET", list);
 
 			try {
 				Log.d("JSON", jObject.toString());

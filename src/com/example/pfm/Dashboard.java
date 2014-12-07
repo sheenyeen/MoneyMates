@@ -234,7 +234,7 @@ public class Dashboard extends Activity {
 			list.add(new BasicNameValuePair("userid", userid));
 			//Log.d("userid", userid);
 			//jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/viewTransaction.php", "GET", list);
-			jObject = jsonparser.makeHttpRequest("http://moneymatespfms.net46.net/viewTransaction.php", "GET", list);
+			jObject = jsonparser.makeHttpRequest(MyService.URL+"viewTransaction.php", "GET", list);
 			return null;
 		}
 
@@ -268,9 +268,9 @@ public class Dashboard extends Activity {
 			list.add(new BasicNameValuePair("userid", userid));
 			Log.d("GET parameter", list.toString());
 			Log.d("Calling to url",
-					"http://moneymatespfms.net46.net/getBudget.php");
+					MyService.URL+"getBudget.php");
 			JSONObject jObject = jsonparser.makeHttpRequest(
-					"http://moneymatespfms.net46.net/getBudget.php", "GET",
+					MyService.URL+"getBudget.php", "GET",
 					list);
 
 			try {
