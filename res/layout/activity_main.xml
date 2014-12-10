@@ -40,8 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="Username"
-                android:text="SoonHuat" >
+                android:hint="username / email" >
 
                 <requestFocus />
             </EditText>
@@ -67,8 +66,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="password"
-                android:inputType="textPassword"
-                android:text="asdasd" />
+                android:inputType="textPassword" />
 
         </LinearLayout>
 

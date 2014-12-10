@@ -59,7 +59,7 @@ public class ModifyBill extends Activity {
 		
 		billNameET.setText(bill.billName);
 		billAmountET.setText(bill.billAmount);
-		billDateET.setText(bill.billDate);
+		billDateET.setText(bill.billDate.substring(0,10));
 		billRemarkET.setText(bill.billRemark);
 		getCategory connect = new getCategory();
 		connect.execute();
@@ -158,12 +158,18 @@ public class ModifyBill extends Activity {
 		@Override
 		protected Void doInBackground(Void... arg0) {
 			JSONParser jsonparser = new JSONParser();
+			String remarkString;
+			if(billRemarkET.getText().toString().equals("")){
+				remarkString="-";
+			}else{
+				remarkString=billRemarkET.getText().toString();
+			}
 			List<NameValuePair> list = new ArrayList<NameValuePair>();
 			list.add(new BasicNameValuePair("BillID", bill.billId));
 			list.add(new BasicNameValuePair("BillName", billNameET.getText().toString()));
 			list.add(new BasicNameValuePair("BillAmount", billAmountET.getText().toString()));
 			list.add(new BasicNameValuePair("BillDate", billDateET.getText().toString()));
-			list.add(new BasicNameValuePair("BillRemark", billRemarkET.getText().toString()));
+			list.add(new BasicNameValuePair("BillRemark", remarkString));
 			list.add(new BasicNameValuePair("billCategoryId", spinnerListId.get(spinnerList.indexOf(categorySpinner.getSelectedItem()))));
 			//JSONObject jObject = jsonparser.makeHttpRequest("http://10.0.2.2/login/getCategory.php", "GET", list);
 			Log.d("GET parameter", list.toString());

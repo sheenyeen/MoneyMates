@@ -72,6 +72,7 @@ public class AddFinancialGoal extends Activity{
 		c = Calendar.getInstance();
 		
 		startDate.setText(c.get(Calendar.YEAR)+ "-" + (c.get(Calendar.MONTH)+1) + "-" + c.get(Calendar.DATE));
+		ratingBar.setRating(1);
 		
 		goalAmount.addTextChangedListener(new TextWatcher(){
 

@@ -197,8 +197,10 @@ public class AddBill extends Activity{
 					
 					pi2 = PendingIntent.getBroadcast(getApplicationContext(), 1, alarmIntent, pi2.FLAG_ONE_SHOT);
 					am.set(AlarmManager.RTC_WAKEUP, alarmTime, pi2); 
-					Toast toast = Toast.makeText(getApplicationContext(), "Alarm set.", Toast.LENGTH_SHORT);
-					toast.show();	
+					if(reminderSwitch.isChecked()){
+						Toast toast = Toast.makeText(getApplicationContext(), "Alarm set.", Toast.LENGTH_SHORT);
+						toast.show();	
+					}
 					finish();
 				}
 			} catch (JSONException e) {

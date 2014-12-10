@@ -91,6 +91,7 @@ public class Register extends Activity{
 		lastname.setText("");
 		emailAdd.setText("");
 		password.setText("");
+		confirmPassword.setText("");
 	}
 	
 	class connectDB extends AsyncTask<Void, Void, Void>{

@@ -76,7 +76,7 @@ public class ModifyFinancialGoal extends Activity{
 		
 		goalName.setText(goalname);
 		goalAmount.setText(amount);
-		startDate.setText(startdate);
+		startDate.setText(startdate.substring(0,10));
 		priorityBar.setRating(Float.parseFloat(priority));
 		
 		Log.d("modifygoal bundle", b.toString());

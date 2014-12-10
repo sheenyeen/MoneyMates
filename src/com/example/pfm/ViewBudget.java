@@ -145,6 +145,7 @@ public class ViewBudget extends Activity {
 				hm.put("amount", "0.00");
 				double monthlyCategoryTransSum = 0;
 				hm.put("transSum", ""+monthlyCategoryTransSum);
+				
 				for (int j = 0; j < budgetJArray.length(); j++) {
 					JSONObject budgetObj = budgetJArray.getJSONObject(j);
 					String datetime = budgetObj.getString("BudgetMonth");
@@ -157,6 +158,7 @@ public class ViewBudget extends Activity {
 						
 						//Log.d("transarray",MyService.transArray.toString());
 						//Log.d("transarray length",""+MyService.transArray.length());
+						
 						for (int k = 0; k < MyService.transArray.length(); k++) {
 							JSONObject transObj = MyService.transArray.getJSONObject(k);
 							String datetime2 = transObj.getString("TransactionDateTime");
@@ -312,7 +314,7 @@ public class ViewBudget extends Activity {
 						}
 		              if(wantToCloseDialog)
 		                  dialog.dismiss();
-		              //else dialog stays open. Make sure you have an obvious way to close the dialog especially if you set cancellable to false.
+		              //else dialog stays open. 
 		          }
 		      });*/
 			setBudgetDialog.show();

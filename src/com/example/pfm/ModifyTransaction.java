@@ -75,7 +75,7 @@ public class ModifyTransaction extends Activity {
 		categoryList = (Spinner) findViewById(R.id.categoryList);
 
 		amountField.setText(amount);
-		dateField.setText(date);
+		dateField.setText(date.substring(0,10));
 		remarkField.setText(remark);
 
 		getSpinnerCategory connect2 = new getSpinnerCategory();

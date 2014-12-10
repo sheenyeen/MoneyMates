@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GoalProgressAdapter extends BaseAdapter {
 	private Activity activity;
@@ -59,7 +60,24 @@ public class GoalProgressAdapter extends BaseAdapter {
 		if(Double.parseDouble(goal.get("Amount"))>0)
 			goalProgress.setProgress(progress);
 		
-		myProgressBar = activity.getResources().getDrawable(R.drawable.progressbar_green);
+		if(progress >= 100){
+			myProgressBar = activity.getResources().getDrawable(R.drawable.progressbar_red);
+		}else{
+			myProgressBar = activity.getResources().getDrawable(R.drawable.progressbar_green);
+		}
+		
+		final String progressString = progress + "%";
+		final String saving= goal.get("Saving");
+		
+		goalProgress.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Toast toast = Toast.makeText(activity, progressString, Toast.LENGTH_SHORT);
+				toast.show();
+			}
+		});
 		
 		goalProgress.setProgressDrawable(myProgressBar);
 		goalProgress.setProgress(0);

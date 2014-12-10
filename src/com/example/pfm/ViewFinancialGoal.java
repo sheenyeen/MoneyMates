@@ -169,6 +169,7 @@ public class ViewFinancialGoal extends Activity {
 				
 				Log.d("goalJob", job.toString());
 				
+				
 				Intent modifyGoalIntent = new Intent(getApplicationContext(), ModifyFinancialGoal.class);
 				modifyGoalIntent.putExtras(b);
 				startActivity(modifyGoalIntent);
